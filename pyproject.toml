@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "spain-housing"
+version = "0.1.0"
+description = "Foundations for a Spain housing affordability simulator"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = ["pydantic>=2.10,<3", "PyYAML>=6,<7"]
+
+[project.scripts]
+spain-housing = "spain_housing.cli:main"
+
+[dependency-groups]
+dev = ["import-linter>=2.3,<3", "mypy>=1.15,<2", "pytest>=8,<10", "ruff>=0.11,<1", "types-PyYAML>=6,<7"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/spain_housing"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src/spain_housing"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.importlinter]
+root_package = "spain_housing"
+include_external_packages = false
+
+[[tool.importlinter.contracts]]
+name = "models do not depend on implementations"
+type = "forbidden"
+source_modules = ["spain_housing.models"]
+forbidden_modules = ["spain_housing.finance", "spain_housing.markets", "spain_housing.ingestion", "spain_housing.application", "spain_housing.ui", "spain_housing.config", "spain_housing.cli"]
+
+[[tool.importlinter.contracts]]
+name = "finance has no providers or interface dependencies"
+type = "forbidden"
+source_modules = ["spain_housing.finance"]
+forbidden_modules = ["spain_housing.markets", "spain_housing.ingestion", "spain_housing.application", "spain_housing.ui", "spain_housing.config", "spain_housing.cli"]
+
+[[tool.importlinter.contracts]]
+name = "market access has no acquisition or interface dependencies"
+type = "forbidden"
+source_modules = ["spain_housing.markets"]
+forbidden_modules = ["spain_housing.ingestion", "spain_housing.application", "spain_housing.ui", "spain_housing.config", "spain_housing.cli"]
+
+[[tool.importlinter.contracts]]
+name = "ingestion has no evaluation dependencies"
+type = "forbidden"
+source_modules = ["spain_housing.ingestion"]
+forbidden_modules = ["spain_housing.finance", "spain_housing.markets", "spain_housing.application", "spain_housing.ui", "spain_housing.config", "spain_housing.cli"]
+
+[[tool.importlinter.contracts]]
+name = "application has no interface or ingestion dependencies"
+type = "forbidden"
+source_modules = ["spain_housing.application"]
+forbidden_modules = ["spain_housing.ingestion", "spain_housing.ui", "spain_housing.config", "spain_housing.cli"]
+
+[[tool.importlinter.contracts]]
+name = "config has only model dependencies"
+type = "forbidden"
+source_modules = ["spain_housing.config"]
+forbidden_modules = ["spain_housing.finance", "spain_housing.markets", "spain_housing.ingestion", "spain_housing.application", "spain_housing.ui", "spain_housing.cli"]
+
+[[tool.importlinter.contracts]]
+name = "UI does not bypass application"
+type = "forbidden"
+source_modules = ["spain_housing.ui"]
+forbidden_modules = ["spain_housing.finance", "spain_housing.markets", "spain_housing.ingestion", "spain_housing.config", "spain_housing.cli"]
+allow_indirect_imports = true

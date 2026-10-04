@@ -1,0 +1,44 @@
+# Two savers share expenses; only the named borrower supports the mortgage.
+start_month: 2026-10-01
+participants:
+  - participant_id: buyer
+    net_annual_income:
+      interpolation: linear
+      milestones: [{month_offset: 0, amount_eur: 30000}]
+    monthly_debt:
+      interpolation: step
+      milestones: [{month_offset: 0, amount_eur: 100}]
+    starting_savings_eur: 12000
+  - participant_id: partner
+    net_annual_income:
+      interpolation: linear
+      milestones: [{month_offset: 0, amount_eur: 26000}]
+    monthly_debt:
+      interpolation: step
+      milestones: [{month_offset: 0, amount_eur: 0}]
+    starting_savings_eur: 7000
+saver_ids: [buyer, partner]
+borrower_ids: [buyer]
+household_nonhousing_expenses:
+  interpolation: step
+  milestones: [{month_offset: 0, amount_eur: 1500}]
+living_stages:
+  - arrangement: flat_shared
+    start_month_offset: 0
+    end_month_offset: 84
+    rent_share: 1
+    rental_area_m2: 85
+    rent_includes_utilities: false
+mortgage:
+  annual_nominal_interest_fraction: 0.035
+market_policy:
+  kind: frozen
+  base_month: 2026-10-01
+  annual_rent_growth_fraction: 0
+  annual_purchase_growth_fraction: 0
+locations:
+  mode: fixed_saving
+  saving_location:
+    kind: explicit
+    location: {level: municipality, code: '28079'}
+  buying_location: {kind: mapped}

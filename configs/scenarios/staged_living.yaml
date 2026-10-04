@@ -1,0 +1,46 @@
+# Room, flat alone, then a shared flat. A flatmate is not a borrower.
+start_month: 2026-10-01
+participants:
+  - participant_id: buyer
+    net_annual_income:
+      interpolation: linear
+      milestones:
+        - {month_offset: 0, amount_eur: 26000}
+        - {month_offset: 96, amount_eur: 35000}
+    monthly_debt:
+      interpolation: step
+      milestones:
+        - {month_offset: 0, amount_eur: 150}
+        - {month_offset: 36, amount_eur: 0}
+    starting_savings_eur: 10000
+saver_ids: [buyer]
+borrower_ids: [buyer]
+living_stages:
+  - arrangement: room
+    start_month_offset: 0
+    end_month_offset: 36
+    rent_share: 1
+    rent_includes_utilities: true
+  - arrangement: flat_alone
+    start_month_offset: 36
+    end_month_offset: 60
+    rent_share: 1
+    rental_area_m2: 55
+    rent_includes_utilities: false
+  - arrangement: flat_shared
+    start_month_offset: 60
+    end_month_offset: 84
+    rent_share: 0.5
+    rental_area_m2: 80
+    rent_includes_utilities: false
+mortgage:
+  annual_nominal_interest_fraction: 0.035
+market_policy:
+  kind: growth
+  base_month: 2026-10-01
+  annual_rent_growth_fraction: 0.02
+  annual_purchase_growth_fraction: 0.02
+locations:
+  mode: local_local
+  saving_location: {kind: mapped}
+  buying_location: {kind: mapped}

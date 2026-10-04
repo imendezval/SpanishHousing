@@ -1,0 +1,10 @@
+{
+  "description": "Synthetic Phase 1 contract fixtures; none of these prices are observed market data.",
+  "observations": [
+    {"location": {"level": "municipality", "code": "28079"}, "period_start": "2026-09-01", "period_end": "2026-10-01", "retrieved_at": "2026-10-04T12:00:00Z", "metric": "purchase_price_per_m2", "value": 3000, "unit": "eur_per_m2", "statistic": "mean", "basis": "asking", "segment": {"property_type": "flat"}, "source_id": "synthetic:phase1", "evidence_kind": "synthetic"},
+    {"location": {"level": "municipality", "code": "08019"}, "period_start": "2026-09-01", "period_end": "2026-10-01", "retrieved_at": "2026-10-04T12:00:00Z", "metric": "whole_home_rent_per_m2_month", "value": 18, "unit": "eur_per_m2_month", "statistic": "mean", "basis": "asking", "segment": {"property_type": "flat"}, "source_id": "synthetic:phase1", "evidence_kind": "synthetic"},
+    {"location": {"level": "municipality", "code": "46169"}, "period_start": "2026-09-01", "period_end": "2026-10-01", "retrieved_at": "2026-10-04T12:00:00Z", "metric": "whole_home_rent_per_month", "value": 900, "unit": "eur_per_month", "statistic": "mean", "basis": "asking", "segment": {"property_type": "flat", "bedrooms": 2}, "source_id": "synthetic:phase1", "evidence_kind": "synthetic"},
+    {"location": {"level": "municipality", "code": "28079"}, "period_start": "2026-09-01", "period_end": "2026-10-01", "retrieved_at": "2026-10-04T12:00:00Z", "metric": "room_rent_per_month", "value": 500, "unit": "eur_per_month", "statistic": "mean", "basis": "asking", "segment": {"property_type": "room"}, "source_id": "synthetic:phase1", "evidence_kind": "synthetic"}
+  ],
+  "missing": {"status": "missing", "reason": "No synthetic room-rent value for Mislata"}
+}

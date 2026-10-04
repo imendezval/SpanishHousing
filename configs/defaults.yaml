@@ -1,0 +1,19 @@
+schema_version: 1
+saving_months: 84
+retained_reserve_eur: 5000
+household_nonhousing_expenses:
+  interpolation: step
+  milestones:
+    - month_offset: 0
+      amount_eur: 900
+mortgage:
+  financed_fraction: 0.80
+  maximum_debt_ratio: 0.35
+  term_years: 25
+purchase_costs:
+  policy: proportional
+  allowance_fraction: 0.10
+target_property:
+  property_type: flat
+  area_m2: 80
+  condition: ordinary
