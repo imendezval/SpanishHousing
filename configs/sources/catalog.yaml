@@ -1,0 +1,27 @@
+# Audit leads only. Phase 1 does not fetch or redistribute provider datasets.
+sources:
+  - id: idealista_price_report
+    url: https://www.idealista.com/sala-de-prensa/informes-precio-vivienda/
+    access: public web reports; commercial API/export requires provider contact
+    meaning: monthly asking-price indicators for sale and whole-home rent
+    reuse: full-dataset redistribution not established
+  - id: idealista_room_report
+    url: https://www.idealista.com/sala-de-prensa/notas-de-prensa/2026/08/24/266632-la-oferta-de-habitaciones-se-dispara-un-12-y-el-precio-se-queda-casi-plano
+    access: public press release; no complete municipal room table verified
+    meaning: Q2 2026 city room-rent benchmarks where stated
+    reuse: full-dataset redistribution not established
+  - id: mivau_serpavi
+    url: https://serpavi.mivau.gob.es/
+    access: public reference lookup; bulk municipal statistics route not verified
+    meaning: rental-contract reference, not current room asking rent
+    reuse: unknown for a bulk release
+  - id: mivau_valuation
+    url: https://apps.fomento.gob.es/boletinonline2/?nivel=2&orden=35000000
+    access: statistical table listed; linked XLS could not be retrieved in audit
+    meaning: appraised value, not advertised purchase price
+    reuse: unknown
+  - id: cnig_boundaries
+    url: https://centrodedescargas.cnig.es/CentroDescargas/limites-municipales-provinciales-autonomicos
+    access: public download listing; full file not downloaded in Phase 1
+    meaning: administrative polygons with versioned boundaries
+    reuse: license stated compatible with CC-BY 4.0; attribution required
