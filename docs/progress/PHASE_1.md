@@ -2,7 +2,7 @@
 
 Current milestone: M6 integration review. Earlier engineering gates remain open.
 
-Last verified checkpoint commits: `004a7f3` (contracts/configuration) and `5f0c25f` (audit/handoff). Focused pytest ran before each. A final contract-name cleanup and this progress update are pending commit.
+Verified checkpoint commits include `004a7f3` (contracts/configuration), `5f0c25f` (audit/handoff), and `9e47c05` (unit-name cleanup). Focused pytest ran before each. The remaining untracked `AGENTS.md` predates this implementation and is excluded from commits.
 
 | Milestone | Status |
 |---|---|
@@ -25,7 +25,7 @@ Baseline: repository held only `.gitignore`, with supplied docs ignored and `AGE
 - A7: Import Linter contracts and a failure-sensitivity test exist; `lint-imports` is unavailable in the current environment, so detection is unverified.
 - A8: 16 areas × 3 metrics audited in `data/manifests/coverage_audit.csv`; report values and methodological caveats recorded in `docs/DATA_COVERAGE.md`.
 - A9: Ruff 0.16.0 format/check and `compileall` passed. The focused pytest run passed. Locked Ruff, mypy, Import Linter, full pytest, lock check and package build remain unrun.
-- A10: README, architecture, progress and source audit are current. Two local commits exist; final cleanup checkpoint pending.
+- A10: README, architecture, progress and source audit are current. Local checkpoint commits exist; no task changes are intentionally left unstaged.
 
 Last check: `/home/inigo/miniconda3/envs/automl-tab/bin/ruff format --check .` (27 files formatted), the same binary's `check .` (pass), `python3.12 -m compileall -q src tests` (pass), and a Python 3.12 pytest invocation with available external pytest modules and source path (44 passed, one installed-CLI case deselected). A separate source CLI smoke from `/tmp` passed valid JSON and invalid-path cases. This diagnostic run does not prove the package is installed. `bash scripts/check.sh` was attempted and stopped immediately at `uv: command not found`.
 
