@@ -2,7 +2,7 @@
 
 Current milestone: M6 integration review. Earlier engineering gates remain open.
 
-Last verified checkpoint commit: `004a7f3` (contracts, configuration and package scaffold); focused pytest passed before it. Audit/docs checkpoint pending.
+Last verified checkpoint commits: `004a7f3` (contracts/configuration) and `5f0c25f` (audit/handoff). Focused pytest ran before each. A final contract-name cleanup and this progress update are pending commit.
 
 | Milestone | Status |
 |---|---|
@@ -17,17 +17,17 @@ Baseline: repository held only `.gitignore`, with supplied docs ignored and `AGE
 
 ## Evidence and acceptance
 
-- A1: incomplete. `uv.lock` exists, but locked sync and built-wheel checks were not run after restart. Sandbox DNS cannot resolve `pypi.org`; the temporary `uv` binary from before the interruption is gone.
+- A1: incomplete. `uv.lock` exists, but locked sync and built-wheel checks were not run after restart. Sandbox DNS cannot resolve `pypi.org`; the temporary `uv` binary from before the interruption is gone. `pip wheel --no-deps --no-build-isolation .` also failed because Hatchling is unavailable.
 - A2: reviewed structure against the plan; package namespaces and canonical documents are present. Full dependency graph check is pending.
 - A3/A4: 44 targeted pytest cases passed for scenario structure, calendar arithmetic, independent locations, and future fixed-saving representation (with one installed-CLI test deselected).
-- A5: examples and deterministic JSON round trips passed; source CLI manually ran. Installed console script pending.
+- A5: examples and deterministic JSON round trips passed; source CLI ran from `/tmp` with explicit absolute paths, and a missing file returned code 2. Installed console script pending.
 - A6: synthetic market fixture, missing status, provenance and run metadata tests passed.
 - A7: Import Linter contracts and a failure-sensitivity test exist; `lint-imports` is unavailable in the current environment, so detection is unverified.
 - A8: 16 areas × 3 metrics audited in `data/manifests/coverage_audit.csv`; report values and methodological caveats recorded in `docs/DATA_COVERAGE.md`.
 - A9: Ruff 0.16.0 format/check and `compileall` passed. The focused pytest run passed. Locked Ruff, mypy, Import Linter, full pytest, lock check and package build remain unrun.
-- A10: README, architecture, progress and source audit are current. Local commits and package handoff pending.
+- A10: README, architecture, progress and source audit are current. Two local commits exist; final cleanup checkpoint pending.
 
-Last check: `/home/inigo/miniconda3/envs/automl-tab/bin/ruff format --check .` (27 files formatted), the same binary's `check .` (pass), `python3.12 -m compileall -q src tests` (pass), and a Python 3.12 pytest invocation with available external pytest modules and source path (44 passed, one installed-CLI case deselected). This diagnostic run does not prove the package is installed. The repo's intended `bash scripts/check.sh` gate remains to be run in its locked environment.
+Last check: `/home/inigo/miniconda3/envs/automl-tab/bin/ruff format --check .` (27 files formatted), the same binary's `check .` (pass), `python3.12 -m compileall -q src tests` (pass), and a Python 3.12 pytest invocation with available external pytest modules and source path (44 passed, one installed-CLI case deselected). A separate source CLI smoke from `/tmp` passed valid JSON and invalid-path cases. This diagnostic run does not prove the package is installed. `bash scripts/check.sh` was attempted and stopped immediately at `uv: command not found`.
 
 Decisions: use Pydantic 2, PyYAML, and a standard src package. Explicit interest appears in every example, not defaults. The room pilot is restricted to cities with public numeric evidence; no inferred room values. Codes not cross-checked against the current INE catalogue are marked provisional in the CSV.
 

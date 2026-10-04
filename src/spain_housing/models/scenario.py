@@ -8,9 +8,10 @@ from pydantic import Field, StrictBool, StringConstraints, model_validator
 from .base import (
     Money,
     Month,
+    NonNegativeFinite,
     Offset,
+    PositiveFinite,
     PositiveInt,
-    PositiveMoney,
     PositiveRatio,
     Ratio,
     Record,
@@ -53,7 +54,7 @@ class LivingStage(Record):
     start_month_offset: Offset
     end_month_offset: PositiveInt
     rent_share: PositiveRatio
-    rental_area_m2: PositiveMoney | None = None
+    rental_area_m2: PositiveFinite | None = None
     bedrooms: PositiveInt | None = None
     rent_includes_utilities: StrictBool
 
@@ -72,17 +73,17 @@ class MortgageAssumptions(Record):
     financed_fraction: PositiveRatio
     maximum_debt_ratio: Ratio
     term_years: PositiveInt
-    annual_nominal_interest_fraction: Money
+    annual_nominal_interest_fraction: NonNegativeFinite
 
 
 class PurchaseCostAssumptions(Record):
     policy: Literal["proportional"]
-    allowance_fraction: Money
+    allowance_fraction: NonNegativeFinite
 
 
 class TargetProperty(Record):
     property_type: Literal["flat", "house"]
-    area_m2: PositiveMoney
+    area_m2: PositiveFinite
     condition: Literal["ordinary", "new", "renovation"]
 
 

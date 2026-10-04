@@ -4,7 +4,16 @@ from typing import Annotated, Literal
 
 from pydantic import StringConstraints, model_validator
 
-from .base import FiniteAmount, Money, Month, PositiveMoney, Ratio, Record, SchemaVersion
+from .base import (
+    FiniteAmount,
+    Money,
+    Month,
+    PositiveFinite,
+    PositiveMoney,
+    Ratio,
+    Record,
+    SchemaVersion,
+)
 from .market import MarketObservation
 from .scenario import GeographicReference, Scenario
 
@@ -44,7 +53,7 @@ class PurchaseResult(Record):
 
 class Indicator(Record):
     status: Literal["available", "missing", "unsupported"]
-    value: Ratio | PositiveMoney | None = None
+    value: Ratio | PositiveFinite | None = None
     reason: str | None = None
     observations: tuple[MarketObservation, ...] = ()
 

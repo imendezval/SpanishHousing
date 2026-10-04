@@ -36,9 +36,11 @@ def _schema_tag(value: Any) -> Any:
 
 
 SchemaVersion = Annotated[Literal[1], BeforeValidator(_schema_tag)]
-Money = Annotated[float, Field(strict=True, allow_inf_nan=False, ge=0)]
+NonNegativeFinite = Annotated[float, Field(strict=True, allow_inf_nan=False, ge=0)]
+PositiveFinite = Annotated[float, Field(strict=True, allow_inf_nan=False, gt=0)]
+Money = NonNegativeFinite
 FiniteAmount = Annotated[float, Field(strict=True, allow_inf_nan=False)]
-PositiveMoney = Annotated[float, Field(strict=True, allow_inf_nan=False, gt=0)]
+PositiveMoney = PositiveFinite
 Ratio = Annotated[float, Field(strict=True, allow_inf_nan=False, ge=0, le=1)]
 PositiveRatio = Annotated[float, Field(strict=True, allow_inf_nan=False, gt=0, le=1)]
 Offset = Annotated[int, Field(strict=True, ge=0)]

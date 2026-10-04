@@ -6,7 +6,7 @@ from typing import Literal
 
 from pydantic import HttpUrl, field_validator, model_validator
 
-from .base import Month, PositiveInt, PositiveMoney, Record
+from .base import Month, PositiveFinite, PositiveInt, Record
 from .scenario import GeographicReference
 
 
@@ -61,7 +61,7 @@ class MarketObservation(Record):
     source_release: str | None = None
     methodology_version: str | None = None
     metric: MarketMetric
-    value: PositiveMoney
+    value: PositiveFinite
     unit: MarketUnit
     statistic: Literal["mean", "median", "p10", "p25", "p75", "p90", "weighted_zonal_medians"]
     basis: Literal["asking", "transaction", "valuation", "tax_declared"]
