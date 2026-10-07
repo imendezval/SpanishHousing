@@ -200,3 +200,67 @@ def test_escape_symlink_and_synthetic_opt_in(release_dir: Path, tmp_path: Path) 
     (release_dir / "locations.json").symlink_to(outside)
     with pytest.raises(ValueError, match="escapes"):
         load_release(release_dir, allow_synthetic=True)
+
+
+@pytest.mark.parametrize("defect", ["traversal", "absolute", "duplicate_role", "producer"])
+def test_manifest_paths_roles_and_producer_evidence(release_dir: Path, defect: str) -> None:
+    manifest = json.loads((release_dir / "manifest.json").read_bytes())
+    if defect == "traversal":
+        manifest["files"][0]["path"] = "../observations.jsonl"
+    elif defect == "absolute":
+        manifest["files"][0]["path"] = "/tmp/observations.jsonl"
+    elif defect == "duplicate_role":
+        manifest["files"][0]["role"] = manifest["files"][1]["role"]
+    else:
+        manifest["recipe"]["producer"]["code_fingerprint"] = None
+    (release_dir / "manifest.json").write_bytes(canonical_json(manifest))
+    with pytest.raises(ValueError):
+        load_release(release_dir, allow_synthetic=True)
+
+
+def test_restricted_redistribution_and_capture_mix_are_not_hidden(
+    recipe: BuildRecipe, release_dir: Path, tmp_path: Path
+) -> None:
+    bundle = load_release(release_dir, allow_synthetic=True)
+    decisions = bundle.manifest.recipe.decisions
+    restricted = bundle.manifest.recipe.model_copy(
+        update={
+            "decisions": (
+                decisions[0].model_copy(update={"redistribution": "restricted"}),
+                *decisions[1:],
+            )
+        }
+    )
+    path = write_release(
+        tmp_path / "restricted",
+        recipe=restricted,
+        observations=bundle.observations,
+        boundaries=bundle.boundaries,
+        allow_synthetic=True,
+    )
+    assert load_release(path, allow_synthetic=True).manifest.redistribution == "restricted"
+    captures = recipe.captures
+    mixed = recipe.model_copy(
+        update={
+            "captures": (captures[0].model_copy(update={"route": "curated_extract"}), *captures[1:])
+        }
+    )
+    with pytest.raises(ValueError, match="mixing"):
+        build_release(
+            mixed, data_root=FIXTURES, release_root=tmp_path / "mix", allow_synthetic=True
+        )
+
+
+def test_raw_capture_integrity_and_html_errors_are_rejected(
+    recipe: BuildRecipe, tmp_path: Path
+) -> None:
+    from spain_housing.storage.release import read_capture
+
+    capture = next(c for c in recipe.captures if c.capture_id == "prices")
+    payload = b"<!doctype html><html>access denied</html>"
+    (tmp_path / capture.path).write_bytes(payload)
+    with pytest.raises(ValueError, match="hash/size"):
+        read_capture(tmp_path, capture)
+    valid_hash = capture.model_copy(update={"sha256": sha256(payload), "byte_size": len(payload)})
+    with pytest.raises(ValueError, match="HTML"):
+        read_capture(tmp_path, valid_hash)

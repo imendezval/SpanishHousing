@@ -1,1 +1,1 @@
-"""Reserved for prepared market-data access."""
+"""Offline market access to explicit immutable releases."""

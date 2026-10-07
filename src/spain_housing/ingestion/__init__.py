@@ -1,1 +1,1 @@
-"""Reserved for source normalisation and release building."""
+"""Retained-source normalization, geography reconciliation and offline release building."""

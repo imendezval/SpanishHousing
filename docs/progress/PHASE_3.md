@@ -1,6 +1,6 @@
 # Phase 3 progress
 
-Current milestone: M5. M1 verified at `3e8240f`; M2 engineering and M3/M4 verification completed. Initial worktree has user-owned untracked `AGENTS.md`, Phase 2 and Phase 3 guides; preserved and excluded from commits.
+Current milestone: M6. M1 verified at `3e8240f`; M2 engineering and M3/M4 verification checkpointed at `426ea7f`; M5 implemented and under final gate. Initial worktree has user-owned untracked `AGENTS.md`, Phase 2 and Phase 3 guides; preserved and excluded from commits.
 
 Baseline `b523385`: locked sync passed. The full gate initially failed on README Python-block formatting as predicted by the guide. Locked `ruff format README.md` repaired it, then `bash scripts/check.sh` passed all 136 tests, strict mypy, Ruff and seven import contracts. Finance and scenario behavior are unchanged.
 
@@ -12,7 +12,9 @@ M3: actual official INE XLSX and in-year changes retained, four municipal identi
 
 M4: actual builder, common canonical serialization/validator, content identity, runtime processing-source fingerprint, atomic staging/publication and idempotence work. Synthetic integration produces 11 observations/12 expected cells, with explicit missing Getafe room. Rebuild, relocation, changed-input identity, corruption/lineage/coverage rejection and failed-write cleanup verified. 65 focused tests and the complete locked gate (203 tests, 28 source files in strict mypy, eight import contracts, Ruff and lock check) passed. M5 repository/CLI and M6 wheel/final review remain.
 
-Acceptance: A1 verified; A2 source decisions honest but market permission blocked; A3 blocked (nine core cells); A4 verified from real captures; A5/A6 engineering verified; A7–A9 pending; A10 real-pilot readiness blocked; A11 ownership retained; A12 final docs pending.
+M5: immutable indexed `SnapshotMarketRepository` and build/validate/query CLI implemented. Focused tests verify exact month/quarter selection, explicit product/dimension support, ambiguity, provenance, no network/file access during queries, unchanged scenario CLI, outside-working-directory dataset CLI and synthetic opt-in. Final review added producer-evidence, capture, path and redistribution checks. Full locked gate now passes: 227 tests, strict mypy (29 source files), eight import contracts, Ruff and lock check. Wheel checks and final docs remain.
+
+Acceptance: A1 verified; A2 source decisions honest but market permission blocked; A3 blocked (nine core cells); A4 verified from real captures; A5/A6 engineering verified; A7/A8 focused checks verified; A9 wheel/final gate pending; A10 real-pilot readiness blocked; A11 ownership retained; A12 final docs pending.
 
 Bounded source review: Idealista general terms restrict automated/manual copying without written permission. The reviewed API/export page invites a contract/contact route but establishes no permission for this dataset. Market acquisition/local use/redistribution are unresolved or restricted; do not capture its data into a new release. September 2026 report is still explicitly labelled September. Official IGN metadata/license, queryables and actual items were inspected; Barcelona municipality and province are distinct features. INE's current operation links a 2026 XLSX and in-year changes; acquisition/reconciliation next.
 

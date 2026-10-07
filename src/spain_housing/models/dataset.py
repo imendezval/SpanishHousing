@@ -219,6 +219,8 @@ class BuildRecipe(Record):
         ]
         if len(mappings) != len(set(mappings)):
             raise ValueError("ambiguous source label-to-code mapping")
+        if not any(location.core for location in self.locations):
+            raise ValueError("recipe must declare at least one core location")
         return self
 
 

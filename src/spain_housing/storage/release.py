@@ -326,6 +326,8 @@ def load_release(release_dir: Path, *, allow_synthetic: bool = False) -> Release
         strict_json(contained_path(release_dir, "manifest.json").read_bytes())
     )
     validate_recipe(manifest.recipe, allow_synthetic=allow_synthetic)
+    if manifest.recipe.producer.code_fingerprint is None:
+        raise ValueError("released recipe lacks the actual producer code fingerprint")
     files = {item.role: item for item in manifest.files}
     if len(files) != len(manifest.files) or files.keys() != PAYLOADS.keys():
         raise ValueError("release requires exactly the four canonical payload roles")
