@@ -31,7 +31,16 @@ def test_forbidden_import_contract_is_sensitive(tmp_path: Path) -> None:
     assert "models boundary" in result.stdout
 
 
-@pytest.mark.parametrize("source,target", [("finance", "storage"), ("storage", "ingestion")])
+@pytest.mark.parametrize(
+    "source,target",
+    [
+        ("finance", "storage"),
+        ("storage", "ingestion"),
+        ("application", "storage"),
+        ("application", "ingestion"),
+        ("markets", "finance"),
+    ],
+)
 def test_storage_boundaries_detect_forbidden_edges(
     tmp_path: Path, source: str, target: str
 ) -> None:

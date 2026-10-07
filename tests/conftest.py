@@ -6,7 +6,7 @@ from spain_housing.ingestion.release import build_release
 from spain_housing.models.dataset import BuildRecipe
 from spain_housing.storage.release import strict_json
 
-FIXTURES = Path(__file__).resolve().parents[1] / "fixtures/synthetic/pilot"
+FIXTURES = Path(__file__).resolve().parent / "fixtures/synthetic/pilot"
 
 
 @pytest.fixture

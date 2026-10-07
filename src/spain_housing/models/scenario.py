@@ -109,6 +109,20 @@ class GeographicReference(Record):
     code: LocationCode
 
 
+class MarketSelectionPolicy(Record):
+    strategy: Literal["latest_complete"] = "latest_complete"
+    maximum_reference_age_months: Offset = 12
+    profile_ids: tuple[Annotated[str, StringConstraints(strict=True, min_length=1)], ...] = ()
+    whole_home_rent_source: Literal["per_m2", "per_month"] = "per_m2"
+    allow_pooled_property_proxy: StrictBool = False
+
+    @model_validator(mode="after")
+    def unique_profiles(self) -> "MarketSelectionPolicy":
+        if len(self.profile_ids) != len(set(self.profile_ids)):
+            raise ValueError("profile_ids must be unique")
+        return self
+
+
 class LocationBinding(Record):
     kind: Literal["mapped", "explicit"]
     location: GeographicReference | None = None
@@ -153,6 +167,7 @@ class Scenario(Record):
     target_property: TargetProperty
     market_policy: MarketPolicy
     locations: LocationPlan
+    market_selection: MarketSelectionPolicy = Field(default_factory=MarketSelectionPolicy)
 
     @property
     def purchase_month(self) -> date:

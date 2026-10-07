@@ -8,12 +8,11 @@ from .base import (
     FiniteAmount,
     Money,
     Month,
-    PositiveFinite,
     PositiveMoney,
-    Ratio,
     Record,
     SchemaVersion,
 )
+from .evaluation import EvaluationContext, MarketInputUse, PurchaseFinances, RuntimeEvidence
 from .market import MarketObservation
 from .scenario import GeographicReference, Scenario
 
@@ -67,8 +66,8 @@ class PurchaseResult(Record):
 
 
 class Indicator(Record):
-    status: Literal["available", "missing", "unsupported"]
-    value: Ratio | PositiveFinite | None = None
+    status: Literal["available", "missing", "unsupported", "unviable"]
+    value: Money | None = None
     reason: str | None = None
     observations: tuple[MarketObservation, ...] = ()
 
@@ -90,6 +89,33 @@ class LocationResult(Record):
     affordable_area_m2: Indicator
     target_affordability_ratio: Indicator
     explanation: str | None = None
+    prepared_budgets: tuple[PreparedMonthlyBudget, ...] = ()
+    market_inputs: tuple[MarketInputUse, ...] = ()
+    purchase_finances: PurchaseFinances | None = None
+    warnings: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def coherent_calculation(self) -> "LocationResult":
+        if self.purchase is not None and (
+            self.savings is None or self.savings.viability != "viable"
+        ):
+            raise ValueError("purchase requires viable savings")
+        if self.calculation_status == "unviable" and (
+            self.savings is None
+            or self.savings.viability != "funds_exhausted"
+            or self.purchase is not None
+        ):
+            raise ValueError("unviable result requires exhausted savings and no purchase")
+        if self.calculation_status in ("missing_input", "unsupported") and (
+            self.savings is not None or self.purchase is not None or self.prepared_budgets
+        ):
+            raise ValueError("incomplete calculation cannot carry completed finances or budgets")
+        for indicator in (self.affordable_area_m2, self.target_affordability_ratio):
+            if indicator.status == "available" and (
+                self.purchase is None or not indicator.observations
+            ):
+                raise ValueError("available comparison requires purchase and buying evidence")
+        return self
 
 
 class RunResult(Record):
@@ -99,3 +125,13 @@ class RunResult(Record):
     model_version: Annotated[str, StringConstraints(strict=True, min_length=1)]
     code_version: Annotated[str, StringConstraints(strict=True, min_length=1)]
     results: tuple[LocationResult, ...]
+    evaluation_context: EvaluationContext | None = None
+    runtime_evidence: RuntimeEvidence | None = None
+
+    @model_validator(mode="after")
+    def matching_context(self) -> "RunResult":
+        if self.evaluation_context is not None and (
+            self.dataset_release_id != self.evaluation_context.release_id
+        ):
+            raise ValueError("dataset release ID and evaluation context disagree")
+        return self

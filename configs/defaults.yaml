@@ -1,7 +1,15 @@
 schema_version: 1
+market_selection:
+  strategy: latest_complete
+  maximum_reference_age_months: 12
+  profile_ids: []
+  whole_home_rent_source: per_m2
+  allow_pooled_property_proxy: false
 saving_months: 84
 retained_reserve_eur: 5000
 household_nonhousing_expenses:
+  # Effective spending of the saving pool, including only bills paid outside rent.
+  # Change milestones explicitly when included utilities change cash spending.
   interpolation: step
   milestones:
     - month_offset: 0

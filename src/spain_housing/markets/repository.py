@@ -7,6 +7,7 @@ from pathlib import Path
 from types import MappingProxyType
 
 from spain_housing.models.dataset import BoundaryCollection, LocationRecord, ReleaseManifest
+from spain_housing.models.evaluation import EvaluationContext
 from spain_housing.models.market import (
     MarketLookup,
     MarketMetric,
@@ -38,6 +39,22 @@ class SnapshotMarketRepository:
     locations: tuple[LocationRecord, ...]
     boundaries: BoundaryCollection
     _index: Mapping[IndexKey, tuple[MarketObservation, ...]]
+
+    @property
+    def evaluation_context(self) -> EvaluationContext:
+        recipe = self.manifest.recipe
+        return EvaluationContext(
+            release_id=self.manifest.release_id,
+            kind=self.manifest.kind,
+            readiness=self.manifest.readiness,
+            redistribution=self.manifest.redistribution,
+            profiles=recipe.profiles,
+            locations=self.locations,
+            registry_version=recipe.geography.registry_version,
+            boundary_version=recipe.geography.boundary_version,
+            attribution=recipe.geography.attribution,
+            limitations=recipe.limitations,
+        )
 
     @classmethod
     def from_release(
