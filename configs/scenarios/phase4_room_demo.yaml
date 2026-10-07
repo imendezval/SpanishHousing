@@ -1,0 +1,33 @@
+# Explicit synthetic demo when used with the fixture release; not a market forecast.
+start_month: 2026-10-01
+saving_months: 12
+participants:
+  - participant_id: buyer
+    net_annual_income:
+      interpolation: linear
+      milestones: [{month_offset: 0, amount_eur: 24000}]
+    monthly_debt:
+      interpolation: step
+      milestones: [{month_offset: 0, amount_eur: 100}]
+    starting_savings_eur: 8000
+saver_ids: [buyer]
+borrower_ids: [buyer]
+living_stages:
+  - arrangement: room
+    start_month_offset: 0
+    end_month_offset: 12
+    rent_share: 1
+    rent_includes_utilities: false
+mortgage:
+  annual_nominal_interest_fraction: 0
+market_selection:
+  allow_pooled_property_proxy: true
+market_policy:
+  kind: frozen
+  base_month: 2026-10-01
+  annual_rent_growth_fraction: 0
+  annual_purchase_growth_fraction: 0
+locations:
+  mode: local_local
+  saving_location: {kind: mapped}
+  buying_location: {kind: mapped}

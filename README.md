@@ -1,8 +1,8 @@
 # Spain housing affordability simulator
 
-Typed contracts, deterministic configuration, the financial engine and an offline dataset pipeline are available. Phase 3 engineering is verified; the real market pilot is blocked by acquisition permission. Official municipal geography is independently ready. Scenario evaluation and maps follow in later phases.
+Typed contracts, the financial engine, offline datasets and callable scenario evaluation with CLI export/replay are available. Phase 4 engineering is verified separately from observed-data readiness: market acquisition remains blocked. Official municipal geography is independently ready. The interactive map belongs to Phase 5.
 
-See the [project brief](docs/PROJECT_BRIEF.md), [implementation plan](docs/IMPLEMENTATION_PLAN.md), [Phase 1 guide](docs/phases/PHASE_1_foundations.md), [Phase 2 progress](docs/progress/PHASE_2.md), [Phase 3 progress](docs/progress/PHASE_3.md), [architecture](docs/ARCHITECTURE.md), [data audit](docs/DATA_COVERAGE.md), and [current data access/readiness](docs/DATA_ACCESS.md). The supplied Phase 2/3 execution guides remain local untracked inputs; documentation links use tracked progress records.
+See the [project brief](docs/PROJECT_BRIEF.md), [implementation plan](docs/IMPLEMENTATION_PLAN.md), [Phase 1 guide](docs/phases/PHASE_1_foundations.md), [Phase 2 progress](docs/progress/PHASE_2.md), [Phase 3 progress](docs/progress/PHASE_3.md), [Phase 4 progress](docs/progress/PHASE_4.md), [architecture](docs/ARCHITECTURE.md), [data audit](docs/DATA_COVERAGE.md), and [current data access/readiness](docs/DATA_ACCESS.md). Supplied Phase 2–4 execution guides remain local untracked inputs; documentation links use tracked progress records.
 
 ## Development
 
@@ -152,4 +152,110 @@ uv run --locked python scripts/verify_pilot_geography.py \
 
 Copy `data/raw/pilot-geography/` and the small recipe/manifests together to a backup or another machine. Restore the raw tree, run the command and compare its file hashes to `data/manifests/pilot_geography.json`; source URLs/hashes alone cannot reconstruct lost bytes. After permitted market captures exist, retain their immutable bytes/sidecars and updated recipe alongside every observed release, and rebuild with explicit `--data-root`/`--release-root`. Corrections require new captures and a new release ID. Permission changes require evidence and explicit review, not an opt-in bypass.
 
-Phase 4 can develop against the explicit synthetic fixture and financial API while the market blocker is resolved. Production integration needs a permitted observed release. Phase 4 owns temporal/freshness selection, any labelled pooled-to-flat approximation, rental-area conversion, shares/utilities/growth and scenario preparation; those rules are absent from this dataset pipeline.
+Scenario evaluation uses the explicit synthetic fixture while the market blocker remains. Production integration needs a permitted observed release. Application/market rules own temporal selection, labelled proxies, conversions, shares, growth and monthly preparation; the financial engine and dataset builder retain their separate responsibilities.
+
+## Scenario evaluation, export and replay
+
+First build the labelled synthetic release with the offline command above. Set
+`release_dir` to the exact path returned in its JSON; do not substitute the real
+geography-only subset or assume a fixed fixture release ID.
+
+```bash
+release_dir=/absolute/path/to/the-returned-synthetic-release
+uv run --locked spain-housing evaluate-scenario \
+  --defaults configs/defaults.yaml \
+  --scenario configs/scenarios/phase4_room_demo.yaml \
+  --release "$release_dir" --locations 28079 08019 23050 28065 \
+  --output-dir outputs/room-demo --allow-synthetic
+uv run --locked spain-housing evaluate-scenario \
+  --defaults configs/defaults.yaml \
+  --scenario configs/scenarios/phase4_staged_growth_demo.yaml \
+  --release "$release_dir" --output-dir outputs/growth-demo --allow-synthetic
+uv run --locked spain-housing replay-run \
+  --run outputs/room-demo/run.json --release "$release_dir" --allow-synthetic
+```
+
+Absolute input paths work from another directory. Omit `--locations` to evaluate
+all released municipalities in canonical order. Omit `--output-dir` to write only
+the full run JSON to stdout. Existing output directories are refused. Errors
+return exit 2 with empty stdout; expected gaps/unviability return exit 0 with
+typed per-location results. Both demos show Getafe's missing room input; an
+all-flat scenario does not require room evidence. A missing buying price preserves
+financial capacity with missing comparison indicators and absent target diagnostics.
+
+Exports contain authoritative `run.json` and one-row-per-location `summary.csv`.
+The CSV preserves full numeric precision, empty unavailable values, separate
+indicator statuses and an explicit unbounded-cash flag. Import municipality codes
+as spreadsheet **text** to preserve leading zeros. Replay uses the saved resolved
+scenario without remerging defaults and requires the same release, model, actual
+source fingerprint and runtime versions. Older contract-only runs cannot establish
+exact replay. Evaluating saved inputs under new code is a new run.
+
+### Scenario assumptions
+
+- Saving offsets are 0 through N−1; borrower income/debt is sampled at purchase
+  offset N. Net annual income is divided by 12. Paths use their declared linear
+  or step rule and hold the final milestone thereafter.
+- Savers and borrowers are independent sets. The growth demo has two savers and
+  one borrower. Non-saver income/savings/debt do not enter the saving pool.
+- One stage prices one unit. `rent_share` is the combined saving pool's share;
+  rent and the aggregate non-housing budget are not multiplied by saver count.
+  Unit rent needs explicit rental area; direct monthly rent does not use area.
+- Non-housing spending is effective cash expenditure, including only utilities
+  paid outside rent. Inclusion flags record user assumptions, not verified source
+  bill coverage. Change expense milestones explicitly when bills change; the
+  growth demo does this at offset 3. No utility amount is inferred or subtracted.
+- Default property matching is strict. These demos explicitly enable pooled
+  proxies for flats. Requested bedrooms still need matching data; unknown source
+  bedrooms cannot satisfy them. New/renovation targets have unsupported market
+  comparisons while financial capacity can remain available. Room area/bedroom
+  selectors are unsupported. Room rent is never derived from flat rent.
+- Reference profiles must be complete at base and within the default 12-month
+  age limit. Selection uses one source/basis/statistic series and exact repository
+  periods. Ambiguity needs explicit profile IDs; missing selected cells never
+  trigger older-source fallback.
+- Frozen policy keeps source values throughout the horizon, with distinct source
+  periods visible. Growth compounds from each reference's last covered month:
+  June for Q2 rooms, September for September sale/rent. It bridges reference to
+  base/start once and never grows income/expense paths. Earlier starts than base
+  are unsupported. These are snapshot counterfactuals, not historical forecasts.
+- Exhausted savings remain unviable after recovery. Viable zero capacity remains
+  available; target coverage ratios can exceed one. No estimate guarantees bank
+  approval or an available property. `fixed_saving` still loads but evaluation
+  reports it as deferred; existing examples remain unchanged.
+
+### Callable Python evaluator
+
+The launcher composes configuration and the concrete repository. Application
+accepts the protocol and immutable public context; it performs no acquisition.
+
+```python
+from pathlib import Path
+
+from spain_housing.application import evaluate_scenario
+from spain_housing.application.export import export_run
+from spain_housing.config import load_scenario
+from spain_housing.markets.repository import SnapshotMarketRepository
+
+scenario = load_scenario(
+    Path("configs/defaults.yaml"), Path("configs/scenarios/phase4_room_demo.yaml")
+)
+repository = SnapshotMarketRepository.from_release(
+    Path("/absolute/path/to/the-returned-synthetic-release"), allow_synthetic=True
+)
+run = evaluate_scenario(
+    scenario,
+    market_data=repository,
+    context=repository.evaluation_context,
+    mapped_locations=tuple(record.location for record in repository.locations),
+)
+export_run(run, Path("outputs/python-demo"))
+```
+
+`prepare_savings` is separately callable without a buying destination.
+`evaluate_location` accepts separate saving/buying references; `evaluate_purchase`
+reuses an existing savings result and purchase finances for destination work.
+Phase 5 renders these typed budgets, paths, limits, shortfalls, statuses and
+original market traces. Geometry remains on the repository for a launcher to
+join by municipality code/version. UI controls must call the same evaluator.
+Observed integration remains blocked; synthetic results are never market evidence.

@@ -1,6 +1,6 @@
 # Phase 4 progress
 
-Current milestone: M5. M1 `05427d9`; M2 `6697a15`; M3 `e847cfc`. Reviewed baseline `3038f00`. Locked sync and full gate
+Current milestone: M6. M1 `05427d9`; M2 `6697a15`; M3 `e847cfc`; M4 `face537`. Reviewed baseline `3038f00`. Locked sync and full gate
 passed: 227 tests, strict mypy (29 files), Ruff, eight import contracts and lock
 check. User-owned untracked instructions and Phase 2–4 guides are preserved.
 
@@ -39,4 +39,15 @@ Full gate passed 267 tests/37 typed files/eight contracts before adding the pure
 market ninth contract and indirect application/storage sensitivity check.
 A6/A7 verified; A8/A9/A12 pending; A10 remains blocked.
 
-Next: economic export/replay, thin CLI, explicit demo scenarios and integration.
+M5 verified: deterministic economic JSON/CSV, safe two-file staging/publication,
+existing-output refusal and owned-only cleanup. Exact replay uses resolved saved
+inputs and rejects release/model/code/runtime/content mismatches. Thin CLI
+evaluation/replay match Python and run outside cwd with explicit paths. Both new
+demos opt into pooled proxies; staged growth has two savers/one borrower and an
+explicit utility-spending milestone. Production builder/repository/CLI workflow
+passes with Getafe room explicitly missing. Full locked gate: 280 tests, strict
+mypy (38 files), Ruff, lock check and nine import contracts. A8 verified; A9
+awaits final wheel workflow; A10 remains blocked. README/architecture updated.
+
+Next: final edge review, fresh built-wheel/source fingerprint comparison and
+installed evaluation/export/replay evidence; update final acceptance/handoff.
