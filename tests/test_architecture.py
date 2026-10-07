@@ -39,6 +39,9 @@ def test_forbidden_import_contract_is_sensitive(tmp_path: Path) -> None:
         ("application", "storage"),
         ("application", "ingestion"),
         ("markets", "finance"),
+        ("ui", "launcher"),
+        ("finance", "launcher"),
+        ("application", "launcher"),
     ],
 )
 def test_storage_boundaries_detect_forbidden_edges(

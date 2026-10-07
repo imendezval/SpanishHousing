@@ -10,6 +10,9 @@ readme = "README.md"
 requires-python = ">=3.12,<3.14"
 dependencies = ["pydantic>=2.10,<3", "PyYAML>=6,<7", "shapely>=2.1,<3", "openpyxl>=3.1,<4"]
 
+[project.optional-dependencies]
+map = ["streamlit>=1.65,<2", "pydeck>=0.9.3,<1"]
+
 [project.scripts]
 spain-housing = "spain_housing.cli:main"
 
@@ -93,3 +96,10 @@ name = "storage has only model dependencies"
 type = "forbidden"
 source_modules = ["spain_housing.storage"]
 forbidden_modules = ["spain_housing.ingestion", "spain_housing.markets", "spain_housing.finance", "spain_housing.application", "spain_housing.config", "spain_housing.cli", "spain_housing.ui"]
+
+[[tool.importlinter.contracts]]
+name = "lower layers never import launcher"
+type = "forbidden"
+source_modules = ["spain_housing.models", "spain_housing.finance", "spain_housing.markets", "spain_housing.storage", "spain_housing.ingestion", "spain_housing.application", "spain_housing.config", "spain_housing.ui"]
+forbidden_modules = ["spain_housing.launcher"]
+allow_indirect_imports = true

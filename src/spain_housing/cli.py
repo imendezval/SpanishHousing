@@ -73,6 +73,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     evaluate.add_argument("--locations", type=_municipal_code, nargs="+")
     replay = commands.add_parser("replay-run", help="exactly reproduce a saved economic run")
     replay.add_argument("--run", type=Path, required=True)
+    serve_command = commands.add_parser("serve", help="launch the optional local map app")
+    for name in ("defaults", "scenario", "release"):
+        serve_command.add_argument(f"--{name}", type=Path, required=True)
+    serve_command.add_argument("--allow-synthetic", action="store_true")
+    serve_command.add_argument("--port", type=int, default=8501)
     for command in (evaluate, replay):
         command.add_argument("--release", type=Path, required=True)
         command.add_argument("--output-dir", type=Path)
@@ -85,6 +90,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        if args.command == "serve":
+            from spain_housing.launcher import serve
+
+            return serve(
+                defaults=args.defaults,
+                scenario=args.scenario,
+                release=args.release,
+                allow_synthetic=args.allow_synthetic,
+                port=args.port,
+            )
         if args.command in ("evaluate-scenario", "replay-run"):
             run = _evaluate(args)
             if args.output_dir is not None:

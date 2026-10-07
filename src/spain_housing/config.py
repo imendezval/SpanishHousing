@@ -39,21 +39,25 @@ def _json_mapping(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     return result
 
 
-def load_mapping(path: Path) -> dict[str, Any]:
-    """Load a YAML/JSON object, rejecting duplicate keys at every depth."""
-    content = path.read_text(encoding="utf-8")
+def parse_mapping(content: str, extension: str) -> dict[str, Any]:
+    """Parse safe UTF-8 text with the same rules for files and uploads."""
     try:
-        if path.suffix.lower() == ".json":
+        if extension.lower() == ".json":
             value = json.loads(content, object_pairs_hook=_json_mapping)
-        elif path.suffix.lower() in {".yaml", ".yml"}:
+        elif extension.lower() in {".yaml", ".yml"}:
             value = yaml.load(content, Loader=_UniqueKeysLoader)
         else:
-            raise ValueError(f"unsupported configuration extension: {path.suffix}")
+            raise ValueError(f"unsupported configuration extension: {extension}")
     except (json.JSONDecodeError, yaml.YAMLError) as exc:
-        raise ValueError(f"invalid configuration {path}: {exc}") from exc
+        raise ValueError(f"invalid configuration: {exc}") from exc
     if not isinstance(value, dict):
-        raise ValueError(f"expected a top-level mapping in {path}")
+        raise ValueError("expected a top-level configuration mapping")
     return value
+
+
+def load_mapping(path: Path) -> dict[str, Any]:
+    """Load a YAML/JSON object, rejecting duplicate keys at every depth."""
+    return parse_mapping(path.read_text(encoding="utf-8"), path.suffix)
 
 
 def merge_mappings(defaults: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
