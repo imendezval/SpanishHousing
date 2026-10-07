@@ -9,6 +9,9 @@ from pydantic import HttpUrl, field_validator, model_validator
 from .base import Month, PositiveFinite, PositiveInt, Record
 from .scenario import GeographicReference
 
+MarketStatistic = Literal["mean", "median", "p10", "p25", "p75", "p90", "weighted_zonal_medians"]
+MarketBasis = Literal["asking", "transaction", "valuation", "tax_declared"]
+
 
 class MarketMetric(StrEnum):
     PURCHASE_PRICE_PER_M2 = "purchase_price_per_m2"
@@ -63,8 +66,8 @@ class MarketObservation(Record):
     metric: MarketMetric
     value: PositiveFinite
     unit: MarketUnit
-    statistic: Literal["mean", "median", "p10", "p25", "p75", "p90", "weighted_zonal_medians"]
-    basis: Literal["asking", "transaction", "valuation", "tax_declared"]
+    statistic: MarketStatistic
+    basis: MarketBasis
     segment: MarketSegment
     source_id: str
     source_url: HttpUrl | None = None

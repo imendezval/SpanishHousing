@@ -57,13 +57,15 @@ from spain_housing.models.scenario import (
 )
 
 savings = simulate_savings(
-    (PreparedMonthlyBudget(
-        month=date(2026, 1, 1),
-        net_income_eur=4_000,
-        rent_eur=1_000,
-        nonhousing_expenses_eur=1_000,
-        other_debt_eur=0,
-    ),),
+    (
+        PreparedMonthlyBudget(
+            month=date(2026, 1, 1),
+            net_income_eur=4_000,
+            rent_eur=1_000,
+            nonhousing_expenses_eur=1_000,
+            other_debt_eur=0,
+        ),
+    ),
     starting_savings_eur=58_000,
     retained_reserve_eur=0,
 )
@@ -77,14 +79,19 @@ result = calculate_fixed_financing_capacity(
         term_years=25,
         annual_nominal_interest_fraction=0,
     ),
-    cost_policy=ProportionalPurchaseCostPolicy(PurchaseCostAssumptions(
-        policy="proportional", allowance_fraction=0.1,
-    )),
+    cost_policy=ProportionalPurchaseCostPolicy(
+        PurchaseCostAssumptions(
+            policy="proportional",
+            allowance_fraction=0.1,
+        )
+    ),
     purchase_context=PurchaseContext(
         buying_location=GeographicReference(level="municipality", code="28079"),
         purchase_month=date(2026, 2, 1),
         target_property=TargetProperty(
-            property_type="flat", area_m2=100, condition="ordinary",
+            property_type="flat",
+            area_m2=100,
+            condition="ordinary",
         ),
     ),
     target_price_eur=250_000,

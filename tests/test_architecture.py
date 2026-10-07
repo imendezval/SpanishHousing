@@ -3,6 +3,8 @@
 import subprocess
 from pathlib import Path
 
+import pytest
+
 
 def test_forbidden_import_contract_is_sensitive(tmp_path: Path) -> None:
     package = tmp_path / "spain_housing"
@@ -27,3 +29,32 @@ def test_forbidden_import_contract_is_sensitive(tmp_path: Path) -> None:
     )
     assert result.returncode != 0
     assert "models boundary" in result.stdout
+
+
+@pytest.mark.parametrize("source,target", [("finance", "storage"), ("storage", "ingestion")])
+def test_storage_boundaries_detect_forbidden_edges(
+    tmp_path: Path, source: str, target: str
+) -> None:
+    package = tmp_path / "spain_housing"
+    package.mkdir()
+    (package / "__init__.py").write_text("")
+    for name in (source, target):
+        (package / name).mkdir()
+        (package / name / "__init__.py").write_text("")
+    (package / source / "__init__.py").write_text(f"import spain_housing.{target}\n")
+    config = tmp_path / "pyproject.toml"
+    config.write_text(
+        '[tool.importlinter]\nroot_package = "spain_housing"\n'
+        '[[tool.importlinter.contracts]]\nname = "storage boundary"\ntype = "forbidden"\n'
+        f'source_modules = ["spain_housing.{source}"]\n'
+        f'forbidden_modules = ["spain_housing.{target}"]\n'
+    )
+    result = subprocess.run(
+        ["lint-imports", "--config", str(config)],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode != 0
+    assert "storage boundary" in result.stdout
