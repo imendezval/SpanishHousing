@@ -1,5 +1,8 @@
 # Phase 1 data coverage audit
 
+This is the historical Phase 1 audit. For current permission decisions and verified
+Phase 3 geography, see [data access and readiness](DATA_ACCESS.md).
+
 Audited 4 October 2026. The canonical area-by-metric evidence is [coverage_audit.csv](../data/manifests/coverage_audit.csv): 16 municipalities (12 contrasting cities and Getafe, Badalona, Mislata, Dos Hermanas), each assessed for sale €/m², whole-home rent €/m²/month, and room €/month. The CSV's `numeric_verified` means a value and its period/meaning were checked in a linked primary publication; it does **not** grant redistribution rights. `publication_verified` means the city is discussed without an absolute value. `not_verified` means no suitable value was established in this bounded audit. Blank means unknown, never zero. Codes marked `provisional` need reconciliation with the current INE municipal-code file before a data release.
 
 ## Verified scope and pilot
