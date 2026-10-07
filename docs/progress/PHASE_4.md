@@ -1,6 +1,6 @@
 # Phase 4 progress
 
-Current milestone: M3. M1 checkpoint `05427d9`. Reviewed baseline `3038f00`. Locked sync and full gate
+Current milestone: M4. M1 checkpoint `05427d9`; M2 `6697a15`. Reviewed baseline `3038f00`. Locked sync and full gate
 passed: 227 tests, strict mypy (29 files), Ruff, eight import contracts and lock
 check. User-owned untracked instructions and Phase 2–4 guides are preserved.
 
@@ -22,5 +22,12 @@ Original observations remain unchanged; growth uses last covered month and
 positive-finite checks. 27 focused contract/selection/repository tests and strict
 mypy (32 files) passed. A3/A4 verified; no snapshot get behavior changed.
 
-Next: monthly preparation, household shares, participant paths and complete-input
-issues. Keep saving preparation independent of buying location.
+M3 verified: single path sampler, exact N budgets, one-unit household rent/share,
+effective spending, separate saver/borrower aggregates and finances at offset N.
+Incomplete stages return typed issues with no partial financial path. Direct
+monthly rent and all-flat Getafe work without a room dependency. Exhausted then
+recovered savings retain finance's permanent exhaustion. Full pytest: 255 passed;
+Ruff and strict mypy passed. A5 preparation verified.
+
+Next: local/local orchestration, separate buying-side helper, financial calls,
+partial comparisons, unviable results and actual deterministic version evidence.
