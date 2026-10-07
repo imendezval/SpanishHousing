@@ -60,12 +60,32 @@ def test_round_trip_and_monotonicity_grid() -> None:
 @pytest.mark.parametrize("value", [-1, True, float("nan"), float("inf"), "100"])
 def test_invalid_money_scalars_are_rejected(value: object) -> None:
     with pytest.raises(ValueError):
-        monthly_payment(value, mortgage(0.035))  # type: ignore[arg-type]
+        monthly_payment(value, mortgage(0.035))
     with pytest.raises(ValueError):
-        maximum_loan(value, mortgage(0.035))  # type: ignore[arg-type]
+        maximum_loan(value, mortgage(0.035))
 
 
 @pytest.mark.parametrize("ratio", [-1, 1.1, True, float("nan"), float("inf")])
 def test_invalid_debt_ratio_is_rejected(ratio: object) -> None:
     with pytest.raises(ValueError):
-        maximum_mortgage_payment(2_000, 0, ratio)  # type: ignore[arg-type]
+        maximum_mortgage_payment(2_000, 0, ratio)
+
+
+@pytest.mark.parametrize("value", [-1, True, "100", float("nan"), float("inf"), 10**400])
+def test_invalid_borrower_money_is_rejected(value: object) -> None:
+    with pytest.raises(ValueError, match="net_monthly_income_eur"):
+        maximum_mortgage_payment(value, 0, 0.35)
+    with pytest.raises(ValueError, match="other_monthly_debt_eur"):
+        maximum_mortgage_payment(2_000, value, 0.35)
+
+
+def test_rate_underflow_and_nonfinite_derived_results() -> None:
+    assert monthly_payment(200_000, mortgage(5e-324)) == monthly_payment(200_000, mortgage(0))
+    with pytest.raises(ValueError, match="maximum loan.*not finite"):
+        maximum_loan(1e308, mortgage(0))
+    with pytest.raises(ValueError, match="monthly payment.*not finite"):
+        monthly_payment(1e308, mortgage(1e308))
+    with pytest.raises(ValueError, match="term.*too large"):
+        maximum_loan(1, mortgage(0, years=10**400))
+    with pytest.raises(ValueError, match="principal_eur"):
+        monthly_payment(10**400, mortgage(0))

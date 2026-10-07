@@ -10,10 +10,14 @@ from ._validation import finite_result, nonnegative
 def _annuity_factor(mortgage: MortgageAssumptions) -> float:
     if not isinstance(mortgage, MortgageAssumptions):
         raise ValueError("mortgage must be MortgageAssumptions")
-    periods = 12 * mortgage.term_years
+    try:
+        periods = float(12 * mortgage.term_years)
+    except OverflowError as exc:
+        raise ValueError("mortgage term is too large for a finite annuity factor") from exc
+    finite_result(periods, "mortgage payment count")
     rate = mortgage.annual_nominal_interest_fraction / 12
     if rate == 0:
-        return float(periods)
+        return periods
     factor = -math.expm1(-periods * math.log1p(rate)) / rate
     return finite_result(factor, "annuity factor")
 

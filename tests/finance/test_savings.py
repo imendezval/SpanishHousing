@@ -83,6 +83,19 @@ def test_reserve_can_reduce_usable_savings_to_zero() -> None:
     assert result.usable_savings_eur == 0
 
 
+def test_rounding_epsilon_does_not_hide_or_rewrite_reported_balance() -> None:
+    near_zero = PreparedMonthlyBudget(
+        month=date(2026, 1, 1),
+        net_income_eur=0,
+        rent_eur=1e-9,
+        nonhousing_expenses_eur=0,
+        other_debt_eur=0,
+    )
+    result = simulate_savings((near_zero,), starting_savings_eur=0, retained_reserve_eur=0)
+    assert result.monthly_path[0].closing_savings_eur == -1e-9
+    assert result.viability == "viable"
+
+
 @pytest.mark.parametrize(
     "months",
     [
@@ -106,6 +119,37 @@ def test_invalid_savings_scalars_are_rejected(value: object) -> None:
     with pytest.raises(ValueError, match="starting_savings_eur"):
         simulate_savings(
             (budget(date(2026, 1, 1)),),
-            starting_savings_eur=value,  # type: ignore[arg-type]
+            starting_savings_eur=value,
+            retained_reserve_eur=0,
+        )
+
+
+@pytest.mark.parametrize("value", [-1, True, "100", float("nan"), float("inf")])
+def test_invalid_reserve_is_rejected(value: object) -> None:
+    with pytest.raises(ValueError, match="retained_reserve_eur"):
+        simulate_savings(
+            (budget(date(2026, 1, 1)),), starting_savings_eur=0, retained_reserve_eur=value
+        )
+
+
+@pytest.mark.parametrize("budgets", [None, "2026-01-01", iter(()), ({"month": "2026-01-01"},)])
+def test_nonsequence_or_unvalidated_budgets_are_rejected(budgets: object) -> None:
+    with pytest.raises(ValueError, match="monthly_budgets"):
+        simulate_savings(budgets, starting_savings_eur=0, retained_reserve_eur=0)
+
+
+def test_ending_deficit_remains_signed_and_nonfinite_balances_are_rejected() -> None:
+    result = simulate_savings(
+        (budget(date(2010, 1, 1), income=0),),
+        starting_savings_eur=100,
+        retained_reserve_eur=0,
+    )
+    assert result.ending_savings_eur == -1_000
+    assert result.usable_savings_eur == 0
+    assert result.viability == "funds_exhausted"
+    with pytest.raises(ValueError, match="closing savings.*not finite"):
+        simulate_savings(
+            (budget(date(2026, 1, 1), income=1e308),),
+            starting_savings_eur=1e308,
             retained_reserve_eur=0,
         )
