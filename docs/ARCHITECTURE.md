@@ -125,3 +125,37 @@ must reuse budgets, finance, statuses and source traces without recalculation.
 No cache, salary model, historical reconstruction, new tax model or map was
 introduced. Observed integration remains blocked (Phase 4 A10); see
 [Phase 4 evidence](progress/PHASE_4.md) and [data access](DATA_ACCESS.md).
+
+## Phase 5 map boundary
+
+`launcher.py` composes explicit configuration, the validated repository and a
+small typed `ui/contracts.py` service bundle. The packaged CLI `serve` invokes
+`sys.executable -m streamlit run` on the installed launcher, bound to loopback.
+Its script entry calls the imported launcher module so reruns share the immutable
+resource cache. This cache holds at most four releases, keyed by resolved path,
+actual manifest-byte digest and synthetic permission. Explicit reload clears
+resources and the requesting session's economic memo and revalidates artifacts.
+
+The UI imports models and application serializers/services; the import gate also
+forbids lower layers importing the launcher. No financial rule, market lookup,
+release parser or serialization format is implemented in UI. Configuration's
+safe mapping parser is shared by file loading and limited UTF-8 scenario uploads.
+
+`controls.py` converts the entire resolved scenario into editable tables and
+reconstructs it losslessly. Models own validation. `state.py` owns each session's
+draft, applied run, import epoch and selected code. Its LRU memo holds at most
+32 runs, identified by full scenario, ordered destinations, release/model/code
+and actual runtime evidence. Drafts and salaries never enter a global cache.
+Presentation controls do not evaluate; imports stage a draft and require Apply.
+`app.py` exposes the applied run through existing JSON/CSV owners.
+
+`map.py` performs a strict detached code/level/version join with immutable
+geometry, preserving holes and multipart shapes. `presentation.py` projects
+returned values and metric-specific statuses into fixed bins; `details.py`
+presents returned paths, budgets and traces. Map picking uses feature codes,
+with selector/table fallback. PyDeck's no-provider default avoids Streamlit's
+remote themed-basemap fallback; external tiles/tokens are unnecessary. Rendering
+uses stable public chart/editor APIs. Streamlit/PyDeck belong only to the optional
+`map` extra. Phase 6 can extend presentation against these services without
+moving economics into the UI. Observed integration remains blocked; synthetic
+geometry and market values are explicitly distinguished from observed evidence.

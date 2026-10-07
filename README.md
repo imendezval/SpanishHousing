@@ -259,3 +259,53 @@ Phase 5 renders these typed budgets, paths, limits, shortfalls, statuses and
 original market traces. Geometry remains on the repository for a launcher to
 join by municipality code/version. UI controls must call the same evaluator.
 Observed integration remains blocked; synthetic results are never market evidence.
+
+## Local map MVP (Phase 5)
+
+Install optional UI dependencies and launch with explicit inputs:
+
+```bash
+uv sync --locked --extra map
+uv run --locked --extra map spain-housing serve \
+  --defaults configs/defaults.yaml \
+  --scenario configs/scenarios/phase4_room_demo.yaml \
+  --release /absolute/path/to/the-returned-synthetic-release \
+  --allow-synthetic --port 8501
+```
+
+Open `http://127.0.0.1:8501`. Installed packages use the same command after
+`pip install 'spain-housing[map]'`; startup uses that interpreter and the packaged
+launcher, independently of the working directory. Core installations retain the
+CLI and financial engine without Streamlit/PyDeck. `serve` explains the required
+extra when it is absent. The development gate is `bash scripts/check.sh` and
+always includes the map extra; core-only installation is a separate smoke check.
+
+The initial scenario is applied once. Edit the coordinated form and click
+**Apply scenario**. Tables support adding/deleting participants, path milestones,
+living stages and expenses. IDs bind each participant's paths; update those paths
+explicitly after changing IDs. Stages must cover the saving horizon without gaps;
+changing the horizon does not silently adjust them. Percentage fields are labelled
+as percentages; stage rent share is a fraction for the entire saving pool.
+Independent imported geography bindings are retained; fixed-saving evaluation
+remains deferred.
+
+Upload UTF-8 JSON/YAML (maximum 1 MiB), then **Stage imported scenario** and
+**Apply scenario**. Imports use the same safe configuration parser/default merge
+as the CLI. Failed edits/imports retain the previous applied run and show errors.
+Downloads contain that applied scenario, authoritative run JSON and full-precision
+summary CSV using the existing serializers. Downloads do not submit the form.
+Replay requires identical release, code and runtime evidence. For CLI parity,
+pass the released municipality codes in the map's sorted order with `--locations`.
+
+Choose maximum purchase price, affordable area or target affordability. Fixed
+legends have separate missing/unsupported/unviable states; zero remains available
+and ratios can exceed one. The map requires no external tiles or tokens. Select
+polygons or use the municipality selector/table; fit or zoom to released geometry.
+Details show the evaluator's limits, diagnostics, signed cash path, budgets and
+original source/projection/proxy evidence. Financial calculations stay outside
+UI code. Sparse uncovered geography remains uncoloured.
+
+Synthetic releases prominently label **both market values and geometry** as
+fixtures. They demonstrate engineering only: authorized observed-market access
+is still blocked and Phase 5 A11 remains unverified. See
+[Phase 5 progress](docs/progress/PHASE_5.md) for checks and Phase 6 handoff.
