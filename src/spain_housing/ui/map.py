@@ -50,7 +50,10 @@ def decorate(
             raise ValueError(f"map geography/version mismatch for {code}")
         display = metric_value(result, metric)
         detached = feature.model_dump(mode="json")
-        badge = context.kind + (
+        kinds = dict.fromkeys(
+            [context.kind, *(use.observation.evidence_kind for use in result.market_inputs)]
+        )
+        badge = " · ".join(kinds) + (
             " · pooled proxy"
             if any(use.proxy_for_property_type for use in result.market_inputs)
             else ""

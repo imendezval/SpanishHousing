@@ -72,3 +72,25 @@ def test_real_controls_apply_correct_error_and_downloads(release_dir: Path) -> N
     next(button for button in at.button if button.label == "Fit released areas").click().run()
     assert not at.exception and at.session_state["evaluation-count"] == calls
     assert "Synthetic Getafe" in at.subheader[-1].value
+    from spain_housing.config import load_scenario
+    from spain_housing.launcher import compose
+
+    _, services = compose(
+        ROOT / "configs/defaults.yaml",
+        ROOT / "configs/scenarios/phase4_room_demo.yaml",
+        release_dir,
+        allow_synthetic=True,
+    )
+    imported = load_scenario(
+        ROOT / "configs/defaults.yaml", ROOT / "configs/scenarios/phase4_staged_growth_demo.yaml"
+    )
+    session = at.session_state["housing-session"]
+    previous = session.applied
+    assert session.stage_import(services.encode_scenario(imported).encode(), "draft.json", services)
+    at.run()
+    assert not at.exception and at.session_state["housing-session"].applied == previous
+    assert at.session_state["evaluation-count"] == calls
+    assert any("Imported draft awaits Apply" in message.value for message in at.info)
+    next(button for button in at.button if button.label == "Apply scenario").click().run()
+    assert not at.exception
+    assert at.session_state["housing-session"].applied.resolved_scenario == imported
