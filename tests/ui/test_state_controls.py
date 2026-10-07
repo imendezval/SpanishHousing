@@ -130,3 +130,31 @@ def test_participant_removal_and_future_paths_retained() -> None:
     draft["participants"].pop()
     with pytest.raises(ValueError, match="unknown participant"):
         draft_scenario(draft)
+
+
+def test_bounded_session_memo_and_revalidation(release_dir: Path) -> None:
+    args = (
+        ROOT / "configs/defaults.yaml",
+        ROOT / "configs/scenarios/phase4_room_demo.yaml",
+        release_dir,
+    )
+    initial, services = compose(*args, allow_synthetic=True)
+    session = Session(scenario_draft(initial))
+    first_key = cache_key(initial.model_copy(update={"retained_reserve_eur": 0}), services)
+    for reserve in range(33):
+        draft = scenario_draft(initial)
+        draft["base"]["retained_reserve_eur"] = reserve
+        assert session.apply(draft, services)
+    assert len(session.memo) == 32
+    assert first_key not in session.memo
+    assert _snapshot.cache_info().currsize <= 4
+    # Cached immutable resources are intentional; explicit reload must catch
+    # corruption even when the manifest bytes have not changed.
+    artifact = release_dir / "boundaries.geojson"
+    if not artifact.exists():
+        artifact = next(release_dir.rglob("*.geojson"))
+    original = artifact.read_bytes()
+    artifact.write_bytes(original + b" ")
+    compose(*args, allow_synthetic=True)
+    with pytest.raises(ValueError):
+        compose(*args, allow_synthetic=True, reload=True)

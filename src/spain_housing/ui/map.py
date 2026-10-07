@@ -119,8 +119,9 @@ def render_map(features: list[dict[str, Any]], metric: Metric, view: dict[str, f
             "this is not a probability."
         )
     deck = pdk.Deck(
+        # Keep PyDeck's default style sentinel with no provider. Passing an
+        # explicit None/empty style makes Streamlit supply remote themed tiles.
         map_provider=None,
-        map_style=None,
         initial_view_state=pdk.ViewState(**view),
         layers=[
             pdk.Layer(

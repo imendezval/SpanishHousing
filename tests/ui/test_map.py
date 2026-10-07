@@ -1,10 +1,11 @@
+import json
 from pathlib import Path
 
 import pytest
 
 from spain_housing.launcher import compose
 from spain_housing.models.results import Indicator
-from spain_housing.ui.map import LAYER_ID, decorate, selected_code, viewport
+from spain_housing.ui.map import LAYER_ID, decorate, render_map, selected_code, viewport
 from spain_housing.ui.presentation import (
     PALETTE,
     STYLES,
@@ -103,3 +104,20 @@ def test_picking_code_only_and_invalid_events() -> None:
     assert selected_code(event, {"28079"}) is None
     for invalid in [None, {}, {"selection": None}, {"selection": {"indices": {LAYER_ID: [1]}}}]:
         assert selected_code(invalid, {"08019"}) is None
+
+
+def test_rendered_spec_disables_remote_basemap_and_uses_plain_tooltips(monkeypatch):
+    from spain_housing.ui import map as module
+
+    def capture(deck, **options):
+        spec = json.loads(deck.to_json())
+        # Streamlit's supported PyDeck no-provider default; None/empty style
+        # is instead replaced by remote tiles in Streamlit 1.65.
+        assert "mapProvider" not in spec and spec["mapStyle"] == "__MAP_STYLE__"
+        assert set(deck._tooltip) == {"text"}
+        assert options["key"] == "housing-map"
+        return spec
+
+    monkeypatch.setattr(module.st, "markdown", lambda *args, **kwargs: None)
+    monkeypatch.setattr(module.st, "pydeck_chart", capture)
+    render_map([], Metric.PRICE, dict(longitude=-3.5, latitude=40, zoom=4.5))

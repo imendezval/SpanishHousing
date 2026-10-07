@@ -29,3 +29,24 @@ Next: real Chrome browser (installed /usr/bin/google-chrome) verification via
 temporary Playwright 1.63.0 in /tmp/phase5-browser-env; repair actual browser
 findings, then installed core/map wheels. Synthetic release from actual builder:
 /tmp/phase5-releases/synthetic-aabbe497e620ebfbcd43918d972904e788c0453a6e11153a39d593a247489da5.
+
+M5/M6 checkpoint: full gate now passes 310 tests, strict mypy, Ruff, lock and
+10 contracts. Real Chrome 149.0.7827.53 renders all four fixture shapes, hole and
+multipart; hover and code picking work with external requests blocked (none
+attempted). Repaired Streamlit's remote-tile fallback by retaining PyDeck's
+no-provider default; repaired process resource cache lifetime across script
+reruns and made downloads avoid form reruns. Real browser single income edit
+24,000 → 30,000 applies. Dynamic row/status browser automation is still pending;
+do not count A10 as complete yet. Exact UI/CLI JSON/CSV and replay tests pass
+for room and multi-participant staged-growth examples. LRU32 eviction and
+explicit reload catching same-manifest artifact corruption pass.
+
+Fresh wheel environments /tmp/phase5-wheel-core and /tmp/phase5-wheel-map use
+Python 3.12.9. Core has no Streamlit/PyDeck: help, validate-scenario/release,
+evaluate/replay and useful missing-map-extra failure pass outside checkout with
+PYTHONPATH unset. Map wheel imports from site-packages and packaged serve runs
+on loopback 8660 from /tmp. Source/wheel JSON and CSV compare exactly under the
+same installed interpreter/dependencies. Code fingerprint currently
+sha256-edc548eb5d884dfdd822458265eebb7b0091faa03edc47c4cd5dd8ab0cb43cb7.
+Remaining: browser dynamic row edits/imports/statuses/installed downloads,
+final docs/gate/build and A1–A12 evidence/handoff. A11 still blocked, synthetic_only.

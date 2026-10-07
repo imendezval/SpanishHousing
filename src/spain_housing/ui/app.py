@@ -81,12 +81,23 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
         "scenario.json",
         "application/json",
         key="download-scenario",
+        on_click="ignore",
     )
     c2.download_button(
-        "Applied run.json", run_json(run), "run.json", "application/json", key="download-run"
+        "Applied run.json",
+        run_json(run),
+        "run.json",
+        "application/json",
+        key="download-run",
+        on_click="ignore",
     )
     c3.download_button(
-        "Applied summary.csv", summary_csv(run), "summary.csv", "text/csv", key="download-csv"
+        "Applied summary.csv",
+        summary_csv(run),
+        "summary.csv",
+        "text/csv",
+        key="download-csv",
+        on_click="ignore",
     )
     metric = Metric(st.selectbox("Map metric", [m.value for m in Metric], key="display-metric"))
     features = decorate(run, services.context, services.boundaries, metric)

@@ -128,4 +128,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # Streamlit reexecutes its script on reruns. Use the imported module so
+    # immutable release resources retain their bounded process-wide cache.
+    from spain_housing.launcher import main as run_app
+
+    run_app()
