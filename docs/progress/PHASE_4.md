@@ -1,6 +1,6 @@
 # Phase 4 progress
 
-Current milestone: M2. Reviewed baseline `3038f00`. Locked sync and full gate
+Current milestone: M3. M1 checkpoint `05427d9`. Reviewed baseline `3038f00`. Locked sync and full gate
 passed: 227 tests, strict mypy (29 files), Ruff, eight import contracts and lock
 check. User-owned untracked instructions and Phase 2–4 guides are preserved.
 
@@ -16,5 +16,11 @@ Decisions: retain schema version 1 for defaulted settings/results. CLI composes
 the concrete repository; application receives MarketData and immutable context,
 preserving its indirect storage prohibition. Finance remains unchanged.
 
-Next: verify contracts/defaults and import sensitivity; checkpoint M1, then
-implement exact reference selection and pure projections.
+M2 verified: exact profile selection, completed-period freshness, source/basis/
+statistic ambiguity, explicit IDs, strict dimensions and opt-in pooled proxies.
+Original observations remain unchanged; growth uses last covered month and
+positive-finite checks. 27 focused contract/selection/repository tests and strict
+mypy (32 files) passed. A3/A4 verified; no snapshot get behavior changed.
+
+Next: monthly preparation, household shares, participant paths and complete-input
+issues. Keep saving preparation independent of buying location.
