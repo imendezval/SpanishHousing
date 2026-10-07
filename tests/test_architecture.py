@@ -67,3 +67,29 @@ def test_storage_boundaries_detect_forbidden_edges(
     )
     assert result.returncode != 0
     assert "storage boundary" in result.stdout
+
+
+def test_application_indirect_storage_boundary(tmp_path: Path) -> None:
+    package = tmp_path / "spain_housing"
+    package.mkdir()
+    (package / "__init__.py").write_text("")
+    for module in ("application", "markets", "storage"):
+        (package / module).mkdir()
+        (package / module / "__init__.py").write_text("")
+    (package / "application/__init__.py").write_text("import spain_housing.markets\n")
+    (package / "markets/__init__.py").write_text("import spain_housing.storage\n")
+    config = tmp_path / "pyproject.toml"
+    config.write_text(
+        '[tool.importlinter]\nroot_package = "spain_housing"\n'
+        '[[tool.importlinter.contracts]]\nname = "indirect storage"\ntype = "forbidden"\n'
+        'source_modules = ["spain_housing.application"]\n'
+        'forbidden_modules = ["spain_housing.storage"]\n'
+    )
+    result = subprocess.run(
+        ["lint-imports", "--config", str(config)],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode != 0 and "indirect storage" in result.stdout

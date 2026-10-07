@@ -1,6 +1,6 @@
 # Phase 4 progress
 
-Current milestone: M4. M1 checkpoint `05427d9`; M2 `6697a15`. Reviewed baseline `3038f00`. Locked sync and full gate
+Current milestone: M5. M1 `05427d9`; M2 `6697a15`; M3 `e847cfc`. Reviewed baseline `3038f00`. Locked sync and full gate
 passed: 227 tests, strict mypy (29 files), Ruff, eight import contracts and lock
 check. User-owned untracked instructions and Phase 2–4 guides are preserved.
 
@@ -29,5 +29,14 @@ monthly rent and all-flat Getafe work without a room dependency. Exhausted then
 recovered savings retain finance's permanent exhaustion. Full pytest: 255 passed;
 Ruff and strict mypy passed. A5 preparation verified.
 
-Next: local/local orchestration, separate buying-side helper, financial calls,
-partial comparisons, unviable results and actual deterministic version evidence.
+M4 verified: local/local orchestration, reusable destination helper over existing
+savings/borrower finances, engine-only capacity/target calculations, explicit
+partial indicators and unviability. Independent composed values match the guide,
+including cash limit 16333.333…, mortgage limit 225000 and target shortfalls.
+Zero capacity, ratio >1, unbounded cash, A/B geography and deferred fixed-saving
+with no market calls pass. Actual source fingerprint/runtime are recorded.
+Full gate passed 267 tests/37 typed files/eight contracts before adding the pure
+market ninth contract and indirect application/storage sensitivity check.
+A6/A7 verified; A8/A9/A12 pending; A10 remains blocked.
+
+Next: economic export/replay, thin CLI, explicit demo scenarios and integration.

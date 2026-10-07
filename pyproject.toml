@@ -64,6 +64,12 @@ source_modules = ["spain_housing.ingestion"]
 forbidden_modules = ["spain_housing.finance", "spain_housing.markets", "spain_housing.application", "spain_housing.ui", "spain_housing.config", "spain_housing.cli"]
 
 [[tool.importlinter.contracts]]
+name = "pure market rules have no storage dependencies"
+type = "forbidden"
+source_modules = ["spain_housing.markets.selection", "spain_housing.markets.projections"]
+forbidden_modules = ["spain_housing.markets.repository", "spain_housing.storage"]
+
+[[tool.importlinter.contracts]]
 name = "application has no interface or ingestion dependencies"
 type = "forbidden"
 source_modules = ["spain_housing.application"]

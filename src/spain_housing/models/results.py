@@ -96,6 +96,10 @@ class LocationResult(Record):
 
     @model_validator(mode="after")
     def coherent_calculation(self) -> "LocationResult":
+        if self.calculation_status == "available" and (
+            self.savings is None or self.purchase is None
+        ):
+            raise ValueError("available calculation requires savings and purchase capacity")
         if self.purchase is not None and (
             self.savings is None or self.savings.viability != "viable"
         ):
