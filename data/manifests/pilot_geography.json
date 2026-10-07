@@ -1,0 +1,50 @@
+{
+  "capture_ids": [
+    "capture-3621f2cddd5c92d12f23fa015e04c383330f4c6666d8b8988cb1f7a45df936ef",
+    "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52",
+    "capture-999df7a80a7cc0be04146158bdc78439b236ec5a3f192554a8fe44161c769e6c",
+    "capture-ad506f25fb0ca73552d8ab9e0c4abae8b0ee2278eb994cf14284d45cdb49a940",
+    "capture-c3b3378c076c09eeced4cfc7709765149ed513b394f2339e318f1e5068c281ab",
+    "capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81"
+  ],
+  "files": [
+    {
+      "byte_size": 3177,
+      "path": "locations.json",
+      "sha256": "b56ac9627262defe34d4ec3aa2ddf31de6353125b5df4a47e346437a2f7d8040"
+    },
+    {
+      "byte_size": 356690,
+      "path": "boundaries.geojson",
+      "sha256": "ab189f6e9d14e538d47c70b6479f0616f97044c6e913435b9cb2dae570147cfa"
+    }
+  ],
+  "geography": {
+    "attribution": "Obra derivada de IGN AU Unidades administrativas, API snapshot 2026-10-07, CC BY 4.0 ign.es",
+    "boundary_capture_ids": [
+      "capture-3621f2cddd5c92d12f23fa015e04c383330f4c6666d8b8988cb1f7a45df936ef",
+      "capture-999df7a80a7cc0be04146158bdc78439b236ec5a3f192554a8fe44161c769e6c",
+      "capture-ad506f25fb0ca73552d8ab9e0c4abae8b0ee2278eb994cf14284d45cdb49a940",
+      "capture-c3b3378c076c09eeced4cfc7709765149ed513b394f2339e318f1e5068c281ab"
+    ],
+    "boundary_version": "ign-api-2026-10-07-31ee63b9ff4526ac0bb58fe43982ff0e948b942251e727ae02524e746e34e031",
+    "processing_notes": [
+      "Full selected municipal features, including multipart territories and holes; no clipping, simplification or repair.",
+      "In-year INE changes reviewed at retained capture time; no pilot code/name changes.",
+      "IGN service has no advertised official edition; frozen snapshot hashes/time define boundary version."
+    ],
+    "registry_capture_id": "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52",
+    "registry_effective_on": "2026-01-01",
+    "registry_version": "INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab",
+    "source_crs": "OGC:CRS84",
+    "target_crs": "OGC:CRS84"
+  },
+  "kind": "official_geography_only",
+  "municipal_codes": [
+    "08019",
+    "23050",
+    "28065",
+    "28079"
+  ],
+  "not_a_market_release": true
+}

@@ -1,0 +1,9 @@
+profile_id,source_location,geographic_scope,raw_value,raw_unit,period_start,period_end,statistic,basis,source_locator,evidence_kind,estimation_method,quality_notes
+sale,Synthetic Madrid,municipality,3.000,€/m²,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 1,synthetic,,Self-authored fixture; no market evidence
+rent,Synthetic Madrid,municipality,"12,5",€/m²/mes,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 2,synthetic,,Self-authored fixture; bills unknown
+sale,Synthetic Barcelona,municipality,2.500,€/m²,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 3,synthetic,,Self-authored fixture; no market evidence
+rent,Synthetic Barcelona,municipality,"10,2",€/m²/mes,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 4,synthetic,,Self-authored fixture; bills unknown
+sale,Synthetic Jaén,municipality,1.000,€/m²,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 5,synthetic,,Self-authored fixture; no market evidence
+rent,Synthetic Jaén,municipality,"6,5",€/m²/mes,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 6,synthetic,,Self-authored fixture; bills unknown
+sale,Synthetic Getafe,municipality,1.800,€/m²,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 7,synthetic,,Self-authored fixture; no market evidence
+rent,Synthetic Getafe,municipality,"8,3",€/m²/mes,2026-09-01,2026-10-01,weighted_zonal_medians,asking,row 8,synthetic,,Self-authored fixture; bills unknown

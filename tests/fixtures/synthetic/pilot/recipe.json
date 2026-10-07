@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic",
+  "processing_version": "pilot-v1",
+  "producer": {
+    "revision": "self-authored-fixture-v1"
+  },
+  "recipe_timestamp": "2026-10-07T00:00:00Z",
+  "numeric_format": "es",
+  "locations": [
+    {
+      "location": {
+        "level": "municipality",
+        "code": "28079"
+      },
+      "official_name": "Synthetic Madrid",
+      "province_code": "28",
+      "control_digit": "0",
+      "registry_version": "synthetic-registry-v1",
+      "verification_evidence": "Self-authored registry; not official INE evidence",
+      "geometry_feature_id": "fixture-28079",
+      "geometry_national_code": "fixture-28079",
+      "boundary_version": "synthetic-boundary-v1",
+      "core": true,
+      "source_mappings": [
+        {
+          "source_id": "synthetic:prices",
+          "label": "Synthetic Madrid",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "synthetic:rooms",
+          "label": "Synthetic Madrid",
+          "scope": "municipality"
+        }
+      ]
+    },
+    {
+      "location": {
+        "level": "municipality",
+        "code": "08019"
+      },
+      "official_name": "Synthetic Barcelona",
+      "province_code": "08",
+      "control_digit": "0",
+      "registry_version": "synthetic-registry-v1",
+      "verification_evidence": "Self-authored registry; not official INE evidence",
+      "geometry_feature_id": "fixture-08019",
+      "geometry_national_code": "fixture-08019",
+      "boundary_version": "synthetic-boundary-v1",
+      "core": true,
+      "source_mappings": [
+        {
+          "source_id": "synthetic:prices",
+          "label": "Synthetic Barcelona",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "synthetic:rooms",
+          "label": "Synthetic Barcelona",
+          "scope": "municipality"
+        }
+      ]
+    },
+    {
+      "location": {
+        "level": "municipality",
+        "code": "23050"
+      },
+      "official_name": "Synthetic Jaén",
+      "province_code": "23",
+      "control_digit": "0",
+      "registry_version": "synthetic-registry-v1",
+      "verification_evidence": "Self-authored registry; not official INE evidence",
+      "geometry_feature_id": "fixture-23050",
+      "geometry_national_code": "fixture-23050",
+      "boundary_version": "synthetic-boundary-v1",
+      "core": true,
+      "source_mappings": [
+        {
+          "source_id": "synthetic:prices",
+          "label": "Synthetic Jaén",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "synthetic:rooms",
+          "label": "Synthetic Jaén",
+          "scope": "municipality"
+        }
+      ]
+    },
+    {
+      "location": {
+        "level": "municipality",
+        "code": "28065"
+      },
+      "official_name": "Synthetic Getafe",
+      "province_code": "28",
+      "control_digit": "0",
+      "registry_version": "synthetic-registry-v1",
+      "verification_evidence": "Self-authored registry; not official INE evidence",
+      "geometry_feature_id": "fixture-28065",
+      "geometry_national_code": "fixture-28065",
+      "boundary_version": "synthetic-boundary-v1",
+      "core": false,
+      "source_mappings": [
+        {
+          "source_id": "synthetic:prices",
+          "label": "Synthetic Getafe",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "synthetic:rooms",
+          "label": "Synthetic Getafe",
+          "scope": "municipality"
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "sale",
+      "source_id": "synthetic:prices",
+      "metric": "purchase_price_per_m2",
+      "period_start": "2026-09-01",
+      "period_end": "2026-10-01",
+      "segment": {
+        "property_type": "pooled"
+      },
+      "statistic": "weighted_zonal_medians",
+      "basis": "asking"
+    },
+    {
+      "profile_id": "rent",
+      "source_id": "synthetic:prices",
+      "metric": "whole_home_rent_per_m2_month",
+      "period_start": "2026-09-01",
+      "period_end": "2026-10-01",
+      "segment": {
+        "property_type": "pooled"
+      },
+      "statistic": "weighted_zonal_medians",
+      "basis": "asking"
+    },
+    {
+      "profile_id": "room",
+      "source_id": "synthetic:rooms",
+      "metric": "room_rent_per_month",
+      "period_start": "2026-04-01",
+      "period_end": "2026-07-01",
+      "segment": {
+        "property_type": "room"
+      },
+      "statistic": "mean",
+      "basis": "asking"
+    }
+  ],
+  "decisions": [
+    {
+      "source_id": "synthetic:prices",
+      "product": "Self-authored synthetic fixture",
+      "primary_url": null,
+      "terms_url": null,
+      "local_use": "permitted",
+      "redistribution": "permitted",
+      "evidence_reference": "self-authored fixture, no provider data",
+      "attribution": "Synthetic fixture authored for SpanishHousing tests",
+      "reviewed_on": "2026-10-07",
+      "acquisition_route": "synthetic_fixture",
+      "notes": [
+        "Never an observed dataset."
+      ]
+    },
+    {
+      "source_id": "synthetic:rooms",
+      "product": "Self-authored synthetic fixture",
+      "primary_url": null,
+      "terms_url": null,
+      "local_use": "permitted",
+      "redistribution": "permitted",
+      "evidence_reference": "self-authored fixture, no provider data",
+      "attribution": "Synthetic fixture authored for SpanishHousing tests",
+      "reviewed_on": "2026-10-07",
+      "acquisition_route": "synthetic_fixture",
+      "notes": [
+        "Never an observed dataset."
+      ]
+    },
+    {
+      "source_id": "synthetic:geography",
+      "product": "Self-authored synthetic fixture",
+      "primary_url": null,
+      "terms_url": null,
+      "local_use": "permitted",
+      "redistribution": "permitted",
+      "evidence_reference": "self-authored fixture, no provider data",
+      "attribution": "Synthetic fixture authored for SpanishHousing tests",
+      "reviewed_on": "2026-10-07",
+      "acquisition_route": "synthetic_fixture",
+      "notes": [
+        "Never an observed dataset."
+      ]
+    }
+  ],
+  "captures": [
+    {
+      "capture_id": "prices",
+      "source_id": "synthetic:prices",
+      "path": "prices.csv",
+      "sha256": "5201fed0c08593b39a0203299b735accdc4c74e5a942d90a33cd0ccc03f0b0fa",
+      "byte_size": 1446,
+      "primary_url": null,
+      "captured_at": "2026-10-07T00:00:00Z",
+      "source_release": "synthetic-fixture-v1",
+      "route": "synthetic_fixture",
+      "format": "csv",
+      "permission_reference": "self-authored fixture, no provider data"
+    },
+    {
+      "capture_id": "registry",
+      "source_id": "synthetic:geography",
+      "path": "registry.csv",
+      "sha256": "76875d2f9767500b844e32434e81fccbd470790a15a750c5988c2015edf34e54",
+      "byte_size": 126,
+      "primary_url": null,
+      "captured_at": "2026-10-07T00:00:00Z",
+      "source_release": "synthetic-fixture-v1",
+      "route": "synthetic_fixture",
+      "format": "csv",
+      "permission_reference": "self-authored fixture, no provider data"
+    },
+    {
+      "capture_id": "rooms",
+      "source_id": "synthetic:rooms",
+      "path": "rooms.csv",
+      "sha256": "196d854e51eae182c59100515ce118eca99682ed266bf80ba865f664042735c2",
+      "byte_size": 571,
+      "primary_url": null,
+      "captured_at": "2026-10-07T00:00:00Z",
+      "source_release": "synthetic-fixture-v1",
+      "route": "synthetic_fixture",
+      "format": "csv",
+      "permission_reference": "self-authored fixture, no provider data"
+    },
+    {
+      "capture_id": "boundaries",
+      "source_id": "synthetic:geography",
+      "path": "boundaries.geojson",
+      "sha256": "cbeb6af669bfda1b639ab94b2ba721e37695823a5f1aae223ef8d6dd3a5384a5",
+      "byte_size": 1168,
+      "primary_url": null,
+      "captured_at": "2026-10-07T00:00:00Z",
+      "source_release": "synthetic-fixture-v1",
+      "route": "synthetic_fixture",
+      "format": "geojson",
+      "permission_reference": "self-authored fixture, no provider data"
+    }
+  ],
+  "observation_capture_ids": [
+    "prices",
+    "rooms"
+  ],
+  "geography": {
+    "registry_capture_id": "registry",
+    "boundary_capture_ids": [
+      "boundaries"
+    ],
+    "registry_version": "synthetic-registry-v1",
+    "registry_effective_on": "2026-01-01",
+    "boundary_version": "synthetic-boundary-v1",
+    "source_crs": "OGC:CRS84",
+    "target_crs": "OGC:CRS84",
+    "attribution": "Self-authored synthetic geometry; not IGN",
+    "processing_notes": [
+      "No simplification or repair; synthetic polygons for tests only"
+    ]
+  },
+  "declared_gaps": [
+    {
+      "location_code": "28065",
+      "profile_id": "room",
+      "status": "missing",
+      "reason": "Self-authored gap case: room rent deliberately absent"
+    }
+  ],
+  "limitations": [
+    "Wholly synthetic; no real data or municipal geometry"
+  ]
+}

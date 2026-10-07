@@ -1,0 +1,4 @@
+profile_id,source_location,geographic_scope,raw_value,raw_unit,period_start,period_end,statistic,basis,source_locator,evidence_kind,estimation_method,quality_notes
+room,Synthetic Madrid,municipality,300,€/mes,2026-04-01,2026-07-01,mean,asking,row 1,synthetic,,Self-authored fixture; bills unknown
+room,Synthetic Barcelona,municipality,350,€/mes,2026-04-01,2026-07-01,mean,asking,row 2,synthetic,,Self-authored fixture; bills unknown
+room,Synthetic Jaén,municipality,150,€/mes,2026-04-01,2026-07-01,mean,asking,row 3,synthetic,,Self-authored fixture; bills unknown

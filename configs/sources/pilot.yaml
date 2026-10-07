@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "kind": "observed",
+  "processing_version": "pilot-v1",
+  "producer": {
+    "revision": "3e8240f",
+    "dirty_fingerprint": "3466e8803b7cb6f98a90a15048c7f3423baaf5884a53486ad3a7275bf6fe6013"
+  },
+  "recipe_timestamp": "2026-10-07T16:00:00Z",
+  "numeric_format": "es",
+  "locations": [
+    {
+      "location": {
+        "level": "municipality",
+        "code": "28079"
+      },
+      "official_name": "Madrid",
+      "province_code": "28",
+      "control_digit": "6",
+      "registry_version": "INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab",
+      "verification_evidence": "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52; in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81",
+      "geometry_feature_id": "1173581",
+      "geometry_national_code": "34132828079",
+      "boundary_version": "ign-api-2026-10-07-31ee63b9ff4526ac0bb58fe43982ff0e948b942251e727ae02524e746e34e031",
+      "core": true,
+      "source_mappings": [
+        {
+          "source_id": "idealista_price_report",
+          "label": "Madrid",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "idealista_room_report",
+          "label": "Madrid",
+          "scope": "municipality"
+        }
+      ]
+    },
+    {
+      "location": {
+        "level": "municipality",
+        "code": "08019"
+      },
+      "official_name": "Barcelona",
+      "province_code": "08",
+      "control_digit": "3",
+      "registry_version": "INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab",
+      "verification_evidence": "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52; in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81",
+      "geometry_feature_id": "1171331",
+      "geometry_national_code": "34090808019",
+      "boundary_version": "ign-api-2026-10-07-31ee63b9ff4526ac0bb58fe43982ff0e948b942251e727ae02524e746e34e031",
+      "core": true,
+      "source_mappings": [
+        {
+          "source_id": "idealista_price_report",
+          "label": "Barcelona",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "idealista_room_report",
+          "label": "Barcelona",
+          "scope": "municipality"
+        }
+      ]
+    },
+    {
+      "location": {
+        "level": "municipality",
+        "code": "23050"
+      },
+      "official_name": "Jaén",
+      "province_code": "23",
+      "control_digit": "3",
+      "registry_version": "INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab",
+      "verification_evidence": "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52; in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81",
+      "geometry_feature_id": "1166762",
+      "geometry_national_code": "34012323050",
+      "boundary_version": "ign-api-2026-10-07-31ee63b9ff4526ac0bb58fe43982ff0e948b942251e727ae02524e746e34e031",
+      "core": true,
+      "source_mappings": [
+        {
+          "source_id": "idealista_price_report",
+          "label": "Jaén",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "idealista_room_report",
+          "label": "Jaén",
+          "scope": "municipality"
+        }
+      ]
+    },
+    {
+      "location": {
+        "level": "municipality",
+        "code": "28065"
+      },
+      "official_name": "Getafe",
+      "province_code": "28",
+      "control_digit": "0",
+      "registry_version": "INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab",
+      "verification_evidence": "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52; in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81",
+      "geometry_feature_id": "1173568",
+      "geometry_national_code": "34132828065",
+      "boundary_version": "ign-api-2026-10-07-31ee63b9ff4526ac0bb58fe43982ff0e948b942251e727ae02524e746e34e031",
+      "core": false,
+      "source_mappings": [
+        {
+          "source_id": "idealista_price_report",
+          "label": "Getafe",
+          "scope": "municipality"
+        },
+        {
+          "source_id": "idealista_room_report",
+          "label": "Getafe",
+          "scope": "municipality"
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "profile_id": "sale",
+      "source_id": "idealista_price_report",
+      "metric": "purchase_price_per_m2",
+      "period_start": "2026-09-01",
+      "period_end": "2026-10-01",
+      "segment": {
+        "property_type": "pooled"
+      },
+      "statistic": "weighted_zonal_medians",
+      "basis": "asking"
+    },
+    {
+      "profile_id": "rent",
+      "source_id": "idealista_price_report",
+      "metric": "whole_home_rent_per_m2_month",
+      "period_start": "2026-09-01",
+      "period_end": "2026-10-01",
+      "segment": {
+        "property_type": "pooled"
+      },
+      "statistic": "weighted_zonal_medians",
+      "basis": "asking"
+    },
+    {
+      "profile_id": "room",
+      "source_id": "idealista_room_report",
+      "metric": "room_rent_per_month",
+      "period_start": "2026-04-01",
+      "period_end": "2026-07-01",
+      "segment": {
+        "property_type": "room"
+      },
+      "statistic": "mean",
+      "basis": "asking"
+    }
+  ],
+  "decisions": [
+    {
+      "source_id": "idealista_price_report",
+      "product": "September 2026 pooled-home asking sale and rental indicators",
+      "primary_url": "https://www.idealista.com/sala-de-prensa/informes-precio-vivienda/venta/report/",
+      "terms_url": "https://www.idealista.com/ayuda/articulos/terminos-y-condiciones-generales-de-idealista/",
+      "local_use": "restricted",
+      "redistribution": "unresolved",
+      "evidence_reference": "general terms section 4, reviewed 2026-10-07; no product-specific permission supplied",
+      "attribution": "idealista; attribution does not establish acquisition permission",
+      "reviewed_on": "2026-10-07",
+      "acquisition_route": "blocked pending permission or an explicitly approved replacement profile",
+      "notes": [
+        "The report is currently labelled September 2026. No primary bytes or new derived market rows were retained.",
+        "General terms restrict automated and manual copying without written permission. Methodology attribution language does not resolve that restriction.",
+        "Reviewed alternative https://www.idealista.com/data/asesoramiento-inmobiliario-tecnologico/api-comparables-y-metricas/: API/exports invite contact; no unrestricted route or contract was established.",
+        "Affected: sale and whole-home rent for Madrid, Barcelona, Jaén and Getafe. Preserve asking basis and weighted_zonal_medians; do not substitute valuations or tax rents."
+      ]
+    },
+    {
+      "source_id": "idealista_room_report",
+      "product": "Q2 2026 reported city mean room asking rent",
+      "primary_url": "https://www.idealista.com/sala-de-prensa/notas-de-prensa/2026/08/24/266632-la-oferta-de-habitaciones-se-dispara-un-12-y-el-precio-se-queda-casi-plano",
+      "terms_url": "https://www.idealista.com/ayuda/articulos/terminos-y-condiciones-generales-de-idealista/",
+      "local_use": "restricted",
+      "redistribution": "unresolved",
+      "evidence_reference": "general terms section 4, reviewed 2026-10-07; no press-release data permission supplied",
+      "attribution": "idealista",
+      "reviewed_on": "2026-10-07",
+      "acquisition_route": "blocked pending permission; no scraping or curation workaround",
+      "notes": [
+        "Affected: Madrid, Barcelona and Jaén room observations. Getafe is an independently unsourced gap.",
+        "Reference interval must remain 2026-04-01 to 2026-07-01, separate from the August publication and capture timestamp.",
+        "No alternative reviewed route established municipal room coverage and permitted acquisition. Bills and detailed room segments remain unknown."
+      ]
+    },
+    {
+      "source_id": "ine-municipalities",
+      "product": "INE municipality code dictionary at 2026-01-01 and in-year changes",
+      "primary_url": "https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx",
+      "terms_url": "https://www.ine.es/dyngs/AYU/index.htm?cid=125",
+      "local_use": "permitted",
+      "redistribution": "permitted",
+      "evidence_reference": "INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed 2026-10-07",
+      "attribution": "Elaboración propia con datos extraídos del sitio web del INE: www.ine.es; reference 2026-01-01, published 2026-02-04",
+      "reviewed_on": "2026-10-07",
+      "acquisition_route": "official XLSX download and retained in-year-change review",
+      "notes": [
+        "INE assigns the municipal codes; five digits exclude the separate control digit.",
+        "Current operation links https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx and https://www.ine.es/daco/daco42/codmun/codmun_anual.htm.",
+        "The reviewed in-year change list contains no changes to the four pilot municipalities. Do not imply INE endorsement."
+      ]
+    },
+    {
+      "source_id": "ign-administrativeunit",
+      "product": "IGN administrativeunit municipality polygons, frozen API snapshot",
+      "primary_url": "https://api-features.ign.es/collections/administrativeunit?f=json",
+      "terms_url": "https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf",
+      "local_use": "permitted",
+      "redistribution": "permitted",
+      "evidence_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+      "attribution": "Obra derivada de IGN AU Unidades administrativas, API snapshot 2026-10-07, CC BY 4.0 ign.es",
+      "reviewed_on": "2026-10-07",
+      "acquisition_route": "bounded official API GeoJSON, complete municipality features in OGC:CRS84",
+      "notes": [
+        "The collection advertises OGC:CRS84 storage and separate municipality/province features. No invented official edition: snapshot is identified by capture timestamps and hashes.",
+        "Selected features preserve multipart territories and holes; no repair, clipping or simplification.",
+        "Retain attribution for a later map. Metadata/queryables/items were inspected before selecting identifiers."
+      ]
+    }
+  ],
+  "captures": [
+    {
+      "capture_id": "capture-3621f2cddd5c92d12f23fa015e04c383330f4c6666d8b8988cb1f7a45df936ef",
+      "source_id": "ign-administrativeunit",
+      "path": "captures/734411b5a56bf011e3cbeb7d3ef0ab85e84e5db4e7a2b54b4a4927b4e2738e4e.geojson",
+      "sha256": "734411b5a56bf011e3cbeb7d3ef0ab85e84e5db4e7a2b54b4a4927b4e2738e4e",
+      "byte_size": 4073333,
+      "primary_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Madrid&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "resolved_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Madrid&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "captured_at": "2026-10-07T15:57:21.188697Z",
+      "published_on": null,
+      "source_release": null,
+      "methodology_version": null,
+      "route": "provider_download",
+      "format": "geojson",
+      "permission_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+      "http_status": 200,
+      "content_type": "application/json"
+    },
+    {
+      "capture_id": "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52",
+      "source_id": "ine-municipalities",
+      "path": "captures/07f8e8d64eba73fe9d425196fe82f4e09a9886a287abd650e88ca8d98dd49052.xlsx",
+      "sha256": "07f8e8d64eba73fe9d425196fe82f4e09a9886a287abd650e88ca8d98dd49052",
+      "byte_size": 306819,
+      "primary_url": "https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx",
+      "resolved_url": "https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx",
+      "captured_at": "2026-10-07T15:57:19.514434Z",
+      "published_on": "2026-02-04",
+      "source_release": "INE 2026-01-01",
+      "methodology_version": null,
+      "route": "provider_download",
+      "format": "xlsx",
+      "permission_reference": "INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed 2026-10-07",
+      "http_status": 200,
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "capture_id": "capture-999df7a80a7cc0be04146158bdc78439b236ec5a3f192554a8fe44161c769e6c",
+      "source_id": "ign-administrativeunit",
+      "path": "captures/0207a42ddc609ecee513ba344f63bc3b6ccf6d42884db66003f8a0182bfe4308.geojson",
+      "sha256": "0207a42ddc609ecee513ba344f63bc3b6ccf6d42884db66003f8a0182bfe4308",
+      "byte_size": 6169390,
+      "primary_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Barcelona&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "resolved_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Barcelona&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "captured_at": "2026-10-07T15:57:22.912720Z",
+      "published_on": null,
+      "source_release": null,
+      "methodology_version": null,
+      "route": "provider_download",
+      "format": "geojson",
+      "permission_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+      "http_status": 200,
+      "content_type": "application/json"
+    },
+    {
+      "capture_id": "capture-ad506f25fb0ca73552d8ab9e0c4abae8b0ee2278eb994cf14284d45cdb49a940",
+      "source_id": "ign-administrativeunit",
+      "path": "captures/4ddf6adb463cd0a05fc60d9c7700251b275c21f54925a892ddd79e567a1f57cb.geojson",
+      "sha256": "4ddf6adb463cd0a05fc60d9c7700251b275c21f54925a892ddd79e567a1f57cb",
+      "byte_size": 1854335,
+      "primary_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Ja%C3%A9n&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "resolved_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Ja%C3%A9n&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "captured_at": "2026-10-07T15:57:23.715020Z",
+      "published_on": null,
+      "source_release": null,
+      "methodology_version": null,
+      "route": "provider_download",
+      "format": "geojson",
+      "permission_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+      "http_status": 200,
+      "content_type": "application/json"
+    },
+    {
+      "capture_id": "capture-c3b3378c076c09eeced4cfc7709765149ed513b394f2339e318f1e5068c281ab",
+      "source_id": "ign-administrativeunit",
+      "path": "captures/a297078e182191a70a419c84aed89612d614da4ca1773b1f79c57740aaf01d67.geojson",
+      "sha256": "a297078e182191a70a419c84aed89612d614da4ca1773b1f79c57740aaf01d67",
+      "byte_size": 216138,
+      "primary_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Getafe&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "resolved_url": "https://api-features.ign.es/collections/administrativeunit/items?nameunit=Getafe&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84",
+      "captured_at": "2026-10-07T15:57:24.084908Z",
+      "published_on": null,
+      "source_release": null,
+      "methodology_version": null,
+      "route": "provider_download",
+      "format": "geojson",
+      "permission_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+      "http_status": 200,
+      "content_type": "application/json"
+    },
+    {
+      "capture_id": "capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81",
+      "source_id": "ine-municipalities",
+      "path": "captures/0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab.html",
+      "sha256": "0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab",
+      "byte_size": 26888,
+      "primary_url": "https://www.ine.es/daco/daco42/codmun/codmun_anual.htm",
+      "resolved_url": "https://www.ine.es/daco/daco42/codmun/codmun_anual.htm",
+      "captured_at": "2026-10-07T15:57:19.792778Z",
+      "published_on": null,
+      "source_release": null,
+      "methodology_version": null,
+      "route": "provider_download",
+      "format": "html",
+      "permission_reference": "INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed 2026-10-07",
+      "http_status": 200,
+      "content_type": "text/html"
+    }
+  ],
+  "observation_capture_ids": [],
+  "geography": {
+    "registry_capture_id": "capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52",
+    "boundary_capture_ids": [
+      "capture-3621f2cddd5c92d12f23fa015e04c383330f4c6666d8b8988cb1f7a45df936ef",
+      "capture-999df7a80a7cc0be04146158bdc78439b236ec5a3f192554a8fe44161c769e6c",
+      "capture-ad506f25fb0ca73552d8ab9e0c4abae8b0ee2278eb994cf14284d45cdb49a940",
+      "capture-c3b3378c076c09eeced4cfc7709765149ed513b394f2339e318f1e5068c281ab"
+    ],
+    "registry_version": "INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab",
+    "registry_effective_on": "2026-01-01",
+    "boundary_version": "ign-api-2026-10-07-31ee63b9ff4526ac0bb58fe43982ff0e948b942251e727ae02524e746e34e031",
+    "source_crs": "OGC:CRS84",
+    "target_crs": "OGC:CRS84",
+    "attribution": "Obra derivada de IGN AU Unidades administrativas, API snapshot 2026-10-07, CC BY 4.0 ign.es",
+    "processing_notes": [
+      "Full selected municipal features, including multipart territories and holes; no clipping, simplification or repair.",
+      "In-year INE changes reviewed at retained capture time; no pilot code/name changes.",
+      "IGN service has no advertised official edition; frozen snapshot hashes/time define boundary version."
+    ]
+  },
+  "declared_gaps": [
+    {
+      "location_code": "28079",
+      "profile_id": "sale",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "28079",
+      "profile_id": "rent",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "28079",
+      "profile_id": "room",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "08019",
+      "profile_id": "sale",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "08019",
+      "profile_id": "rent",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "08019",
+      "profile_id": "room",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "23050",
+      "profile_id": "sale",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "23050",
+      "profile_id": "rent",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "23050",
+      "profile_id": "room",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "28065",
+      "profile_id": "sale",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "28065",
+      "profile_id": "rent",
+      "status": "missing",
+      "reason": "Market acquisition blocked: no source-specific copying/local-use permission"
+    },
+    {
+      "location_code": "28065",
+      "profile_id": "room",
+      "status": "missing",
+      "reason": "Room rent has no independent Getafe source"
+    }
+  ],
+  "limitations": [
+    "BLOCKED observed recipe: nine core market cells are not captured; no observed release may be built until permitted inputs/decisions are supplied.",
+    "Pooled asking indicators cannot satisfy flat/house-specific requests; room reference is Q2, not September."
+  ]
+}

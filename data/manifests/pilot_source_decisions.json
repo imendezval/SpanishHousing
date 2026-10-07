@@ -1,0 +1,71 @@
+[
+  {
+    "source_id": "idealista_price_report",
+    "product": "September 2026 pooled-home asking sale and rental indicators",
+    "primary_url": "https://www.idealista.com/sala-de-prensa/informes-precio-vivienda/venta/report/",
+    "terms_url": "https://www.idealista.com/ayuda/articulos/terminos-y-condiciones-generales-de-idealista/",
+    "local_use": "restricted",
+    "redistribution": "unresolved",
+    "evidence_reference": "general terms section 4, reviewed 2026-10-07; no product-specific permission supplied",
+    "attribution": "idealista; attribution does not establish acquisition permission",
+    "reviewed_on": "2026-10-07",
+    "acquisition_route": "blocked pending permission or an explicitly approved replacement profile",
+    "notes": [
+      "The report is currently labelled September 2026. No primary bytes or new derived market rows were retained.",
+      "General terms restrict automated and manual copying without written permission. Methodology attribution language does not resolve that restriction.",
+      "Reviewed alternative https://www.idealista.com/data/asesoramiento-inmobiliario-tecnologico/api-comparables-y-metricas/: API/exports invite contact; no unrestricted route or contract was established.",
+      "Affected: sale and whole-home rent for Madrid, Barcelona, Jaén and Getafe. Preserve asking basis and weighted_zonal_medians; do not substitute valuations or tax rents."
+    ]
+  },
+  {
+    "source_id": "idealista_room_report",
+    "product": "Q2 2026 reported city mean room asking rent",
+    "primary_url": "https://www.idealista.com/sala-de-prensa/notas-de-prensa/2026/08/24/266632-la-oferta-de-habitaciones-se-dispara-un-12-y-el-precio-se-queda-casi-plano",
+    "terms_url": "https://www.idealista.com/ayuda/articulos/terminos-y-condiciones-generales-de-idealista/",
+    "local_use": "restricted",
+    "redistribution": "unresolved",
+    "evidence_reference": "general terms section 4, reviewed 2026-10-07; no press-release data permission supplied",
+    "attribution": "idealista",
+    "reviewed_on": "2026-10-07",
+    "acquisition_route": "blocked pending permission; no scraping or curation workaround",
+    "notes": [
+      "Affected: Madrid, Barcelona and Jaén room observations. Getafe is an independently unsourced gap.",
+      "Reference interval must remain 2026-04-01 to 2026-07-01, separate from the August publication and capture timestamp.",
+      "No alternative reviewed route established municipal room coverage and permitted acquisition. Bills and detailed room segments remain unknown."
+    ]
+  },
+  {
+    "source_id": "ine-municipalities",
+    "product": "INE municipality code dictionary at 2026-01-01 and in-year changes",
+    "primary_url": "https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx",
+    "terms_url": "https://www.ine.es/dyngs/AYU/index.htm?cid=125",
+    "local_use": "permitted",
+    "redistribution": "permitted",
+    "evidence_reference": "INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed 2026-10-07",
+    "attribution": "Elaboración propia con datos extraídos del sitio web del INE: www.ine.es; reference 2026-01-01, published 2026-02-04",
+    "reviewed_on": "2026-10-07",
+    "acquisition_route": "official XLSX download and retained in-year-change review",
+    "notes": [
+      "INE assigns the municipal codes; five digits exclude the separate control digit.",
+      "Current operation links https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx and https://www.ine.es/daco/daco42/codmun/codmun_anual.htm.",
+      "The reviewed in-year change list contains no changes to the four pilot municipalities. Do not imply INE endorsement."
+    ]
+  },
+  {
+    "source_id": "ign-administrativeunit",
+    "product": "IGN administrativeunit municipality polygons, frozen API snapshot",
+    "primary_url": "https://api-features.ign.es/collections/administrativeunit?f=json",
+    "terms_url": "https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf",
+    "local_use": "permitted",
+    "redistribution": "permitted",
+    "evidence_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+    "attribution": "Obra derivada de IGN AU Unidades administrativas, API snapshot 2026-10-07, CC BY 4.0 ign.es",
+    "reviewed_on": "2026-10-07",
+    "acquisition_route": "bounded official API GeoJSON, complete municipality features in OGC:CRS84",
+    "notes": [
+      "The collection advertises OGC:CRS84 storage and separate municipality/province features. No invented official edition: snapshot is identified by capture timestamps and hashes.",
+      "Selected features preserve multipart territories and holes; no repair, clipping or simplification.",
+      "Retain attribution for a later map. Metadata/queryables/items were inspected before selecting identifiers."
+    ]
+  }
+]

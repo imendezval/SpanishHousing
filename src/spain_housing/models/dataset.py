@@ -14,7 +14,7 @@ from pydantic import (
     model_validator,
 )
 
-from .base import Month, Offset, Record, SchemaVersion
+from .base import FiniteAmount, Month, Offset, Record, SchemaVersion
 from .market import MarketBasis, MarketMetric, MarketObservation, MarketSegment, MarketStatistic
 from .scenario import GeographicReference
 
@@ -23,6 +23,7 @@ Digest = Annotated[str, StringConstraints(strict=True, pattern=r"^[a-f0-9]{64}$"
 Identifier = Annotated[str, StringConstraints(strict=True, pattern=r"^[A-Za-z0-9:_-]+$")]
 MunicipalCode = Annotated[str, StringConstraints(strict=True, pattern=r"^\d{5}$")]
 UsageScope = Literal["permitted", "restricted", "unresolved"]
+FileRole = Literal["observations", "locations", "boundaries", "coverage"]
 
 
 def relative_path(value: str) -> str:
@@ -100,6 +101,7 @@ class LocationRecord(Record):
     registry_version: Text
     verification_evidence: Text
     geometry_feature_id: Text
+    geometry_national_code: Text
     boundary_version: Text
     core: StrictBool = True
     source_mappings: tuple[SourceLocationMapping, ...]
@@ -171,6 +173,7 @@ class GeographyMetadata(Record):
 class ProducerEvidence(Record):
     revision: Text
     dirty_fingerprint: Digest | None = None
+    code_fingerprint: Digest | None = None
 
 
 class BuildRecipe(Record):
@@ -227,7 +230,7 @@ class ReleasedObservation(Record):
 
 class FileRecord(Record):
     path: Text
-    role: Literal["observations", "locations", "boundaries", "coverage"]
+    role: FileRole
     sha256: Digest
     byte_size: Offset
     record_count: Offset
@@ -257,3 +260,36 @@ class ReleaseManifest(Record):
     @property
     def kind(self) -> Literal["observed", "synthetic"]:
         return self.recipe.kind
+
+
+Position = tuple[FiniteAmount, FiniteAmount]
+Ring = tuple[Position, ...]
+PolygonCoordinates = tuple[Ring, ...]
+
+
+class PolygonGeometry(Record):
+    type: Literal["Polygon"]
+    coordinates: PolygonCoordinates
+
+
+class MultiPolygonGeometry(Record):
+    type: Literal["MultiPolygon"]
+    coordinates: tuple[PolygonCoordinates, ...]
+
+
+class BoundaryProperties(Record):
+    location_code: MunicipalCode
+    boundary_version: Text
+
+
+class BoundaryFeature(Record):
+    type: Literal["Feature"] = "Feature"
+    id: Text
+    properties: BoundaryProperties
+    geometry: Annotated[PolygonGeometry | MultiPolygonGeometry, Field(discriminator="type")]
+
+
+class BoundaryCollection(Record):
+    type: Literal["FeatureCollection"] = "FeatureCollection"
+    crs: Literal["OGC:CRS84"] = "OGC:CRS84"
+    features: tuple[BoundaryFeature, ...]
