@@ -17,6 +17,24 @@ from spain_housing.models.scenario import AmountPath, GeographicReference, Scena
 MADRID = GeographicReference(level="municipality", code="28079")
 
 
+@pytest.mark.parametrize("code", ["28065", "99999"])
+def test_all_discovered_issues_unsupported_precedes_missing(
+    release_dir: Path, scenario: Scenario, code: str
+) -> None:
+    data = scenario.model_dump(mode="json")
+    data["living_stages"][1].update(rental_area_m2=None, bedrooms=2)
+    repo = SnapshotMarketRepository.from_release(release_dir, allow_synthetic=True)
+    issue = prepare_savings(
+        Scenario.model_validate(data),
+        saving_location=GeographicReference(level="municipality", code=code),
+        market_data=repo,
+        context=repo.evaluation_context,
+    )
+    assert isinstance(issue, PreparationIssue) and issue.status == "unsupported"
+    assert {part.status for part in issue.issues} == {"missing", "unsupported"}
+    assert len(issue.issues) == 2
+
+
 @pytest.mark.parametrize(
     "kind,expected",
     [("linear", [100, 150, 200, 150, 100, 100]), ("step", [100, 100, 200, 200, 100, 100])],

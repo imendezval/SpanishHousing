@@ -24,6 +24,63 @@ ROOM = MarketMetric.ROOM_RENT_PER_MONTH
 MADRID = GeographicReference(level="municipality", code="28079")
 
 
+@pytest.mark.parametrize(
+    "change", [{"source_id": "synthetic:other"}, {"basis": "valuation"}, {"statistic": "mean"}]
+)
+def test_incompatible_series_never_selected_by_newer_date(
+    release_dir: Path, scenario: Scenario, change: dict
+) -> None:
+    context = SnapshotMarketRepository.from_release(
+        release_dir, allow_synthetic=True
+    ).evaluation_context
+    latest = next(p for p in context.profiles if p.metric == SALE)
+    other = latest.model_copy(
+        update={
+            "profile_id": "older",
+            "period_start": date(2026, 8, 1),
+            "period_end": date(2026, 9, 1),
+            **change,
+        }
+    )
+    context = context.model_copy(update={"profiles": (*context.profiles, other)})
+    result = select_reference(scenario, context, SALE, MarketSegment(property_type="flat"))
+    assert isinstance(result, MarketIssue) and result.status == "unsupported"
+
+
+def test_latest_gap_has_no_older_fallback(release_dir: Path, scenario: Scenario) -> None:
+    repo = SnapshotMarketRepository.from_release(release_dir, allow_synthetic=True)
+    context = repo.evaluation_context
+    latest = next(p for p in context.profiles if p.metric == SALE)
+    older = latest.model_copy(
+        update={
+            "profile_id": "older",
+            "period_start": date(2026, 8, 1),
+            "period_end": date(2026, 9, 1),
+        }
+    )
+    context = context.model_copy(update={"profiles": (*context.profiles, older)})
+    queries = []
+
+    class Gap:
+        def get(self, query: MarketQuery) -> MarketLookup:
+            queries.append(query)
+            assert query.period_end == latest.period_end
+            return MarketLookup(
+                status="missing", reason="latest gap; older data would be available"
+            )
+
+    result = resolve_input(
+        scenario,
+        context=context,
+        market_data=Gap(),
+        location=MADRID,
+        metric=SALE,
+        segment=MarketSegment(property_type="flat"),
+        role="purchase_price",
+    )
+    assert isinstance(result, MarketIssue) and result.status == "missing" and len(queries) == 1
+
+
 class RecordingMarket:
     def __init__(self, repo: SnapshotMarketRepository):
         self.repo = repo

@@ -13,7 +13,7 @@ from .base import (
     SchemaVersion,
 )
 from .evaluation import EvaluationContext, MarketInputUse, PurchaseFinances, RuntimeEvidence
-from .market import MarketObservation
+from .market import MarketMetric, MarketObservation
 from .scenario import GeographicReference, Scenario
 
 
@@ -116,7 +116,13 @@ class LocationResult(Record):
             raise ValueError("incomplete calculation cannot carry completed finances or budgets")
         for indicator in (self.affordable_area_m2, self.target_affordability_ratio):
             if indicator.status == "available" and (
-                self.purchase is None or not indicator.observations
+                self.purchase is None
+                or not indicator.observations
+                or any(
+                    observation.metric != MarketMetric.PURCHASE_PRICE_PER_M2
+                    or observation.location != self.buying_location
+                    for observation in indicator.observations
+                )
             ):
                 raise ValueError("available comparison requires purchase and buying evidence")
         return self

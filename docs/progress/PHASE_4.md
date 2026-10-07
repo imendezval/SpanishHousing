@@ -51,3 +51,11 @@ awaits final wheel workflow; A10 remains blocked. README/architecture updated.
 
 Next: final edge review, fresh built-wheel/source fingerprint comparison and
 installed evaluation/export/replay evidence; update final acceptance/handoff.
+
+M6 review repaired early absent-location short-circuiting so all stage issues are
+discovered and unsupported takes precedence over missing. Available comparisons
+now validate that their supporting evidence is purchase data for the destination.
+Added incompatible-series, latest-gap/no-older-fallback, finite-encoding,
+unbounded-CSV, aggregate-overflow and actual-source-fingerprint coverage.
+Final source gate and sdist/wheel build passed: 289 tests, 38 strictly typed files,
+nine import contracts, Ruff and lock check. Fresh wheel workflow is in progress.

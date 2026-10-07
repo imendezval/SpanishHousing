@@ -103,10 +103,6 @@ def prepare_savings(
         return PreparationIssue(
             (MarketIssue("unsupported", "only municipality geography is supported"),)
         )
-    if not any(loc.location == saving_location for loc in context.locations):
-        return PreparationIssue(
-            (MarketIssue("missing", f"municipality {saving_location.code} is outside the release"),)
-        )
     warnings = [
         *context.limitations,
         "One stage prices one rental unit; rent_share is the combined saving pool's share.",

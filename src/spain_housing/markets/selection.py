@@ -109,11 +109,11 @@ def resolve_input(
 ) -> MarketInputUse | MarketIssue:
     if location.level != "municipality":
         return MarketIssue("unsupported", "only municipality geography is supported")
-    if not any(record.location == location for record in context.locations):
-        return MarketIssue("missing", f"municipality {location.code} is outside the release")
     selected = select_reference(scenario, context, metric, segment)
     if isinstance(selected, MarketIssue):
         return selected
+    if not any(record.location == location for record in context.locations):
+        return MarketIssue("missing", f"municipality {location.code} is outside the release")
     profile = selected.profile
     lookup = market_data.get(
         MarketQuery(
