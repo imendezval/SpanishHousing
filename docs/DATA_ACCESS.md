@@ -75,6 +75,11 @@ uv run --locked python scripts/verify_pilot_geography.py \
 
 ## Phase 4 handoff
 
+Phase 4 engineering is now verified against explicitly synthetic releases;
+[Phase 4 progress](progress/PHASE_4.md) records evaluation/export/replay and fresh
+wheel evidence. Observed integration remains unverified (A10). Application code
+does not resolve or bypass the acquisition/use/redistribution blocker below.
+
 The repository, release validator and exact query contract are ready for Phase 4
 integration. Official geography is ready independently. The production map must
 wait for a validated observed release with the required market cells and suitable
