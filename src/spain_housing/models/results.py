@@ -40,15 +40,30 @@ class SavingsResult(Record):
 
 
 class PurchaseResult(Record):
-    savings_price_limit_eur: Money
+    savings_price_limit_eur: Money | None
     mortgage_price_limit_eur: Money
     maximum_price_eur: Money
     binding_constraint: Literal["savings", "mortgage", "both"]
     target_price_eur: PositiveMoney | None = None
+    target_loan_eur: Money | None = None
     target_upfront_cash_eur: Money | None = None
     target_monthly_payment_eur: Money | None = None
     target_cash_shortfall_eur: Money | None = None
     target_payment_shortfall_eur: Money | None = None
+
+    @model_validator(mode="after")
+    def coherent_target(self) -> "PurchaseResult":
+        fields = (
+            self.target_price_eur,
+            self.target_loan_eur,
+            self.target_upfront_cash_eur,
+            self.target_monthly_payment_eur,
+            self.target_cash_shortfall_eur,
+            self.target_payment_shortfall_eur,
+        )
+        if any(value is None for value in fields) and any(value is not None for value in fields):
+            raise ValueError("target diagnostics must be all present or all absent")
+        return self
 
 
 class Indicator(Record):

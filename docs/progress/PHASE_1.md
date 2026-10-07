@@ -1,6 +1,8 @@
 # Phase 1 progress
 
-Current milestone: M6 integration review. Earlier engineering gates remain open.
+Current milestone: M6 verified in the Phase 2 checkout on 7 October 2026. The historical evidence below records the original Phase 1 session; Phase 2 re-verification supersedes its tooling gaps.
+
+Phase 2 re-verification: `uv sync --locked` and `bash scripts/check.sh` passed on the unchanged Phase 1 baseline (`551cb17`): 46 tests, seven import contracts, Ruff formatting/lint, and strict mypy. The wheel and installed CLI are rechecked in Phase 2 M6. Data coverage limitations still belong to Phase 3.
 
 Verified checkpoint commits include `004a7f3` (contracts/configuration), `5f0c25f` (audit/handoff), and `9e47c05` (unit-name cleanup). Focused pytest ran before each. The remaining untracked `AGENTS.md` predates this implementation and is excluded from commits.
 
