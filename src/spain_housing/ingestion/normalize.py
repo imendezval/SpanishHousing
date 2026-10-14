@@ -44,55 +44,61 @@ def normalize_rows(
         for mapping in location.source_mappings
     }
     result = []
-    for row in rows:
-        profile = profiles.get(row.profile_id)
-        location = crosswalk.get((capture.source_id, row.source_location))
-        if profile is None or profile.source_id != capture.source_id:
-            raise ValueError("curated row references an unselected source/profile")
-        if location is None or row.geographic_scope != "municipality":
-            raise ValueError("unresolved or nonmunicipal source location")
-        if (row.period_start, row.period_end, row.statistic, row.basis) != (
-            profile.period_start,
-            profile.period_end,
-            profile.statistic,
-            profile.basis,
-        ):
-            raise ValueError("source period/statistic/basis changed from the selected profile")
-        unit = RAW_UNITS.get(row.raw_unit)
-        if unit != METRIC_UNITS[profile.metric]:
-            raise ValueError("source raw unit disagrees with metric")
-        value = parse_numeric(row.raw_value, recipe.numeric_format)
-        if value is None:
-            continue
-        observation = MarketObservation.model_validate(
-            {
-                "location": location.location,
-                "boundary_version": location.boundary_version,
-                "period_start": row.period_start,
-                "period_end": row.period_end,
-                "retrieved_at": capture.captured_at,
-                "source_release": capture.source_release,
-                "methodology_version": capture.methodology_version,
-                "metric": profile.metric,
-                "value": value,
-                "unit": unit,
-                "statistic": profile.statistic,
-                "basis": profile.basis,
-                "segment": profile.segment,
-                "source_id": capture.source_id,
-                "source_url": capture.primary_url,
-                "evidence_kind": row.evidence_kind,
-                "estimation_method": row.estimation_method or None,
-                "quality_notes": tuple(
-                    note.strip() for note in row.quality_notes.split("|") if note.strip()
-                ),
-            }
-        )
-        result.append(
-            ReleasedObservation(
-                observation=observation,
-                capture_id=capture.capture_id,
-                source_locator=row.source_locator,
+    for number, row in enumerate(rows, start=2):
+        try:
+            profile = profiles.get(row.profile_id)
+            location = crosswalk.get((capture.source_id, row.source_location))
+            if profile is None or profile.source_id != capture.source_id:
+                raise ValueError("curated row references an unselected source/profile")
+            if location is None or row.geographic_scope != "municipality":
+                raise ValueError("unresolved or nonmunicipal source location")
+            if (row.period_start, row.period_end, row.statistic, row.basis) != (
+                profile.period_start,
+                profile.period_end,
+                profile.statistic,
+                profile.basis,
+            ):
+                raise ValueError("source period/statistic/basis changed from the selected profile")
+            unit = RAW_UNITS.get(row.raw_unit)
+            if unit != METRIC_UNITS[profile.metric]:
+                raise ValueError("source raw unit disagrees with metric")
+            value = parse_numeric(row.raw_value, recipe.numeric_format)
+            if value is None:
+                continue
+            observation = MarketObservation.model_validate(
+                {
+                    "location": location.location,
+                    "boundary_version": location.boundary_version,
+                    "period_start": row.period_start,
+                    "period_end": row.period_end,
+                    "retrieved_at": capture.captured_at,
+                    "source_release": capture.source_release,
+                    "methodology_version": capture.methodology_version,
+                    "metric": profile.metric,
+                    "value": value,
+                    "unit": unit,
+                    "statistic": profile.statistic,
+                    "basis": profile.basis,
+                    "segment": profile.segment,
+                    "source_id": capture.source_id,
+                    "source_url": capture.primary_url,
+                    "evidence_kind": row.evidence_kind,
+                    "estimation_method": row.estimation_method or None,
+                    "quality_notes": tuple(
+                        note.strip() for note in row.quality_notes.split("|") if note.strip()
+                    ),
+                }
             )
-        )
+            result.append(
+                ReleasedObservation(
+                    observation=observation,
+                    capture_id=capture.capture_id,
+                    source_locator=row.source_locator,
+                )
+            )
+        except ValueError as exc:
+            raise ValueError(
+                f"capture {capture.capture_id} ({capture.source_id}) row {number}, "
+                f"profile {row.profile_id}, locator {row.source_locator}: {exc}"
+            ) from exc
     return tuple(result)

@@ -69,7 +69,7 @@ forbidden_modules = ["spain_housing.finance", "spain_housing.markets", "spain_ho
 [[tool.importlinter.contracts]]
 name = "pure market rules have no storage dependencies"
 type = "forbidden"
-source_modules = ["spain_housing.markets.selection", "spain_housing.markets.projections"]
+source_modules = ["spain_housing.markets.selection", "spain_housing.markets.projections", "spain_housing.markets.coverage"]
 forbidden_modules = ["spain_housing.markets.repository", "spain_housing.storage"]
 
 [[tool.importlinter.contracts]]

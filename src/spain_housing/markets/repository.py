@@ -6,6 +6,7 @@ from datetime import date
 from pathlib import Path
 from types import MappingProxyType
 
+from spain_housing.models.coverage import ReleaseCoverageReport
 from spain_housing.models.dataset import BoundaryCollection, LocationRecord, ReleaseManifest
 from spain_housing.models.evaluation import EvaluationContext
 from spain_housing.models.market import (
@@ -16,6 +17,8 @@ from spain_housing.models.market import (
     MarketSegment,
 )
 from spain_housing.storage.release import load_release
+
+from .coverage import coverage_report
 
 IndexKey = tuple[str, MarketMetric, date, date]
 
@@ -39,6 +42,7 @@ class SnapshotMarketRepository:
     locations: tuple[LocationRecord, ...]
     boundaries: BoundaryCollection
     _index: Mapping[IndexKey, tuple[MarketObservation, ...]]
+    coverage_report: ReleaseCoverageReport
 
     @property
     def evaluation_context(self) -> EvaluationContext:
@@ -72,7 +76,15 @@ class SnapshotMarketRepository:
             )
             grouped.setdefault(key, []).append(observation)
         index = MappingProxyType({key: tuple(values) for key, values in grouped.items()})
-        return cls(bundle.manifest, bundle.locations, bundle.boundaries, index)
+        return cls(
+            bundle.manifest,
+            bundle.locations,
+            bundle.boundaries,
+            index,
+            coverage_report(
+                bundle.manifest, bundle.locations, bundle.coverage, bundle.observations
+            ),
+        )
 
     def get(self, query: MarketQuery) -> MarketLookup:
         if not isinstance(query, MarketQuery):

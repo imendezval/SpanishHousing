@@ -7,6 +7,7 @@ from spain_housing.models.scenario import Scenario
 
 from .contracts import Services
 from .controls import render_controls, scenario_draft
+from .coverage import render_coverage
 from .details import render_details
 from .map import decorate, render_map, selected_code, viewport
 from .presentation import STYLES, Metric
@@ -24,6 +25,7 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
         f"Release {services.context.release_id} · {services.context.readiness} · "
         f"{len(services.destinations)} released municipalities; sparse coverage only."
     )
+    render_coverage(services.coverage)
     if "housing-session" not in st.session_state:
         session = Session(scenario_draft(initial))
         session.apply(session.draft, services)

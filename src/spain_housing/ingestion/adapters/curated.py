@@ -38,8 +38,11 @@ def read_curated_csv(data: bytes) -> tuple[CuratedRow, ...]:
     try:
         for row in reader:
             if None in row or any(value is None for value in row.values()):
-                raise ValueError("curated CSV has an inconsistent row width")
-            result.append(CuratedRow.model_validate(row))
+                raise ValueError(f"curated CSV row {reader.line_num} has an inconsistent row width")
+            try:
+                result.append(CuratedRow.model_validate(row))
+            except ValueError as exc:
+                raise ValueError(f"curated CSV row {reader.line_num}: {exc}") from exc
     except csv.Error as exc:
-        raise ValueError(f"malformed curated CSV: {exc}") from exc
+        raise ValueError(f"malformed curated CSV row {reader.line_num}: {exc}") from exc
     return tuple(result)

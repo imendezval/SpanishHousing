@@ -52,7 +52,14 @@ def build_release(
         capture = captures[capture_id]
         if capture.format != "csv":
             raise ValueError("selected observation adapter requires a reviewed curated CSV")
-        rows.extend(normalize_rows(read_curated_csv(captured_bytes[capture_id]), capture, recipe))
+        try:
+            rows.extend(
+                normalize_rows(read_curated_csv(captured_bytes[capture_id]), capture, recipe)
+            )
+        except ValueError as exc:
+            raise ValueError(
+                f"capture {capture_id} ({capture.source_id}, {capture.path}): {exc}"
+            ) from exc
     return write_release(
         release_root,
         recipe=recipe,

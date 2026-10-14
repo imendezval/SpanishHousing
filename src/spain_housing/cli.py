@@ -60,6 +60,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "validate-release", help="verify every release payload and relationship"
     )
     check_release.add_argument("--release", type=Path, required=True)
+    inspect = commands.add_parser("inspect-release", help="inspect validated coverage offline")
+    inspect.add_argument("--release", type=Path, required=True)
     query = commands.add_parser(
         "query-market", help="query exact market intervals and segments offline"
     )
@@ -81,7 +83,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     for command in (evaluate, replay):
         command.add_argument("--release", type=Path, required=True)
         command.add_argument("--output-dir", type=Path)
-    for command in (build, check_release, query, evaluate, replay):
+    for command in (build, check_release, inspect, query, evaluate, replay):
         command.add_argument(
             "--allow-synthetic",
             action="store_true",
@@ -90,6 +92,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        if args.command == "inspect-release":
+            repository = SnapshotMarketRepository.from_release(
+                args.release, allow_synthetic=args.allow_synthetic
+            )
+            sys.stdout.write(
+                canonical_json(repository.coverage_report.model_dump(mode="json")).decode()
+            )
+            return 0
         if args.command == "serve":
             from spain_housing.launcher import serve
 

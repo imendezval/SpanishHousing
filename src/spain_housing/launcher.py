@@ -66,6 +66,7 @@ def compose(
         model_version=MODEL_VERSION,
         code_version=code_version(),
         runtime=runtime_evidence(),
+        coverage=repository.coverage_report,
     )
 
 

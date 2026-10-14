@@ -54,3 +54,17 @@ def scenario() -> Scenario:
         ),
     ]
     return Scenario.model_validate(data)
+
+
+@pytest.fixture
+def expanded_dir(tmp_path: Path) -> Path:
+    from fixtures.synthetic.expand import prepare_fixture
+
+    data_root = tmp_path / "expanded-inputs"
+    expanded = prepare_fixture(data_root)
+    return build_release(
+        expanded,
+        data_root=data_root,
+        release_root=tmp_path / "expanded-releases",
+        allow_synthetic=True,
+    )

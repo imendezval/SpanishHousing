@@ -3,6 +3,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 
+from spain_housing.models.coverage import ReleaseCoverageReport
 from spain_housing.models.dataset import BoundaryCollection
 from spain_housing.models.evaluation import EvaluationContext, RuntimeEvidence
 from spain_housing.models.results import RunResult
@@ -19,6 +20,7 @@ class Services:
     model_version: str
     code_version: str
     runtime: RuntimeEvidence
+    coverage: ReleaseCoverageReport
 
     @property
     def destinations(self) -> tuple[GeographicReference, ...]:

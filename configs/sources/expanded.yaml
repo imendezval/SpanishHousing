@@ -1,0 +1,1011 @@
+captures:
+- byte_size: 4073333
+  capture_id: capture-3621f2cddd5c92d12f23fa015e04c383330f4c6666d8b8988cb1f7a45df936ef
+  captured_at: '2026-10-07T15:57:21.188697Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/734411b5a56bf011e3cbeb7d3ef0ab85e84e5db4e7a2b54b4a4927b4e2738e4e.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Madrid&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Madrid&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  route: provider_download
+  sha256: 734411b5a56bf011e3cbeb7d3ef0ab85e84e5db4e7a2b54b4a4927b4e2738e4e
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 306819
+  capture_id: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52
+  captured_at: '2026-10-07T15:57:19.514434Z'
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  format: xlsx
+  http_status: 200
+  methodology_version: null
+  path: captures/07f8e8d64eba73fe9d425196fe82f4e09a9886a287abd650e88ca8d98dd49052.xlsx
+  permission_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information,
+    reviewed 2026-10-07
+  primary_url: https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx
+  published_on: '2026-02-04'
+  resolved_url: https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx
+  route: provider_download
+  sha256: 07f8e8d64eba73fe9d425196fe82f4e09a9886a287abd650e88ca8d98dd49052
+  source_id: ine-municipalities
+  source_release: INE 2026-01-01
+- byte_size: 6169390
+  capture_id: capture-999df7a80a7cc0be04146158bdc78439b236ec5a3f192554a8fe44161c769e6c
+  captured_at: '2026-10-07T15:57:22.912720Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/0207a42ddc609ecee513ba344f63bc3b6ccf6d42884db66003f8a0182bfe4308.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Barcelona&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Barcelona&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  route: provider_download
+  sha256: 0207a42ddc609ecee513ba344f63bc3b6ccf6d42884db66003f8a0182bfe4308
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 1854335
+  capture_id: capture-ad506f25fb0ca73552d8ab9e0c4abae8b0ee2278eb994cf14284d45cdb49a940
+  captured_at: '2026-10-07T15:57:23.715020Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/4ddf6adb463cd0a05fc60d9c7700251b275c21f54925a892ddd79e567a1f57cb.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Ja%C3%A9n&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Ja%C3%A9n&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  route: provider_download
+  sha256: 4ddf6adb463cd0a05fc60d9c7700251b275c21f54925a892ddd79e567a1f57cb
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 216138
+  capture_id: capture-c3b3378c076c09eeced4cfc7709765149ed513b394f2339e318f1e5068c281ab
+  captured_at: '2026-10-07T15:57:24.084908Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/a297078e182191a70a419c84aed89612d614da4ca1773b1f79c57740aaf01d67.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Getafe&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?nameunit=Getafe&limit=10&f=json&crs=http%3A%2F%2Fwww.opengis.net%2Fdef%2Fcrs%2FOGC%2F1.3%2FCRS84
+  route: provider_download
+  sha256: a297078e182191a70a419c84aed89612d614da4ca1773b1f79c57740aaf01d67
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 26888
+  capture_id: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81
+  captured_at: '2026-10-07T15:57:19.792778Z'
+  content_type: text/html
+  format: html
+  http_status: 200
+  methodology_version: null
+  path: captures/0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab.html
+  permission_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information,
+    reviewed 2026-10-07
+  primary_url: https://www.ine.es/daco/daco42/codmun/codmun_anual.htm
+  published_on: null
+  resolved_url: https://www.ine.es/daco/daco42/codmun/codmun_anual.htm
+  route: provider_download
+  sha256: 0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab
+  source_id: ine-municipalities
+  source_release: null
+- byte_size: 1581852
+  capture_id: capture-d715c91790a122c03b7cec83d8b6bb9364c150c805147fefadeb7d0913e942d7
+  captured_at: '2026-10-14T01:34:46.432871Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/4300e5f6b630bd554922dbb94529e14e38ff26c181f82a65a88aad14eae36c20.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Palma%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Palma%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 4300e5f6b630bd554922dbb94529e14e38ff26c181f82a65a88aad14eae36c20
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 80917
+  capture_id: capture-b9766ea29b23b0dab8ca1e0da602b887dcf1a5291868d2bbeb16b1a439529925
+  captured_at: '2026-10-14T01:34:45.142081Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/86d975404bde80803e12c5f2e618f62ac2c10ee9ed0f85ec47e9b771803a1331.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Badalona%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Badalona%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 86d975404bde80803e12c5f2e618f62ac2c10ee9ed0f85ec47e9b771803a1331
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 470011
+  capture_id: capture-6cc209694b587ee3c56602be49a1666d66af99e42caefe015ce32f5d12143a38
+  captured_at: '2026-10-14T01:34:45.804163Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/75a06d323306e04b0298640c84577276e8aa2f55d0ec3c1326c4e7e0bcd74fd0.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27M%C3%A1laga%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27M%C3%A1laga%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 75a06d323306e04b0298640c84577276e8aa2f55d0ec3c1326c4e7e0bcd74fd0
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 71491
+  capture_id: capture-7af2d7944db3d17a185e8dfbe97c60ab2555085b0d140257cf1d003c200fe1bc
+  captured_at: '2026-10-14T01:34:45.960668Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/50056272df1b6002e443aa6d8eb370c7960f0f09e52b8780e2f9f40c43f11ef1.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Salamanca%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Salamanca%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 50056272df1b6002e443aa6d8eb370c7960f0f09e52b8780e2f9f40c43f11ef1
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 115521
+  capture_id: capture-e09a980aa94262de7f1dd66fcbb77c31ba8fdf69bdea84e0db50432cf79806c6
+  captured_at: '2026-10-14T01:34:46.161163Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/56fb21bbefccccf295e4a9010db1eacb8a7fb13aa7bfa99ecbb6f8139a2e527c.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Dos+Hermanas%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Dos+Hermanas%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 56fb21bbefccccf295e4a9010db1eacb8a7fb13aa7bfa99ecbb6f8139a2e527c
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 88240
+  capture_id: capture-51dd9decc173e010ae9e8b0b06e83f4f5c2861987d138ab3ef849c5a8484df15
+  captured_at: '2026-10-14T01:34:46.237507Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/3e8e22d6885cf125436900adf80cd1955b5df296790f96fc092131c0b131086b.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Sevilla%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Sevilla%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 3e8e22d6885cf125436900adf80cd1955b5df296790f96fc092131c0b131086b
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 92303
+  capture_id: capture-8cff8ea4566045bc154e6116465f5bd18b79e0c0253cb7bb45157af29e55260b
+  captured_at: '2026-10-14T01:34:46.461832Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/fced98f67342907bbdb6c81da16c983d685d8d07764fa0488096980ea259e6ee.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Teruel%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Teruel%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: fced98f67342907bbdb6c81da16c983d685d8d07764fa0488096980ea259e6ee
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 37614
+  capture_id: capture-0137d9527dbd3da75059bafa56639567221e37fda63d00c8f3b321400b3579f4
+  captured_at: '2026-10-14T01:34:46.462492Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/1085942056468b9460f584a1232e6ba1e4d4ad95ab94af9167496d7cdf5b6fc0.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Mislata%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Mislata%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 1085942056468b9460f584a1232e6ba1e4d4ad95ab94af9167496d7cdf5b6fc0
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 1411620
+  capture_id: capture-de2bd1c9b0032647acbc50b350ebf37fd5fe785e67824b97c5abd2b9ee3bbedf
+  captured_at: '2026-10-14T01:34:47.239317Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/4ac9671399eaf2e5ca0e849d7a289caaee682f2e17c668c044aca506aab49d77.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Val%C3%A8ncia%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Val%C3%A8ncia%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 4ac9671399eaf2e5ca0e849d7a289caaee682f2e17c668c044aca506aab49d77
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 211188
+  capture_id: capture-fa3b22d40289364e9ebeb6f7731bf6b30c057d779b341079983822ed289a54fc
+  captured_at: '2026-10-14T01:34:46.820702Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/b7ab27734e276a2f075227ddb6182a92116869d55a8886bf5ef4576fff2446ea.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Valladolid%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Valladolid%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: b7ab27734e276a2f075227ddb6182a92116869d55a8886bf5ef4576fff2446ea
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 93365
+  capture_id: capture-54c9c20aa988475e97f9a8de9c2e741803c8fa433719bc002c5b3eac4034efc2
+  captured_at: '2026-10-14T01:34:46.746568Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/b92b50afddffc72cfff58f79c883d8934ae7480a505f82f9960991a2baba9331.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Bilbao%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Bilbao%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: b92b50afddffc72cfff58f79c883d8934ae7480a505f82f9960991a2baba9331
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 552832
+  capture_id: capture-be1b051b96d955a0c10a9813848e1f530708fca3e26664d99d6b2fa1948ccecb
+  captured_at: '2026-10-14T01:34:47.246395Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/7726ee70aea3acbd33cc3c36345a4968f007a5ef91409c49aeb8fc5cb2eea265.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0
+    license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Zaragoza%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&filter=nameunit%3D%27Zaragoza%27+AND+nationallevelname%3D%27Municipio%27&filter-lang=cql-text
+  route: provider_download
+  sha256: 7726ee70aea3acbd33cc3c36345a4968f007a5ef91409c49aeb8fc5cb2eea265
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 26888
+  capture_id: capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb
+  captured_at: '2026-10-14T01:34:47.505655Z'
+  content_type: text/html
+  format: html
+  http_status: 200
+  methodology_version: null
+  path: captures/0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab.html
+  permission_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information,
+    reviewed 2026-10-07
+  primary_url: https://www.ine.es/daco/daco42/codmun/codmun_anual.htm
+  published_on: null
+  resolved_url: https://www.ine.es/daco/daco42/codmun/codmun_anual.htm
+  route: provider_download
+  sha256: 0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab
+  source_id: ine-municipalities
+  source_release: null
+decisions:
+- acquisition_route: blocked pending permission or an explicitly approved replacement
+    profile
+  attribution: idealista; attribution does not establish acquisition permission
+  evidence_reference: general terms section 4, reviewed 2026-10-07; no product-specific
+    permission supplied
+  local_use: restricted
+  notes:
+  - The report is currently labelled September 2026. No primary bytes or new derived
+    market rows were retained.
+  - General terms restrict automated and manual copying without written permission.
+    Methodology attribution language does not resolve that restriction.
+  - 'Reviewed alternative https://www.idealista.com/data/asesoramiento-inmobiliario-tecnologico/api-comparables-y-metricas/:
+    API/exports invite contact; no unrestricted route or contract was established.'
+  - 'Affected: sale and whole-home rent for Madrid, Barcelona, Jaén and Getafe. Preserve
+    asking basis and weighted_zonal_medians; do not substitute valuations or tax rents.'
+  primary_url: https://www.idealista.com/sala-de-prensa/informes-precio-vivienda/venta/report/
+  product: September 2026 pooled-home asking sale and rental indicators
+  redistribution: unresolved
+  reviewed_on: '2026-10-07'
+  source_id: idealista_price_report
+  terms_url: https://www.idealista.com/ayuda/articulos/terminos-y-condiciones-generales-de-idealista/
+- acquisition_route: blocked pending permission; no scraping or curation workaround
+  attribution: idealista
+  evidence_reference: general terms section 4, reviewed 2026-10-07; no press-release
+    data permission supplied
+  local_use: restricted
+  notes:
+  - 'Affected: Madrid, Barcelona and Jaén room observations. Getafe is an independently
+    unsourced gap.'
+  - Reference interval must remain 2026-04-01 to 2026-07-01, separate from the August
+    publication and capture timestamp.
+  - No alternative reviewed route established municipal room coverage and permitted
+    acquisition. Bills and detailed room segments remain unknown.
+  primary_url: https://www.idealista.com/sala-de-prensa/notas-de-prensa/2026/08/24/266632-la-oferta-de-habitaciones-se-dispara-un-12-y-el-precio-se-queda-casi-plano
+  product: Q2 2026 reported city mean room asking rent
+  redistribution: unresolved
+  reviewed_on: '2026-10-07'
+  source_id: idealista_room_report
+  terms_url: https://www.idealista.com/ayuda/articulos/terminos-y-condiciones-generales-de-idealista/
+- acquisition_route: official XLSX download and retained in-year-change review
+  attribution: 'Elaboración propia con datos extraídos del sitio web del INE: www.ine.es;
+    reference 2026-01-01, published 2026-02-04'
+  evidence_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information,
+    reviewed 2026-10-07
+  local_use: permitted
+  notes:
+  - INE assigns the municipal codes; five digits exclude the separate control digit.
+  - Current operation links https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx
+    and https://www.ine.es/daco/daco42/codmun/codmun_anual.htm.
+  - The reviewed in-year change list contains no changes to the four pilot municipalities.
+    Do not imply INE endorsement.
+  primary_url: https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx
+  product: INE municipality code dictionary at 2026-01-01 and in-year changes
+  redistribution: permitted
+  reviewed_on: '2026-10-07'
+  source_id: ine-municipalities
+  terms_url: https://www.ine.es/dyngs/AYU/index.htm?cid=125
+- acquisition_route: bounded official API GeoJSON, complete municipality features
+    in OGC:CRS84
+  attribution: Obra derivada de IGN AU Unidades administrativas, API snapshot 2026-10-07,
+    CC BY 4.0 ign.es
+  evidence_reference: collection license link and IGN geographic data CC BY 4.0 license,
+    reviewed 2026-10-07
+  local_use: permitted
+  notes:
+  - 'The collection advertises OGC:CRS84 storage and separate municipality/province
+    features. No invented official edition: snapshot is identified by capture timestamps
+    and hashes.'
+  - Selected features preserve multipart territories and holes; no repair, clipping
+    or simplification.
+  - Retain attribution for a later map. Metadata/queryables/items were inspected before
+    selecting identifiers.
+  primary_url: https://api-features.ign.es/collections/administrativeunit?f=json
+  product: IGN administrativeunit municipality polygons, frozen API snapshot
+  redistribution: permitted
+  reviewed_on: '2026-10-07'
+  source_id: ign-administrativeunit
+  terms_url: https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf
+declared_gaps:
+- location_code: '28079'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '28079'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '28079'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: 08019
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: 08019
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: 08019
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '23050'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '23050'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '23050'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '28065'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '28065'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '28065'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '07040'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '07040'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '07040'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: 08015
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: 08015
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: 08015
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '29067'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '29067'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '29067'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '37274'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '37274'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '37274'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '41038'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '41038'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '41038'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '41091'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '41091'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '41091'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '44216'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '44216'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '44216'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '46169'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '46169'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '46169'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '46250'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '46250'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '46250'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '47186'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '47186'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '47186'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '48020'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '48020'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '48020'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '50297'
+  profile_id: sale
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '50297'
+  profile_id: rent
+  reason: No authorized retained observation for this selected product
+  status: missing
+- location_code: '50297'
+  profile_id: room
+  reason: No authorized retained observation for this selected product
+  status: missing
+geography:
+  attribution: Obra derivada de IGN AU Unidades administrativas, API snapshot 2026-10-07,
+    CC BY 4.0 ign.es
+  boundary_capture_ids:
+  - capture-3621f2cddd5c92d12f23fa015e04c383330f4c6666d8b8988cb1f7a45df936ef
+  - capture-999df7a80a7cc0be04146158bdc78439b236ec5a3f192554a8fe44161c769e6c
+  - capture-ad506f25fb0ca73552d8ab9e0c4abae8b0ee2278eb994cf14284d45cdb49a940
+  - capture-c3b3378c076c09eeced4cfc7709765149ed513b394f2339e318f1e5068c281ab
+  - capture-d715c91790a122c03b7cec83d8b6bb9364c150c805147fefadeb7d0913e942d7
+  - capture-b9766ea29b23b0dab8ca1e0da602b887dcf1a5291868d2bbeb16b1a439529925
+  - capture-6cc209694b587ee3c56602be49a1666d66af99e42caefe015ce32f5d12143a38
+  - capture-7af2d7944db3d17a185e8dfbe97c60ab2555085b0d140257cf1d003c200fe1bc
+  - capture-e09a980aa94262de7f1dd66fcbb77c31ba8fdf69bdea84e0db50432cf79806c6
+  - capture-51dd9decc173e010ae9e8b0b06e83f4f5c2861987d138ab3ef849c5a8484df15
+  - capture-8cff8ea4566045bc154e6116465f5bd18b79e0c0253cb7bb45157af29e55260b
+  - capture-0137d9527dbd3da75059bafa56639567221e37fda63d00c8f3b321400b3579f4
+  - capture-de2bd1c9b0032647acbc50b350ebf37fd5fe785e67824b97c5abd2b9ee3bbedf
+  - capture-fa3b22d40289364e9ebeb6f7731bf6b30c057d779b341079983822ed289a54fc
+  - capture-54c9c20aa988475e97f9a8de9c2e741803c8fa433719bc002c5b3eac4034efc2
+  - capture-be1b051b96d955a0c10a9813848e1f530708fca3e26664d99d6b2fa1948ccecb
+  boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  processing_notes:
+  - Complete retained official features; no simplification/repair. INE in-year changes
+    reviewed 2026-10-14; none affect included codes.
+  registry_capture_id: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52
+  registry_effective_on: '2026-01-01'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_crs: OGC:CRS84
+  target_crs: OGC:CRS84
+kind: observed
+limitations:
+- Observed market acquisition/use blocked; no market observations captured. Geography
+  alone is not a market release.
+- Original core Madrid, Barcelona and Jaén requires sale/whole-home/room coverage.
+- 16 selected municipalities; pooled asking indicators are proxies, not transactions/type-specific
+  prices.
+locations:
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '6'
+  core: true
+  geometry_feature_id: '1173581'
+  geometry_national_code: '34132828079'
+  location:
+    code: '28079'
+    level: municipality
+  official_name: Madrid
+  province_code: '28'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Madrid
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Madrid
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: 'capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81'
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '3'
+  core: true
+  geometry_feature_id: '1171331'
+  geometry_national_code: '34090808019'
+  location:
+    code: 08019
+    level: municipality
+  official_name: Barcelona
+  province_code: 08
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Barcelona
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Barcelona
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: 'capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81'
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '3'
+  core: true
+  geometry_feature_id: '1166762'
+  geometry_national_code: '34012323050'
+  location:
+    code: '23050'
+    level: municipality
+  official_name: Jaén
+  province_code: '23'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Jaén
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Jaén
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: 'capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81'
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '0'
+  core: false
+  geometry_feature_id: '1173568'
+  geometry_national_code: '34132828065'
+  location:
+    code: '28065'
+    level: municipality
+  official_name: Getafe
+  province_code: '28'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Getafe
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Getafe
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: 'capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    in-year changes reviewed: capture-ce94c839cacb2d4b3f39bf3dc2cf66da54f7f7406555e23683dfff4460a1cd81'
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '7'
+  core: false
+  geometry_feature_id: '1167875'
+  geometry_national_code: '34040707040'
+  location:
+    code: '07040'
+    level: municipality
+  official_name: Palma
+  province_code: '07'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Palma
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Palma
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-d715c91790a122c03b7cec83d8b6bb9364c150c805147fefadeb7d0913e942d7
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '5'
+  core: false
+  geometry_feature_id: '1171327'
+  geometry_national_code: '34090808015'
+  location:
+    code: 08015
+    level: municipality
+  official_name: Badalona
+  province_code: 08
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Badalona
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Badalona
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-b9766ea29b23b0dab8ca1e0da602b887dcf1a5291868d2bbeb16b1a439529925
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '2'
+  core: false
+  geometry_feature_id: '1166881'
+  geometry_national_code: '34012929067'
+  location:
+    code: '29067'
+    level: municipality
+  official_name: Málaga
+  province_code: '29'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Málaga
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Málaga
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-6cc209694b587ee3c56602be49a1666d66af99e42caefe015ce32f5d12143a38
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '5'
+  core: false
+  geometry_feature_id: '1169418'
+  geometry_national_code: '34073737274'
+  location:
+    code: '37274'
+    level: municipality
+  official_name: Salamanca
+  province_code: '37'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Salamanca
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Salamanca
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-7af2d7944db3d17a185e8dfbe97c60ab2555085b0d140257cf1d003c200fe1bc
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '4'
+  core: false
+  geometry_feature_id: '1166955'
+  geometry_national_code: '34014141038'
+  location:
+    code: '41038'
+    level: municipality
+  official_name: Dos Hermanas
+  province_code: '41'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Dos Hermanas
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Dos Hermanas
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-e09a980aa94262de7f1dd66fcbb77c31ba8fdf69bdea84e0db50432cf79806c6
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '7'
+  core: false
+  geometry_feature_id: '1167008'
+  geometry_national_code: '34014141091'
+  location:
+    code: '41091'
+    level: municipality
+  official_name: Sevilla
+  province_code: '41'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Sevilla
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Sevilla
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-51dd9decc173e010ae9e8b0b06e83f4f5c2861987d138ab3ef849c5a8484df15
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '0'
+  core: false
+  geometry_feature_id: '1167417'
+  geometry_national_code: '34024444216'
+  location:
+    code: '44216'
+    level: municipality
+  official_name: Teruel
+  province_code: '44'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Teruel
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Teruel
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-8cff8ea4566045bc154e6116465f5bd18b79e0c0253cb7bb45157af29e55260b
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '1'
+  core: false
+  geometry_feature_id: '1172705'
+  geometry_national_code: '34104646169'
+  location:
+    code: '46169'
+    level: municipality
+  official_name: Mislata
+  province_code: '46'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Mislata
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Mislata
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-0137d9527dbd3da75059bafa56639567221e37fda63d00c8f3b321400b3579f4
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '8'
+  core: false
+  geometry_feature_id: '1172786'
+  geometry_national_code: '34104646250'
+  location:
+    code: '46250'
+    level: municipality
+  official_name: València
+  province_code: '46'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Valencia
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Valencia
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-de2bd1c9b0032647acbc50b350ebf37fd5fe785e67824b97c5abd2b9ee3bbedf
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '8'
+  core: false
+  geometry_feature_id: '1170099'
+  geometry_national_code: '34074747186'
+  location:
+    code: '47186'
+    level: municipality
+  official_name: Valladolid
+  province_code: '47'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Valladolid
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Valladolid
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-fa3b22d40289364e9ebeb6f7731bf6b30c057d779b341079983822ed289a54fc
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '9'
+  core: false
+  geometry_feature_id: '1174180'
+  geometry_national_code: '34164848020'
+  location:
+    code: '48020'
+    level: municipality
+  official_name: Bilbao
+  province_code: '48'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Bilbao
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Bilbao
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-54c9c20aa988475e97f9a8de9c2e741803c8fa433719bc002c5b3eac4034efc2
+- boundary_version: ign-expansion-c9907f5d68eccc9c74fb48e6f765a08e3f530d6ffc7611b25b58fe69898d8349
+  control_digit: '3'
+  core: false
+  geometry_feature_id: '1167753'
+  geometry_national_code: '34025050297'
+  location:
+    code: '50297'
+    level: municipality
+  official_name: Zaragoza
+  province_code: '50'
+  registry_version: INE-2026-01-01+changes-0c6cdd83ddfb603518e78146b17c9fb0cfbfc47e31a2cd0808aecc8d49a017ab+review-0c6cdd83ddfb
+  source_mappings:
+  - label: Zaragoza
+    scope: municipality
+    source_id: idealista_price_report
+  - label: Zaragoza
+    scope: municipality
+    source_id: idealista_room_report
+  verification_evidence: capture-87d48e2354ba79aba8354523b22bc9e4b04dace341568c3b67c2e35edcde2b52;
+    changes capture-609adf9b00435e52a302dfc5790ee68cd823b651cfc66c7a934704e1f2c8accb;
+    geometry capture-be1b051b96d955a0c10a9813848e1f530708fca3e26664d99d6b2fa1948ccecb
+numeric_format: es
+observation_capture_ids: []
+processing_version: expanded-observed-v1
+producer:
+  code_fingerprint: null
+  dirty_fingerprint: null
+  revision: phase6-official-geography
+profiles:
+- basis: asking
+  metric: purchase_price_per_m2
+  period_end: '2026-10-01'
+  period_start: '2026-09-01'
+  profile_id: sale
+  segment:
+    bedrooms: null
+    property_type: pooled
+    rental_contract_category: null
+    size_band: null
+  source_id: idealista_price_report
+  statistic: weighted_zonal_medians
+- basis: asking
+  metric: whole_home_rent_per_m2_month
+  period_end: '2026-10-01'
+  period_start: '2026-09-01'
+  profile_id: rent
+  segment:
+    bedrooms: null
+    property_type: pooled
+    rental_contract_category: null
+    size_band: null
+  source_id: idealista_price_report
+  statistic: weighted_zonal_medians
+- basis: asking
+  metric: room_rent_per_month
+  period_end: '2026-07-01'
+  period_start: '2026-04-01'
+  profile_id: room
+  segment:
+    bedrooms: null
+    property_type: room
+    rental_contract_category: null
+    size_band: null
+  source_id: idealista_room_report
+  statistic: mean
+recipe_timestamp: '2026-10-14T01:34:47.505655Z'
+schema_version: 1
