@@ -10,6 +10,7 @@ from spain_housing.cli import main
 from spain_housing.config import load_scenario
 from spain_housing.ingestion.release import build_release
 from spain_housing.markets.repository import SnapshotMarketRepository
+from spain_housing.models.dataset import BuildRecipe
 from spain_housing.models.scenario import Scenario
 from spain_housing.storage.release import load_release
 
@@ -129,4 +130,109 @@ def test_rebuild_restore_and_segmented_case(tmp_path):
             query.model_copy(update={"segment": MarketSegment(property_type="flat", bedrooms=3)})
         ).status
         == "unsupported"
+    )
+
+
+def test_simulated_evidence_label_aggregation(expanded_dir, tmp_path):
+    """Pure label counting with test records; never publish these mixed inputs."""
+    from spain_housing.markets.coverage import coverage_report
+
+    bundle = load_release(expanded_dir, allow_synthetic=True)
+    rows = list(bundle.observations)
+    for index, kind in enumerate(("observed", "estimated")):
+        data = rows[index].observation.model_dump(mode="json")
+        data.update(
+            evidence_kind=kind,
+            source_id="test-only-publisher",
+            source_url="https://example.invalid/test-only-not-a-capture",
+            estimation_method="Hypothetical publisher method for unit test"
+            if kind == "estimated"
+            else None,
+        )
+        from spain_housing.models.market import MarketObservation
+
+        rows[index] = rows[index].model_copy(
+            update={"observation": MarketObservation.model_validate(data)}
+        )
+    report = coverage_report(bundle.manifest, bundle.locations, bundle.coverage, tuple(rows))
+    assert report.evidence.model_dump() == dict(observed=1, estimated=1, synthetic=41)
+    assert sum(p.evidence.observed for p in report.profiles) == 1
+    assert sum(p.evidence.estimated for p in report.profiles) == 1
+    from spain_housing.storage.release import write_release
+
+    # Such hypothetical records cannot enter the synthetic release pipeline.
+    with pytest.raises(ValueError):
+        write_release(
+            tmp_path / "forbidden",
+            recipe=bundle.manifest.recipe,
+            observations=tuple(rows),
+            boundaries=bundle.boundaries,
+            allow_synthetic=True,
+        )
+    assert not (tmp_path / "forbidden").exists()
+
+
+def test_expanded_newer_gap_never_falls_back_to_available_older_cell(tmp_path):
+    import csv
+    from datetime import date
+
+    from spain_housing.models.market import MarketQuery, MarketSegment
+    from spain_housing.models.scenario import GeographicReference
+    from spain_housing.storage.release import sha256
+
+    inputs = tmp_path / "inputs"
+    recipe = prepare_fixture(inputs)
+    data = recipe.model_dump(mode="json")
+    profile = next(p for p in data["profiles"] if p["profile_id"] == "sale").copy()
+    profile.update(profile_id="older-sale", period_start="2026-08-01", period_end="2026-09-01")
+    data["profiles"].append(profile)
+    file = inputs / "prices.csv"
+    with file.open() as stream:
+        reader = csv.DictReader(stream)
+        fields = reader.fieldnames
+        rows = list(reader)
+    older = next(row for row in rows if row["profile_id"] == "sale").copy()
+    older.update(
+        profile_id="older-sale",
+        source_location="Synthetic Teruel",
+        raw_value="3000",
+        period_start="2026-08-01",
+        period_end="2026-09-01",
+        source_locator="self-authored:older-teruel",
+    )
+    with file.open("w", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows([*rows, older])
+    capture = next(c for c in data["captures"] if c["capture_id"] == "prices")
+    capture.update(sha256=sha256(file.read_bytes()), byte_size=file.stat().st_size)
+    path = build_release(
+        BuildRecipe.model_validate(data),
+        data_root=inputs,
+        release_root=tmp_path / "releases",
+        allow_synthetic=True,
+    )
+    repo = SnapshotMarketRepository.from_release(path, allow_synthetic=True)
+    query = MarketQuery(
+        location=GeographicReference(level="municipality", code="44216"),
+        metric="purchase_price_per_m2",
+        period_start=date(2026, 8, 1),
+        period_end=date(2026, 9, 1),
+        segment=MarketSegment(property_type="pooled"),
+    )
+    assert repo.get(query).status == "available"
+    scenario = load_scenario(
+        ROOT / "configs/defaults.yaml", ROOT / "configs/scenarios/phase4_room_demo.yaml"
+    )
+    run = evaluate_scenario(
+        scenario,
+        market_data=repo,
+        context=repo.evaluation_context,
+        mapped_locations=(query.location,),
+    )
+    assert run.results[0].purchase and run.results[0].affordable_area_m2.status == "missing"
+    assert repo.coverage_report.counts.available == 44
+    assert any(
+        c.location_code == "44216" and c.profile_id == "sale" and c.status == "missing"
+        for c in repo.coverage_report.cells
     )

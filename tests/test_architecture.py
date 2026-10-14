@@ -96,3 +96,28 @@ def test_application_indirect_storage_boundary(tmp_path: Path) -> None:
         check=False,
     )
     assert result.returncode != 0 and "indirect storage" in result.stdout
+
+
+def test_coverage_indirect_repository_boundary(tmp_path: Path) -> None:
+    package = tmp_path / "spain_housing"
+    for name in ("markets", "storage"):
+        (package / name).mkdir(parents=True)
+        (package / name / "__init__.py").write_text("")
+    (package / "__init__.py").write_text("")
+    (package / "markets/coverage.py").write_text("import spain_housing.markets.repository\n")
+    (package / "markets/repository.py").write_text("import spain_housing.storage\n")
+    config = tmp_path / "pyproject.toml"
+    config.write_text(
+        '[tool.importlinter]\nroot_package = "spain_housing"\n'
+        '[[tool.importlinter.contracts]]\nname = "pure coverage"\ntype = "forbidden"\n'
+        'source_modules = ["spain_housing.markets.coverage"]\n'
+        'forbidden_modules = ["spain_housing.markets.repository", "spain_housing.storage"]\n'
+    )
+    result = subprocess.run(
+        ["lint-imports", "--config", str(config)],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode != 0 and "pure coverage" in result.stdout

@@ -12,8 +12,10 @@ from spain_housing.ui.state import Session
 ROOT = Path(__file__).resolve().parents[2]
 
 
+@pytest.mark.parametrize("dataset", ["release_dir", "expanded_dir"])
 @pytest.mark.parametrize("name", ["phase4_room_demo", "phase4_staged_growth_demo"])
-def test_applied_exports_match_cli_and_replay(name, release_dir, tmp_path, capsys):
+def test_applied_exports_match_cli_and_replay(name, dataset, request, tmp_path, capsys):
+    release_dir = request.getfixturevalue(dataset)
     initial, services = compose(
         ROOT / "configs/defaults.yaml",
         ROOT / f"configs/scenarios/{name}.yaml",
