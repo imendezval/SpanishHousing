@@ -1,6 +1,6 @@
 # Architecture
 
-The installable `src/spain_housing` package keeps validated contracts in `models`, calculations in `finance`, dataset acquisition/preparation in `ingestion`, common persistence in `storage`, offline access and pure selection/projection in `markets`, scenario orchestration in `application`, configuration loading in `config`, and entry points in `cli`. `ui` remains reserved for Phase 5. Nine Import Linter contracts enforce dependency direction, including the indirect application/storage prohibition and pure market rules' separation from repository/storage.
+The installable `src/spain_housing` package keeps validated contracts in `models`, calculations in `finance`, dataset acquisition/preparation in `ingestion`, common persistence in `storage`, offline access and pure selection/projection in `markets`, scenario orchestration in `application`, configuration loading in `config`, and entry points in `cli`. `ui` contains the Phase 5 map and injected Phase 6 coverage presentation. Ten Import Linter contracts enforce dependency direction, including the indirect application/storage prohibition and pure market rules' separation from repository/storage.
 
 Saving and buying locations are separate bindings in every scenario. Dates and periods are explicit. Market observations carry measure, segment, provenance, and status. Synthetic fixtures live only under `tests/fixtures/synthetic`; observed source evidence lives in `data/manifests/coverage_audit.csv`.
 
@@ -159,3 +159,46 @@ uses stable public chart/editor APIs. Streamlit/PyDeck belong only to the option
 `map` extra. Phase 6 can extend presentation against these services without
 moving economics into the UI. Observed integration remains blocked; synthetic
 geometry and market values are explicitly distinguished from observed evidence.
+
+
+## Phase 6 coverage, preparation and reproducibility
+
+`models/coverage.py` defines a frozen standalone schema-1 release inspection
+report, reusing coverage, source-decision, capture, location and profile records.
+`markets/coverage.py` has one pure aggregation over storage-validated cells and
+observations. It reports deterministic location/profile order, original product
+units/periods/basis/statistics/segments, status/reasons and available evidence
+counts; it does not generate competing coverage rules or judge scenario suitability.
+The pure-market import contract includes this module and rejects indirect reader/
+storage edges. `SnapshotMarketRepository.coverage_report` is constructed once at
+validated open and remains immutable; no UI/application private-index access.
+
+The thin offline `inspect-release` CLI opens a fully validated explicit release
+and uses existing canonical serialization. It does not ingest, evaluate, download
+or mutate outputs. Composition adds the same typed report to existing frozen
+Services; `ui/coverage.py` renders it separately from the applied financial run.
+Source-declared unsupported coverage is not reinterpreted as query capabilities:
+a missing row in a supported exact profile retains the existing missing lookup.
+Financial/query/selection/export/scenario contracts and mathematics are unchanged.
+
+Preparation diagnostics add capture/source/path and row/profile/locator context
+at existing curated CSV/normalization/build owners. Invalid data never becomes a
+missing-price substitution. The original four-city fixture is untouched. A shared
+self-authored input generator supplies 16-/250-location cases to the same builder,
+reader/evaluator/map; it is test/measurement preparation, not an alternative
+production data pipeline. `scripts/measure_scaling.py` calls public owners and
+checks resource/session cache boundaries; timings stay outside economic identity.
+Measured latency at these scales does not justify another framework or optimizer.
+
+`expanded.yaml` declares 16 verified official identities/full retained geometries,
+original three-city core and exact product gaps. Observed market permission is
+still blocked; no observed release is claimed. [DATA_EXPANSION.md](DATA_EXPANSION.md)
+freezes the bounded source review. [RUNBOOK.md](RUNBOOK.md) separates acquisition,
+retained-byte rebuild, release-only evaluation and exact economic replay, with
+actual backup/restore/update/rollback instructions. Raw capture bytes/releases/
+outputs remain ignored; small reviewed metadata and recipes stay in Git. The CI
+job uses the same map-enabled gate/build on Python 3.12 and 3.13.
+
+Next essential extension remains save in A/buy in B with explicit purchase-time
+income and reusable saving/purchase services. Salary realism, historical models,
+new taxes/financing and public deployment remain outside Phase 6.

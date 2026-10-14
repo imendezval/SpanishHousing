@@ -309,3 +309,54 @@ Synthetic releases prominently label **both market values and geometry** as
 fixtures. They demonstrate engineering only: authorized observed-market access
 is still blocked and Phase 5 A11 remains unverified. See
 [Phase 5 progress](docs/progress/PHASE_5.md) for checks and Phase 6 handoff.
+
+
+## Expanded coverage and reproducible operation (Phase 6)
+
+The original four-city regression demo is preserved. Phase 6 adds a standalone,
+immutable source-coverage report shared by the snapshot, CLI and map:
+
+```bash
+uv run --locked --extra map spain-housing inspect-release \
+  --release /absolute/path/to/a-validated-release --allow-synthetic
+```
+
+Inspection reports exact product definitions, source/usage/provenance metadata,
+ordered available/missing/unsupported cells and observed/estimated/synthetic
+counts. **Captured coverage is separate from scenario suitability.** Freshness,
+segments and explicit proxy permission still govern evaluation; selected gaps
+never fall back to older periods, other cities or providers. Market acquisition
+and geography preparation remain offline and outside the financial engine/UI.
+
+For a reproducible 16-location **synthetic** demonstration:
+
+```bash
+uv run --locked --extra map python tests/fixtures/synthetic/expand.py \
+  --output-root /tmp/spain-housing-expanded-inputs --locations 16
+uv run --locked --extra map spain-housing build-release \
+  --config /tmp/spain-housing-expanded-inputs/recipe.json \
+  --data-root /tmp/spain-housing-expanded-inputs \
+  --release-root /tmp/spain-housing-expanded-releases --allow-synthetic
+```
+
+Use the full returned release path for inspect/evaluate/serve. This case contains
+43/48 available cells, four missing and one source-declared unsupported. Room gaps
+and a purchase gap demonstrate distinct partial-coverage behavior; all values,
+registry and geometry are fixtures. **Fit released areas** shows the sparse map;
+**Dataset coverage and source definitions** explains the source scope separately
+from the applied financial results. A 250-location/84-month synthetic measurement
+case also uses this pipeline; it is not national observed coverage.
+
+Actual official geography for all 16 shortlisted municipalities is retained and
+verified independently. `configs/sources/expanded.yaml` declares the original
+Madrid/Barcelona/Jaén core and missing market products, and currently refuses
+restricted acquisition/use. No authorized observed expansion exists. Phase 6
+engineering/browser checks cannot satisfy observed-data criterion A11.
+
+See [runbook](docs/RUNBOOK.md) for tested clean-environment, conda/venv/pinned-wheel,
+input/archive restoration, exact replay, update and rollback steps; see
+[data decisions](docs/DATA_EXPANSION.md) and [Phase 6 evidence](docs/progress/PHASE_6.md).
+The full gate retains the map extra and CI's Python 3.12/3.13 matrix. Source changes,
+including report/UI additions, change the existing replay fingerprint; restore
+matching code/runtime for old runs or evaluate a new run. Next essential extension
+is saving in one place and buying elsewhere, with explicit income assumptions.
