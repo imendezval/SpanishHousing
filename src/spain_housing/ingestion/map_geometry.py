@@ -1,6 +1,7 @@
 """Offline coverage simplification and measured metric quality, never financial work."""
 
 from collections import defaultdict
+from logging import getLogger
 from pathlib import Path
 
 import pyproj
@@ -15,8 +16,8 @@ from spain_housing.models.geography import (
     DisplayQuality,
     NeutralConflict,
 )
-from spain_housing.storage.files import canonical_json
 from spain_housing.storage.geography import (
+    encode_display,
     file_record,
     geography_reference,
     geometry_counts,
@@ -42,6 +43,49 @@ def _transform(geometry: BaseGeometry, transformer: Transformer) -> BaseGeometry
 def _structure(geometry: BaseGeometry) -> tuple[int, tuple[int, ...]]:
     polygons = list(shapely.get_parts(geometry))
     return len(polygons), tuple(sorted(len(p.interiors) for p in polygons))
+
+
+def _anchored_simplification(
+    original: list[BaseGeometry],
+    tolerance: float,
+    retained: set[int],
+) -> list[BaseGeometry]:
+    """Freeze interfaces with retained features, while still simplifying coastlines.
+
+    The temporary exterior makes the coast an internal shared edge. Removing
+    retained polygons leaves fixed boundary holes; GEOS preserves those interfaces
+    with simplify_boundary=False. The exterior is never published.
+    """
+    west, south, east, north = (float(v) for v in shapely.total_bounds(original))
+    frame = shapely.box(west - 1000, south - 1000, east + 1000, north + 1000)
+    exterior = frame.difference(shapely.coverage_union_all(original))
+    indices = [index for index in range(len(original)) if index not in retained]
+    coverage = [original[index] for index in indices] + [exterior]
+    if not shapely.coverage_is_valid(coverage):
+        raise ValueError("anchored coverage/exterior is not edge matched")
+    simplified = shapely.coverage_simplify(coverage, tolerance, simplify_boundary=False)
+    result = original.copy()
+    for index, geometry in zip(indices, simplified[:-1], strict=True):
+        result[index] = geometry
+    return result
+
+
+def _measure(reference: BaseGeometry, actual: BaseGeometry) -> tuple[float, float]:
+    if actual.is_empty or not actual.is_valid or _structure(actual) != _structure(reference):
+        return float("inf"), float("inf")
+    # For retained matching vertex sequences the largest paired displacement
+    # bounds both directions of every interpolated edge, in linear time.
+    if reference.equals_exact(actual, 0.03):
+        delta = shapely.get_coordinates(reference) - shapely.get_coordinates(actual)
+        displacement = float(((delta * delta).sum(axis=1) ** 0.5).max())
+    else:
+        displacement = float(
+            shapely.hausdorff_distance(reference.boundary, actual.boundary, densify=0.25)
+        )
+    return (
+        abs(actual.area - reference.area) / reference.area,
+        displacement,
+    )
 
 
 def prepare_display(
@@ -120,6 +164,7 @@ def prepare_display(
     display_features: list[AtlasFeature] = []
     area_errors: list[tuple[float, str]] = []
     displacements: list[tuple[float, str]] = []
+    retained_ids: list[str] = []
     for group, features in sorted(groups.items()):
         metric_crs = METRIC_CRS[group]
         forward = Transformer.from_crs("OGC:CRS84", metric_crs, always_xy=True)
@@ -129,37 +174,61 @@ def prepare_display(
         ]
         if not shapely.coverage_is_valid(original):
             raise ValueError(f"{group}: source does not form metric edge-matched coverage")
-        simplified = shapely.coverage_simplify(original, tolerance_m)
-        if not shapely.coverage_is_valid(simplified):
-            raise ValueError("coverage simplification introduced invalid shared topology")
-        for feature, before, after in zip(features, original, simplified, strict=True):
-            geographic = _transform(after, backward)
-            # Measure what is actually serialized, including the inverse transformation.
-            actual = _transform(geographic, forward)
-            code = feature.properties.location_code or feature.id
-            if actual.is_empty or not actual.is_valid or _structure(actual) != _structure(before):
-                raise ValueError(f"display loses polygon components/holes or validity: {code}")
-            reference = (
-                _transform(shape(canonical[feature.id].geometry.model_dump(mode="json")), forward)
-                if feature.id in canonical
-                else before
-            )
-            if _structure(actual) != _structure(reference):
-                raise ValueError(f"display loses canonical polygon components/holes: {code}")
-            relative_area = abs(actual.area - reference.area) / reference.area
-            displacement = float(
-                shapely.hausdorff_distance(reference.boundary, actual.boundary, densify=0.25)
-            )
-            if relative_area > 0.02 or displacement > 250:
-                raise ValueError(
-                    f"display fidelity gate failed for {code}: area={relative_area:.6g}, "
-                    f"displacement_m={displacement:.6g}"
+        references = [
+            _transform(shape(canonical[f.id].geometry.model_dump(mode="json")), forward)
+            if f.id in canonical
+            else before
+            for f, before in zip(features, original, strict=True)
+        ]
+        simplified = list(shapely.coverage_simplify(original, tolerance_m))
+        retained: set[int] = set()
+        # Exactly one measured repair pass. Retain failed source detail rather than
+        # weakening limits or repeatedly tuning individual tolerances.
+        for attempt in range(2):
+            if not shapely.coverage_is_valid(simplified):
+                raise ValueError("coverage simplification introduced invalid shared topology")
+            geographic = [
+                shapely.transform(
+                    _transform(after, backward),
+                    lambda coordinates: coordinates.round(7),
                 )
+                for after in simplified
+            ]
+            measures = [
+                _measure(reference, _transform(after, forward))
+                for reference, after in zip(references, geographic, strict=True)
+            ]
+            failed = {
+                index
+                for index, (area, distance) in enumerate(measures)
+                if area > 0.02 or distance > 250
+            }
+            if not failed:
+                break
+            if attempt:
+                index = min(failed)
+                raise ValueError(
+                    f"anchored display fidelity failed for {features[index].id}: "
+                    f"area,displacement_m={measures[index]}"
+                )
+            retained = failed
+            getLogger(__name__).info(
+                "%s: retaining %d failed features at nominal %.0f m",
+                group,
+                len(retained),
+                tolerance_m,
+            )
+            simplified = _anchored_simplification(original, tolerance_m, retained)
+        retained_ids.extend(features[index].id for index in sorted(retained))
+        for feature, after, (relative_area, displacement) in zip(
+            features, geographic, measures, strict=True
+        ):
+            code = feature.properties.location_code or feature.id
             area_errors.append((relative_area, code))
             displacements.append((displacement, code))
             display_features.append(
                 AtlasFeature.model_validate(
-                    feature.model_dump(mode="json") | {"geometry": mapping(geographic)}
+                    feature.model_dump(mode="json") | {"geometry": mapping(after)}
                 )
             )
     boundaries = AtlasCollection(features=tuple(sorted(display_features, key=lambda f: f.id)))
@@ -190,8 +259,10 @@ def prepare_display(
         tolerance_m=tolerance_m,
         metric_crs=tuple(METRIC_CRS[group] for group in sorted(groups)),
         algorithm=(
-            "coverage-vw-v1; shared/outer edges; metric QA; "
-            "symmetric GEOS Hausdorff densify=0.25; province unions of rendered coverage"
+            "coverage-vw-v2; shared/outer edges; 7 decimal coordinates; "
+            "one anchored retention pass with temporary exterior; metric QA; "
+            "symmetric GEOS Hausdorff densify=0.25 or paired-vertex upper bound for "
+            "matching sequences within 0.03 m; province unions of rendered coverage"
         ),
         shapely_version=shapely.__version__,
         geos_version=shapely.geos_version_string,
@@ -203,13 +274,16 @@ def prepare_display(
         original_vertices=geography.manifest.counts.vertices,
         display_vertices=counts.vertices,
         coverage_valid=True,
+        coordinate_decimals=7,
+        retained_feature_ids=tuple(sorted(retained_ids)),
     )
     payloads = {
-        "display.geojson": canonical_json(boundaries.model_dump(mode="json")),
-        "provinces.geojson": canonical_json(provinces.model_dump(mode="json")),
+        "display.delta.json": encode_display(boundaries),
+        "provinces.delta.json": encode_display(provinces),
     }
     metadata = dict(
         schema_version=1,
+        encoding="delta-7-v1",
         parent=geography_reference(geography.manifest).model_dump(mode="json"),
         files=[
             file_record(name, data, count).model_dump(mode="json")

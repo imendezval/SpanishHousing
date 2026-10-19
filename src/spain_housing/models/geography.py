@@ -183,6 +183,8 @@ class DisplayQuality(Record):
     original_vertices: Offset
     display_vertices: Offset
     coverage_valid: Literal[True]
+    coordinate_decimals: Literal[7] | None = None
+    retained_feature_ids: tuple[Text, ...] = ()
 
 
 class NeutralConflict(Record):
@@ -203,6 +205,7 @@ class DisplayManifest(Record):
     files: tuple[ArtifactFile, ...]
     quality: DisplayQuality
     neutral_conflicts: tuple[NeutralConflict, ...] = ()
+    encoding: Literal["geojson", "delta-7-v1"] = "geojson"
     counts: GeographyCounts
     attribution: Text
     redistribution: UsageScope

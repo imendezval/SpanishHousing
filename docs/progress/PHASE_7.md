@@ -202,3 +202,35 @@ no overlapping display interiors, municipal counts and deterministic publication
 National 50 m candidate correctly fails Palma (07040) boundary displacement
 **270.792 m**, above the unchanged 250 m limit (area change 0.05968%). The bounded
 20 m candidate is running full national QA. No geometry threshold is waived.
+
+### Fidelity and size repair
+
+The 20 m unrounded candidate passed all national geometry gates (8,132 codes,
+81 context features, 173 holes plus the one derived neutral patch), maximum area
+change 0.6533%, displacement 182.613 m, but payload **79,744,292 bytes** exceeded
+20 MiB. Retained diagnostic artifact:
+`display-32899a582ca4499843212a5597534c2590b9637632aeb7ee38c7caa7f8eeb34c`.
+It is not the selected final display.
+
+The next measured preparation method rounds display coordinates to seven decimal
+degrees and allows exactly one retention pass for features failing the unchanged
+fidelity limits. A temporary exterior makes coastline edges internal; excluding
+retained features and setting `simplify_boundary=False` freezes their interfaces
+while simplifying the rest consistently. The exterior is never published.
+Matched retained vertex sequences use a measured paired-vertex displacement
+upper bound (within 0.03 m), avoiding quadratic Hausdorff work for almost-identical
+paths; other shapes retain symmetric densified GEOS Hausdorff QA. The algorithm
+and retained IDs are recorded. A narrow-spike regression verifies this behavior.
+
+Initial long 50/100 m probes were interrupted and replaced with the linear-time
+retained-sequence check and progress logging; those interrupted runs are not
+passing evidence. Current candidates log 26 retained features at 50 m and 149 at
+100 m. Both are still completing QA, without changing thresholds or dropping IDs.
+
+A versioned `delta-7-v1` display encoding stores the already rounded coordinates
+as integer deltas, restoring the same typed polygons at load. This is justified
+by the measured oversized candidate; old GeoJSON displays remain readable.
+Codec round-trip/malformed-input tests pass. Two real unmodified IGN features
+are now an attributed offline fixture under `tests/fixtures/geography/ign_overlap`;
+its hash/source-provenance and 1,440.944794 m² EPSG:25831 overlap are tested.
+Current full gate: **353 passed in 20.83 s**, all existing gates retained.

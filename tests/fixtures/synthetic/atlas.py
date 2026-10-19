@@ -29,6 +29,8 @@ def atlas_inputs(root: Path, *, defect: str | None = None) -> GeographyRecipe:
     registry = b"CPRO,CMUN,DC,NOMBRE\n28,001,0,Same name\n28,002,1,Same name\n"
     first = [[[-4.0, 40.0], [-3.5, 40.0], [-3.5, 40.5], [-3.5, 41.0], [-4.0, 41.0], [-4.0, 40.0]]]
     second = [[[-3.5, 40.0], [-3.0, 40.0], [-3.0, 41.0], [-3.5, 41.0], [-3.5, 40.5], [-3.5, 40.0]]]
+    if defect == "spike":
+        first[0][-1:-1] = [[-4.0, 40.50001], [-4.004, 40.5], [-4.0, 40.49999]]
     if defect in ("overlap", "overlap_small"):
         for position in second[0]:
             if position[0] == -3.5:

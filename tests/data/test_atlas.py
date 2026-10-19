@@ -97,7 +97,7 @@ def test_display_identity_parent_qa_and_explicit_corruption(
     other = prepare_display(atlas_dir, artifact_root=tmp_path / "displays", tolerance_m=20.0)
     assert other != display
     assert load_geography(atlas_dir, full=False).manifest == geography.manifest
-    (display / "display.geojson").write_bytes(b"corrupted")
+    (display / "display.delta.json").write_bytes(b"corrupted")
     with pytest.raises(ValueError, match="size mismatch"):
         load_display(display, geography)
 
@@ -298,3 +298,62 @@ def test_approved_neutral_display_preserves_source_and_all_economic_identities(
         prepare_display(atlas, artifact_root=tmp_path / "display", neutral_source_conflicts=True)
         == display
     )
+
+
+def test_fidelity_failure_retains_source_edges_with_consistent_neighbors(tmp_path: Path) -> None:
+    from spain_housing.ingestion.map_geometry import prepare_display
+    from spain_housing.storage.geography import load_display
+
+    raw = tmp_path / "raw"
+    atlas = build_geography(
+        atlas_inputs(raw, defect="spike"), data_root=raw, artifact_root=tmp_path / "atlas"
+    )
+    display = prepare_display(atlas, artifact_root=tmp_path / "display", tolerance_m=100)
+    bundle = load_display(display, load_geography(atlas, full=False))
+    assert "one" in bundle.manifest.quality.retained_feature_ids
+    assert bundle.manifest.quality.max_boundary_displacement_m <= 250
+    one = next(f for f in bundle.boundaries.features if f.id == "one")
+    assert any(point[0] == -4.004 for ring in one.geometry.coordinates for point in ring)
+    assert bundle.manifest.quality.coordinate_decimals == 7
+
+
+def test_retained_official_pair_has_the_pinned_real_source_overlap() -> None:
+    import shapely
+    from pyproj import Transformer
+    from shapely.geometry import shape
+
+    root = Path(__file__).parents[1] / "fixtures/geography/ign_overlap"
+    raw = (root / "features.geojson").read_bytes()
+    provenance = strict_json((root / "provenance.json").read_bytes())
+    assert sha256(raw) == provenance["extract_sha256"]
+    features = strict_json(raw)["features"]
+    assert [sha256(canonical_json(f["geometry"])) for f in features] == provenance["conflict"][
+        "geometry_sha256"
+    ]
+    geometries = [shape(f["geometry"]) for f in features]
+    assert all(g.is_valid for g in geometries)
+    assert not shapely.coverage_is_valid(geometries)
+    overlap = geometries[0].intersection(geometries[1])
+    project = Transformer.from_crs("OGC:CRS84", "EPSG:25831", always_xy=True)
+    metric = shapely.transform(overlap, project.transform, interleaved=False)
+    assert metric.area == pytest.approx(1440.944794, abs=0.001)
+
+
+def test_display_delta_encoding_preserves_geometry_and_rejects_malformed_pairs(
+    atlas_dir: Path,
+) -> None:
+    from spain_housing.storage.geography import decode_display, encode_display
+
+    collection = load_geography(atlas_dir).boundaries
+    assert collection is not None
+    encoded = encode_display(collection)
+    assert decode_display(encoded, "delta-7-v1") == collection
+    assert (
+        decode_display(canonical_json(collection.model_dump(mode="json")), "geojson") == collection
+    )
+    wrong = strict_json(encoded)
+    wrong["features"][0]["geometry"]["coordinates"][0][0][0] = True
+    with pytest.raises(ValueError, match="integers"):
+        decode_display(canonical_json(wrong), "delta-7-v1")
+    with pytest.raises(ValueError, match="header"):
+        decode_display(canonical_json(collection.model_dump(mode="json")), "delta-7-v1")

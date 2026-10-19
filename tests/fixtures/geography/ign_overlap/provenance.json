@@ -1,0 +1,62 @@
+{
+  "attribution": "IGN AU administrative units, retained 2026-10-19; derived diagnostic extract, no institutional endorsement.",
+  "conflict": {
+    "evidence_capture_ids": [
+      "capture-3e761b2920b93c39e03150efc202b4716be099fb42fc125e147637174c652a32",
+      "capture-cd64fc10081fab6a34b66f903511189a67857104d082f6bea6e2cc304ba3c7c1"
+    ],
+    "feature_ids": [
+      "1171892",
+      "1172000"
+    ],
+    "geometry_sha256": [
+      "cba328463c48adc38e21826dfc6aed96c61fda5f26c30c72964c6744085cb605",
+      "8e21bc968488fbb89819896fee5bcb774e63f24c8da90697c83c9f31b231b49a"
+    ],
+    "policy": "retain_unmodified_source",
+    "reason": "Bellver de Cerdanya / Prullans source overlap, also present in the official CNIG ATOM archive. Preserve both canonical polygons unchanged; no display policy approved yet."
+  },
+  "extract_sha256": "b1e60db10e9614b986c174a7e7ee3b5e3fbf97da420f5ac78455e9af78fb3ced",
+  "licence": "CC BY 4.0",
+  "licence_url": "https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf",
+  "origin": "official",
+  "source_captures": [
+    {
+      "byte_size": 5276,
+      "capture_id": "capture-3e761b2920b93c39e03150efc202b4716be099fb42fc125e147637174c652a32",
+      "captured_at": "2026-10-19T15:37:37.023992Z",
+      "content_type": "application/xml",
+      "format": "xml",
+      "http_status": 200,
+      "methodology_version": null,
+      "path": "captures/c85334ba1a602ab07a8c383c275eeffc992046395bdcef42584cadef5d5fe4d2.xml",
+      "permission_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+      "primary_url": "https://www.ign.es/atom/dataset_feeds/lin_lim_mun.es.xml",
+      "published_on": null,
+      "resolved_url": "https://www.ign.es/atom/dataset_feeds/lin_lim_mun.es.xml",
+      "route": "provider_download",
+      "sha256": "c85334ba1a602ab07a8c383c275eeffc992046395bdcef42584cadef5d5fe4d2",
+      "source_id": "ign-administrativeunit",
+      "source_release": "IGN ATOM feed updated 2026-08-10"
+    },
+    {
+      "byte_size": 66245318,
+      "capture_id": "capture-cd64fc10081fab6a34b66f903511189a67857104d082f6bea6e2cc304ba3c7c1",
+      "captured_at": "2026-10-19T15:38:00.093521Z",
+      "content_type": "application/zip",
+      "format": "zip",
+      "http_status": 200,
+      "methodology_version": null,
+      "path": "captures/5bd73c530af995c05da8d9ff4e3d293f62d0dc91c5e48ee773fe881716c108a6.zip",
+      "permission_reference": "collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07",
+      "primary_url": "https://centrodedescargas.cnig.es/CentroDescargas/documentos/atom/au/lineas_limite_gml.zip",
+      "published_on": null,
+      "resolved_url": "https://centrodedescargas.cnig.es/CentroDescargas/documentos/atom/au/lineas_limite_gml.zip",
+      "route": "provider_download",
+      "sha256": "5bd73c530af995c05da8d9ff4e3d293f62d0dc91c5e48ee773fe881716c108a6",
+      "source_id": "ign-administrativeunit",
+      "source_release": "IGN ATOM feed updated 2026-08-10"
+    }
+  ],
+  "subset_method": "Two complete feature objects extracted from retained IGN API pages; geometry coordinates unchanged. This file is an extract, not the complete original HTTP response."
+}

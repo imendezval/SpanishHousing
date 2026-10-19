@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import shapely
 from pydantic import TypeAdapter
@@ -186,6 +187,50 @@ class DisplayBundle:
     provinces: AtlasCollection
 
 
+def _delta_geometry(geometry: dict[str, Any], *, encode: bool) -> None:
+    """Versioned 1e-7-degree integer deltas; no geometry or topology alteration."""
+    polygons = (
+        [geometry["coordinates"]] if geometry["type"] == "Polygon" else geometry["coordinates"]
+    )
+    for polygon in polygons:
+        for ring in polygon:
+            previous = (0, 0)
+            for index, point in enumerate(ring):
+                if len(point) != 2:
+                    raise ValueError("delta display requires two-dimensional coordinate pairs")
+                if encode:
+                    current = (int(round(point[0] * 10_000_000)), int(round(point[1] * 10_000_000)))
+                    ring[index] = [current[0] - previous[0], current[1] - previous[1]]
+                else:
+                    if any(type(value) is not int for value in point):
+                        raise ValueError("delta display coordinates must be integers")
+                    current = (previous[0] + point[0], previous[1] + point[1])
+                    ring[index] = [current[0] / 10_000_000, current[1] / 10_000_000]
+                previous = current
+
+
+def encode_display(collection: AtlasCollection) -> bytes:
+    raw = collection.model_dump(mode="json")
+    for feature in raw["features"]:
+        _delta_geometry(feature["geometry"], encode=True)
+    return canonical_json(raw | {"encoding": "delta-7-v1"})
+
+
+def decode_display(data: bytes, encoding: str) -> AtlasCollection:
+    raw = TypeAdapter(dict[str, Any]).validate_python(strict_json(data))
+    if encoding == "delta-7-v1":
+        if raw.pop("encoding", None) != encoding:
+            raise ValueError("delta display encoding header mismatch")
+        try:
+            for feature in raw["features"]:
+                _delta_geometry(feature["geometry"], encode=False)
+        except (KeyError, TypeError, AttributeError, OverflowError) as exc:
+            raise ValueError("malformed delta display geometry") from exc
+    elif encoding != "geojson":
+        raise ValueError("unsupported display encoding")
+    return AtlasCollection.model_validate(raw)
+
+
 def load_display(root: Path, geography: GeographyBundle) -> DisplayBundle:
     path = contained_path(root, "manifest.json")
     if path.stat().st_size > 1024 * 1024:
@@ -204,17 +249,12 @@ def load_display(root: Path, geography: GeographyBundle) -> DisplayBundle:
     if manifest.redistribution != geography.manifest.redistribution:
         raise ValueError("display redistribution differs from its geographic parent")
     records = {r.path: r for r in manifest.files}
-    if len(records) != len(manifest.files) or records.keys() != {
-        "display.geojson",
-        "provinces.geojson",
-    }:
+    suffix = "geojson" if manifest.encoding == "geojson" else "delta.json"
+    display_name, province_name = f"display.{suffix}", f"provinces.{suffix}"
+    if len(records) != len(manifest.files) or records.keys() != {display_name, province_name}:
         raise ValueError("display requires its two canonical payloads")
-    boundaries = AtlasCollection.model_validate(
-        strict_json(read_payload(root, records["display.geojson"]))
-    )
-    provinces = AtlasCollection.model_validate(
-        strict_json(read_payload(root, records["provinces.geojson"]))
-    )
+    boundaries = decode_display(read_payload(root, records[display_name]), manifest.encoding)
+    provinces = decode_display(read_payload(root, records[province_name]), manifest.encoding)
     validate_atlas(boundaries, geography.registry)
     if not shapely.coverage_is_valid(
         [shape(feature.geometry.model_dump(mode="json")) for feature in boundaries.features]
@@ -250,8 +290,8 @@ def load_display(root: Path, geography: GeographyBundle) -> DisplayBundle:
         validate_polygon(feature.geometry)
     if (
         geometry_counts(boundaries, len(provinces.features)) != manifest.counts
-        or records["display.geojson"].record_count != len(boundaries.features)
-        or records["provinces.geojson"].record_count != len(provinces.features)
+        or records[display_name].record_count != len(boundaries.features)
+        or records[province_name].record_count != len(provinces.features)
     ):
         raise ValueError("display geometry counts mismatch")
     return DisplayBundle(manifest, boundaries, provinces)
