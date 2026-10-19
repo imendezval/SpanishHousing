@@ -85,7 +85,9 @@ def publish_artifact(
     owned_lock = False
     try:
         for name, data in payloads.items():
-            contained_path(staging, name).write_bytes(data)
+            path = contained_path(staging, name)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
         validate(staging)
         lock.mkdir()
         owned_lock = True

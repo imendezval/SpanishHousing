@@ -2,17 +2,18 @@
 
 from spain_housing.models.coverage import EvidenceCounts, ProfileCoverage, ReleaseCoverageReport
 from spain_housing.models.dataset import (
+    BuildRecipeV2,
     CoverageCell,
     CoverageSummary,
     LocationRecord,
+    MarketManifest,
     ReleasedObservation,
-    ReleaseManifest,
 )
 from spain_housing.models.market import METRIC_UNITS
 
 
 def coverage_report(
-    manifest: ReleaseManifest,
+    manifest: MarketManifest,
     locations: tuple[LocationRecord, ...],
     cells: tuple[CoverageCell, ...],
     observations: tuple[ReleasedObservation, ...],
@@ -58,6 +59,7 @@ def coverage_report(
             )
         )
     return ReleaseCoverageReport(
+        geography=recipe.geography if isinstance(recipe, BuildRecipeV2) else None,
         release_id=manifest.release_id,
         kind=manifest.kind,
         readiness=manifest.readiness,

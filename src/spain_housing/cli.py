@@ -11,11 +11,10 @@ from spain_housing.application.export import export_run, replay_run, run_json
 from spain_housing.config import load_mapping, load_scenario, scenario_json
 from spain_housing.ingestion.release import build_release
 from spain_housing.markets.repository import SnapshotMarketRepository
-from spain_housing.models.dataset import BuildRecipe
 from spain_housing.models.market import MarketQuery
 from spain_housing.models.results import RunResult
 from spain_housing.models.scenario import GeographicReference
-from spain_housing.storage.release import canonical_json, load_release
+from spain_housing.storage.release import canonical_json, load_release, parse_recipe
 
 
 def _municipal_code(value: str) -> str:
@@ -26,7 +25,7 @@ def _municipal_code(value: str) -> str:
 
 def _evaluate(args: argparse.Namespace) -> RunResult:
     repository = SnapshotMarketRepository.from_release(
-        args.release, allow_synthetic=args.allow_synthetic
+        args.release, allow_synthetic=args.allow_synthetic, geography_dir=args.geography
     )
     context = repository.evaluation_context
     if args.command == "replay-run":
@@ -89,12 +88,103 @@ def main(argv: Sequence[str] | None = None) -> int:
             action="store_true",
             help="explicitly allow labelled synthetic fixtures/demos",
         )
+    for command in (build, check_release, inspect, query, evaluate, replay, serve_command):
+        command.add_argument(
+            "--geography",
+            type=Path,
+            help="explicit canonical geography directory for schema-2 releases",
+        )
+    serve_command.add_argument(
+        "--display-geography", type=Path, help="explicit compatible simplified display directory"
+    )
+    atlas_build = commands.add_parser(
+        "build-geography", help="build canonical geography from retained official bytes"
+    )
+    atlas_build.add_argument("--config", type=Path, required=True)
+    atlas_build.add_argument("--data-root", type=Path, required=True)
+    atlas_build.add_argument("--artifact-root", type=Path, required=True)
+    atlas_check = commands.add_parser(
+        "validate-geography", help="verify complete canonical geography and optional display"
+    )
+    atlas_check.add_argument("--geography", type=Path, required=True)
+    atlas_check.add_argument("--display-geography", type=Path)
+    display_build = commands.add_parser(
+        "build-map-display", help="prepare a topology-aware metric display derivative"
+    )
+    display_build.add_argument("--geography", type=Path, required=True)
+    display_build.add_argument("--artifact-root", type=Path, required=True)
+    display_build.add_argument(
+        "--tolerance-m", type=float, choices=(20.0, 50.0, 100.0), default=50.0
+    )
+    demo = commands.add_parser(
+        "generate-demo", help="prepare explicitly synthetic economic inputs over a canonical atlas"
+    )
+    demo.add_argument("--geography", type=Path, required=True)
+    demo.add_argument("--config", type=Path, required=True)
+    demo.add_argument("--output-root", type=Path, required=True)
+    demo.add_argument("--variant", choices=("complete", "partial"), default="complete")
     args = parser.parse_args(argv)
 
     try:
+        payload: dict[str, object]
+        if args.command in (
+            "build-geography",
+            "validate-geography",
+            "build-map-display",
+            "generate-demo",
+        ):
+            from spain_housing.storage.geography import load_display, load_geography
+
+            if args.command == "build-geography":
+                from spain_housing.ingestion.atlas import build_geography
+                from spain_housing.models.geography import GeographyRecipe
+
+                path = build_geography(
+                    GeographyRecipe.model_validate(load_mapping(args.config)),
+                    data_root=args.data_root,
+                    artifact_root=args.artifact_root,
+                )
+                atlas_manifest = load_geography(path, full=False).manifest
+                payload = dict(
+                    path=str(path),
+                    artifact_id=atlas_manifest.artifact_id,
+                    counts=atlas_manifest.counts.model_dump(mode="json"),
+                )
+            elif args.command == "build-map-display":
+                from spain_housing.ingestion.map_geometry import prepare_display
+
+                path = prepare_display(
+                    args.geography, artifact_root=args.artifact_root, tolerance_m=args.tolerance_m
+                )
+                payload = dict(path=str(path), artifact_id=path.name)
+            elif args.command == "generate-demo":
+                from spain_housing.ingestion.demo import generate_demo
+                from spain_housing.models.demo import DemoConfig
+
+                path = generate_demo(
+                    args.geography,
+                    DemoConfig.model_validate(load_mapping(args.config)),
+                    output_root=args.output_root,
+                    variant=args.variant,
+                )
+                payload = dict(path=str(path), recipe=str(path / "recipe.json"), kind="synthetic")
+            else:
+                geography = load_geography(args.geography)
+                display_id = (
+                    load_display(args.display_geography, geography).manifest.artifact_id
+                    if args.display_geography
+                    else None
+                )
+                payload = dict(
+                    artifact_id=geography.manifest.artifact_id,
+                    counts=geography.manifest.counts.model_dump(mode="json"),
+                    display_id=display_id,
+                )
+            sys.stdout.write(canonical_json(payload).decode())
+            return 0
         if args.command == "inspect-release":
             repository = SnapshotMarketRepository.from_release(
-                args.release, allow_synthetic=args.allow_synthetic
+                args.release, allow_synthetic=args.allow_synthetic, geography_dir=args.geography
             )
             sys.stdout.write(
                 canonical_json(repository.coverage_report.model_dump(mode="json")).decode()
@@ -109,6 +199,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 release=args.release,
                 allow_synthetic=args.allow_synthetic,
                 port=args.port,
+                geography_dir=args.geography,
+                display_geography=args.display_geography,
             )
         if args.command in ("evaluate-scenario", "replay-run"):
             run = _evaluate(args)
@@ -118,23 +210,26 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
         if args.command != "validate-scenario":
             if args.command == "build-release":
-                recipe = BuildRecipe.model_validate(load_mapping(args.config))
+                recipe = parse_recipe(load_mapping(args.config))
                 path = build_release(
                     recipe,
                     data_root=args.data_root,
                     release_root=args.release_root,
                     allow_synthetic=args.allow_synthetic,
+                    geography_dir=args.geography,
                 )
             else:
                 path = args.release
             if args.command == "query-market":
                 repository = SnapshotMarketRepository.from_release(
-                    path, allow_synthetic=args.allow_synthetic
+                    path, allow_synthetic=args.allow_synthetic, geography_dir=args.geography
                 )
                 lookup = repository.get(MarketQuery.model_validate(load_mapping(args.query)))
                 sys.stdout.write(canonical_json(lookup.model_dump(mode="json")).decode())
             else:
-                manifest = load_release(path, allow_synthetic=args.allow_synthetic).manifest
+                manifest = load_release(
+                    path, allow_synthetic=args.allow_synthetic, geography_dir=args.geography
+                ).manifest
                 sys.stdout.write(
                     canonical_json(
                         {

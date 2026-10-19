@@ -28,6 +28,6 @@ def runtime_evidence() -> RuntimeEvidence:
         python_version=platform.python_version(),
         dependencies=tuple(
             DependencyVersion(name=name, version=version(name))
-            for name in sorted(("pydantic", "PyYAML", "shapely", "openpyxl"))
+            for name in sorted(("pydantic", "PyYAML", "shapely", "openpyxl", "pyproj"))
         ),
     )

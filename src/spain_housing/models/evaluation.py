@@ -1,5 +1,6 @@
 """Immutable public evaluation metadata and economic input traces."""
 
+from functools import cached_property
 from typing import Annotated, Literal
 
 from pydantic import Field, model_validator
@@ -20,6 +21,19 @@ class EvaluationContext(Record):
     boundary_version: Text
     attribution: Text
     limitations: tuple[Text, ...] = ()
+
+    @cached_property
+    def _location_membership(self) -> tuple[tuple[LocationRecord, ...], frozenset[str]]:
+        return self.locations, frozenset(record.location.code for record in self.locations)
+
+    @property
+    def municipality_codes(self) -> frozenset[str]:
+        owners, codes = self._location_membership
+        if owners is not self.locations:
+            # Pydantic model_copy may carry cached properties into a changed context.
+            del self.__dict__["_location_membership"]
+            _, codes = self._location_membership
+        return codes
 
     @model_validator(mode="after")
     def unique_metadata(self) -> "EvaluationContext":

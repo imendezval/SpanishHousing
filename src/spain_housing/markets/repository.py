@@ -7,7 +7,7 @@ from pathlib import Path
 from types import MappingProxyType
 
 from spain_housing.models.coverage import ReleaseCoverageReport
-from spain_housing.models.dataset import BoundaryCollection, LocationRecord, ReleaseManifest
+from spain_housing.models.dataset import BoundaryCollection, LocationRecord, MarketManifest
 from spain_housing.models.evaluation import EvaluationContext
 from spain_housing.models.market import (
     MarketLookup,
@@ -38,33 +38,31 @@ def _matches_segment(requested: MarketSegment | None, supplied: MarketSegment) -
 
 @dataclass(frozen=True, slots=True)
 class SnapshotMarketRepository:
-    manifest: ReleaseManifest
+    manifest: MarketManifest
     locations: tuple[LocationRecord, ...]
-    boundaries: BoundaryCollection
+    _boundaries: BoundaryCollection | None
     _index: Mapping[IndexKey, tuple[MarketObservation, ...]]
     coverage_report: ReleaseCoverageReport
+    _context: EvaluationContext
+    _location_codes: frozenset[str]
+
+    @property
+    def boundaries(self) -> BoundaryCollection:
+        if self._boundaries is None:
+            raise ValueError("schema-2 geography is external; select an explicit display artifact")
+        return self._boundaries
 
     @property
     def evaluation_context(self) -> EvaluationContext:
-        recipe = self.manifest.recipe
-        return EvaluationContext(
-            release_id=self.manifest.release_id,
-            kind=self.manifest.kind,
-            readiness=self.manifest.readiness,
-            redistribution=self.manifest.redistribution,
-            profiles=recipe.profiles,
-            locations=self.locations,
-            registry_version=recipe.geography.registry_version,
-            boundary_version=recipe.geography.boundary_version,
-            attribution=recipe.geography.attribution,
-            limitations=recipe.limitations,
-        )
+        return self._context
 
     @classmethod
     def from_release(
-        cls, release_dir: Path, *, allow_synthetic: bool = False
+        cls, release_dir: Path, *, allow_synthetic: bool = False, geography_dir: Path | None = None
     ) -> "SnapshotMarketRepository":
-        bundle = load_release(release_dir, allow_synthetic=allow_synthetic)
+        bundle = load_release(
+            release_dir, allow_synthetic=allow_synthetic, geography_dir=geography_dir
+        )
         grouped: dict[IndexKey, list[MarketObservation]] = {}
         for row in bundle.observations:
             observation = row.observation
@@ -76,6 +74,20 @@ class SnapshotMarketRepository:
             )
             grouped.setdefault(key, []).append(observation)
         index = MappingProxyType({key: tuple(values) for key, values in grouped.items()})
+        recipe = bundle.manifest.recipe
+        context = EvaluationContext(
+            release_id=bundle.manifest.release_id,
+            kind=bundle.manifest.kind,
+            readiness=bundle.manifest.readiness,
+            redistribution=bundle.manifest.redistribution,
+            profiles=recipe.profiles,
+            locations=bundle.locations,
+            registry_version=recipe.geography.registry_version,
+            boundary_version=recipe.geography.boundary_version,
+            attribution=recipe.geography.attribution,
+            limitations=recipe.limitations,
+        )
+
         return cls(
             bundle.manifest,
             bundle.locations,
@@ -84,6 +96,8 @@ class SnapshotMarketRepository:
             coverage_report(
                 bundle.manifest, bundle.locations, bundle.coverage, bundle.observations
             ),
+            context,
+            context.municipality_codes,
         )
 
     def get(self, query: MarketQuery) -> MarketLookup:
@@ -105,7 +119,7 @@ class SnapshotMarketRepository:
             return MarketLookup(
                 status="unsupported", reason="requested segment is not supported by this release"
             )
-        if not any(location.location == query.location for location in self.locations):
+        if query.location.code not in self._location_codes:
             return MarketLookup(status="missing", reason="municipality is outside this release")
         candidates = [
             observation

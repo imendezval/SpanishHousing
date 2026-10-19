@@ -17,6 +17,7 @@ from spain_housing.models.geography import (
     Municipality,
 )
 
+from .coverage_geometry import validate_source_coverage
 from .files import canonical_json, contained_path, publish_artifact, sha256, strict_json
 from .geometry import validate_polygon
 from .permissions import redistribution_scope, validate_capture_permission, validate_source_use
@@ -45,6 +46,7 @@ def read_payload(root: Path, record: ArtifactFile) -> bytes:
 
 def geography_reference(manifest: GeographyManifest) -> GeographyReference:
     return GeographyReference(
+        redistribution=manifest.redistribution,
         artifact_id=manifest.artifact_id,
         registry_sha256=manifest.registry_sha256,
         registry_version=manifest.recipe.registry_version,
@@ -107,7 +109,10 @@ def load_geography(root: Path, *, full: bool = True) -> GeographyBundle:
     manifest_path = contained_path(root, "manifest.json")
     if manifest_path.stat().st_size > 10 * 1024 * 1024:
         raise ValueError("geography manifest exceeds 10 MiB")
-    manifest = GeographyManifest.model_validate(strict_json(manifest_path.read_bytes()))
+    raw_manifest = TypeAdapter(dict[str, object]).validate_python(
+        strict_json(manifest_path.read_bytes())
+    )
+    manifest = GeographyManifest.model_validate(raw_manifest)
     decisions = {d.source_id: d for d in manifest.recipe.decisions}
     for decision in decisions.values():
         validate_source_use(decision, "observed")
@@ -118,7 +123,11 @@ def load_geography(root: Path, *, full: bool = True) -> GeographyBundle:
         validate_capture_permission(capture, capture_decision, "observed")
     if manifest.redistribution != redistribution_scope(manifest.recipe.decisions):
         raise ValueError("geography redistribution overstates input permissions")
-    metadata = manifest.model_dump(mode="json", exclude={"artifact_id", "content_digest"})
+    metadata = {
+        key: value
+        for key, value in raw_manifest.items()
+        if key not in ("artifact_id", "content_digest")
+    }
     if (manifest.artifact_id, manifest.content_digest) != artifact_identity("geography", metadata):
         raise ValueError("geography content identity mismatch")
     records = {r.path: r for r in manifest.files}
@@ -152,10 +161,7 @@ def load_geography(root: Path, *, full: bool = True) -> GeographyBundle:
     if not isinstance(report, dict):
         raise ValueError("geography report must be an object")
     validate_atlas(boundaries, registry)
-    if not shapely.coverage_is_valid(
-        [shape(feature.geometry.model_dump(mode="json")) for feature in boundaries.features]
-    ):
-        raise ValueError("canonical geography is not an edge-matched polygon coverage")
+    validate_source_coverage(boundaries, manifest.recipe.source_conflicts)
     for feature in provinces.features:
         if feature.properties.kind != "province":
             raise ValueError("province layer contains non-province features")

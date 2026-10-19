@@ -10,20 +10,36 @@ from .controls import render_controls, scenario_draft
 from .coverage import render_coverage
 from .details import render_details
 from .map import decorate, render_map, selected_code, viewport
+from .navigation import render_navigation
 from .presentation import STYLES, Metric
 from .state import Session
 
 
 def render_app(initial: Scenario, services: Services, *, reload: bool = False) -> None:
     st.title("Spain housing affordability")
-    if services.context.kind == "synthetic":
+    geography = services.map_geography
+    if (
+        services.context.kind == "synthetic"
+        and geography is not None
+        and geography.origin == "official"
+    ):
+        st.warning(
+            "SYNTHETIC housing prices and rents; financial results are illustrative, "
+            "not observed Spanish affordability."
+        )
+        st.caption(
+            "Official geographic boundaries, simplified for display · "
+            "Synthetic housing prices and rents."
+        )
+    elif services.context.kind == "synthetic":
         st.warning(
             "SYNTHETIC demonstration: both market values and boundary shapes are fixtures, "
             "not observed Spanish housing or official geography."
         )
     st.caption(
         f"Release {services.context.release_id} · {services.context.readiness} · "
-        f"{len(services.destinations)} released municipalities; sparse coverage only."
+        f"{len(services.destinations)} economic municipalities; "
+        f"{len(services.inspection_codes)} mapped municipalities."
     )
     render_coverage(services.coverage)
     if "housing-session" not in st.session_state:
@@ -67,54 +83,80 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
             "Inputs were not applied. Displayed results and downloads belong to "
             "the previous successful scenario."
         )
-    if session.applied is None:
-        return
     run = session.applied
-    st.subheader("Last applied scenario")
-    st.caption(
-        f"Start {run.resolved_scenario.start_month}; purchase "
-        f"{run.resolved_scenario.purchase_month}; {run.resolved_scenario.saving_months} "
-        "saving months. Unsubmitted form edits do not change these results."
+    if run is not None:
+        st.subheader("Last applied scenario")
+        st.caption(
+            f"Start {run.resolved_scenario.start_month}; purchase "
+            f"{run.resolved_scenario.purchase_month}; {run.resolved_scenario.saving_months} "
+            "saving months. Unsubmitted form edits do not change these results."
+        )
+        c1, c2, c3 = st.columns(3)
+        c1.download_button(
+            "Applied scenario.json",
+            services.encode_scenario(run.resolved_scenario),
+            "scenario.json",
+            "application/json",
+            key="download-scenario",
+            on_click="ignore",
+        )
+        c2.download_button(
+            "Applied run.json",
+            run_json(run),
+            "run.json",
+            "application/json",
+            key="download-run",
+            on_click="ignore",
+        )
+        c3.download_button(
+            "Applied summary.csv",
+            summary_csv(run),
+            "summary.csv",
+            "text/csv",
+            key="download-csv",
+            on_click="ignore",
+        )
+    metric = Metric(
+        st.selectbox(
+            "Map metric",
+            [Metric.RATIO.value, Metric.AREA.value, Metric.PRICE.value],
+            key="display-metric",
+        )
     )
-    c1, c2, c3 = st.columns(3)
-    c1.download_button(
-        "Applied scenario.json",
-        services.encode_scenario(run.resolved_scenario),
-        "scenario.json",
-        "application/json",
-        key="download-scenario",
-        on_click="ignore",
+    features = decorate(
+        run,
+        services.context,
+        services.boundaries,
+        metric,
+        geography=geography,
+        market_geography=services.coverage.geography,
+        destinations=services.destinations if run is not None else (),
     )
-    c2.download_button(
-        "Applied run.json",
-        run_json(run),
-        "run.json",
-        "application/json",
-        key="download-run",
-        on_click="ignore",
+    display_id = (
+        geography.display_id if geography is not None else services.context.boundary_version
     )
-    c3.download_button(
-        "Applied summary.csv",
-        summary_csv(run),
-        "summary.csv",
-        "text/csv",
-        key="download-csv",
-        on_click="ignore",
-    )
-    metric = Metric(st.selectbox("Map metric", [m.value for m in Metric], key="display-metric"))
-    features = decorate(run, services.context, services.boundaries, metric)
-    if "housing-view" not in st.session_state:
+    if st.session_state.get("housing-display") != display_id:
+        st.session_state["housing-display"] = display_id
         st.session_state["housing-view"] = dict(longitude=-3.5, latitude=40.0, zoom=4.5)
-    if st.button("Fit released areas"):
-        st.session_state["housing-view"] = viewport(features)
-    event = render_map(features, metric, st.session_state["housing-view"])
-    codes = {location.code for location in services.destinations}
+        session.last_pick = None
+    view, province_filter = render_navigation(features, geography)
+    outlines = (
+        [f.model_dump(mode="json") for f in geography.provinces.features] if geography else None
+    )
+    event = render_map(
+        features, metric, view, outlines=outlines, chart_key="housing-map-" + display_id
+    )
+    codes = set(services.inspection_codes)
     picked = selected_code(event, codes)
     if picked and picked != session.last_pick:
         session.selected_code = picked
         st.session_state["inspection-location"] = picked
     session.last_pick = picked
-    names = {loc.location.code: loc.official_name for loc in services.context.locations}
+    names = (
+        {loc.code: loc.official_name for loc in geography.municipalities}
+        if geography
+        else {loc.location.code: loc.official_name for loc in services.context.locations}
+    )
     if st.session_state.get("inspection-location") not in codes:
         st.session_state["inspection-location"] = session.selected_code or sorted(codes)[0]
     session.selected_code = st.selectbox(
@@ -131,7 +173,8 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
         st.rerun()
     st.caption(
         f"{STYLES[metric].unit} · no external tiles or tokens required. "
-        "Uncovered areas remain uncoloured. " + services.context.attribution
+        "Neutral context is not a financial destination. "
+        + (geography.attribution if geography else services.context.attribution)
     )
     st.dataframe(
         [
@@ -145,8 +188,24 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
                 evidence=f["properties"]["evidence"],
             )
             for f in features
+            if f["properties"]["location_code"] is not None
+            and (province_filter is None or f["properties"].get("province_code") == province_filter)
         ],
         hide_index=True,
     )
-    result = next(r for r in run.results if r.buying_location.code == session.selected_code)
-    render_details(result, run, names)
+    result = (
+        next((r for r in run.results if r.buying_location.code == session.selected_code), None)
+        if run
+        else None
+    )
+    if result is None:
+        reason = (
+            "Outside selected market coverage"
+            if session.selected_code not in {loc.code for loc in services.destinations}
+            else "Not evaluated in this run"
+        )
+        st.subheader(f"{names[session.selected_code]} ({session.selected_code})")
+        st.info(reason + ". Geography is available; no financial result is substituted.")
+    else:
+        assert run is not None
+        render_details(result, run, names)

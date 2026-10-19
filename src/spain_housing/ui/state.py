@@ -77,6 +77,6 @@ class Session:
         self.applied = run
         self.error = None
         self.pending_import = False
-        if self.selected_code not in {loc.code for loc in services.destinations}:
+        if self.selected_code not in services.inspection_codes:
             self.selected_code = services.destinations[0].code
         return True

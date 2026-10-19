@@ -1,0 +1,37 @@
+# Explicit synthetic market counterfactual; not an observed price or salary model.
+start_month: 2026-10-01
+saving_months: 84
+retained_reserve_eur: 1200
+participants:
+  - participant_id: buyer
+    net_annual_income:
+      interpolation: step
+      milestones: [{month_offset: 0, amount_eur: 24000}]
+    monthly_debt:
+      interpolation: step
+      milestones: [{month_offset: 0, amount_eur: 100}]
+    starting_savings_eur: 10000
+saver_ids: [buyer]
+borrower_ids: [buyer]
+household_nonhousing_expenses:
+  interpolation: step
+  milestones: [{month_offset: 0, amount_eur: 600}]
+living_stages:
+  - {arrangement: room, start_month_offset: 0, end_month_offset: 24, rent_share: 1, rent_includes_utilities: true}
+  - {arrangement: flat_alone, start_month_offset: 24, end_month_offset: 60, rent_share: 1, rental_area_m2: 80, rent_includes_utilities: false}
+  - {arrangement: flat_shared, start_month_offset: 60, end_month_offset: 84, rent_share: 0.5, rental_area_m2: 80, rent_includes_utilities: false}
+mortgage:
+  annual_nominal_interest_fraction: 0.03
+market_policy:
+  kind: frozen
+  base_month: 2026-10-01
+  annual_rent_growth_fraction: 0
+  annual_purchase_growth_fraction: 0
+target_property:
+  property_type: flat
+  area_m2: 60
+  condition: ordinary
+locations:
+  mode: local_local
+  saving_location: {kind: mapped}
+  buying_location: {kind: mapped}

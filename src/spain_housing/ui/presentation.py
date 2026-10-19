@@ -37,12 +37,16 @@ STATUS_COLOURS = {
     "missing": (145, 145, 145),
     "unsupported": (230, 126, 34),
     "unviable": (190, 90, 160),
+    "outside_coverage": (210, 210, 210),
+    "not_evaluated": (195, 195, 210),
 }
 
 
 @dataclass(frozen=True)
 class DisplayValue:
-    status: Literal["available", "missing", "unsupported", "unviable"]
+    status: Literal[
+        "available", "missing", "unsupported", "unviable", "outside_coverage", "not_evaluated"
+    ]
     value: float | None
     reason: str | None
 
@@ -75,10 +79,16 @@ def formatted(value: float | None, unit: str = "EUR") -> str:
     return "Unavailable" if value is None else f"{value:,.2f} {unit}"
 
 
-def legend(metric: Metric) -> tuple[tuple[str, tuple[int, int, int]], ...]:
+def legend(
+    metric: Metric, *, geographic: bool = False
+) -> tuple[tuple[str, tuple[int, int, int]], ...]:
     edges = STYLES[metric].edges
     rows = []
     for i, edge in enumerate(edges):
         label = f"[{edge:g}, {edges[i + 1]:g})" if i + 1 < len(edges) else f"[{edge:g}, ∞)"
         rows.append((f"{label} {STYLES[metric].unit}", PALETTE[i]))
-    return tuple(rows) + tuple((status.title(), rgb) for status, rgb in STATUS_COLOURS.items())
+    return tuple(rows) + tuple(
+        (status.replace("_", " ").title(), rgb)
+        for status, rgb in STATUS_COLOURS.items()
+        if geographic or status not in ("outside_coverage", "not_evaluated")
+    )

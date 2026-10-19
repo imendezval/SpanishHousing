@@ -2,11 +2,12 @@
 
 from pathlib import Path
 
-from spain_housing.models.dataset import BuildRecipe, ReleasedObservation
+from spain_housing.models.dataset import BuildRecipe, MarketRecipe, ReleasedObservation
 from spain_housing.storage.release import (
     canonical_json,
     read_capture,
     sha256,
+    validate_geography_reference,
     validate_recipe,
     write_release,
 )
@@ -28,11 +29,12 @@ def processing_fingerprint() -> str:
 
 
 def build_release(
-    recipe: BuildRecipe,
+    recipe: MarketRecipe,
     *,
     data_root: Path,
     release_root: Path,
     allow_synthetic: bool = False,
+    geography_dir: Path | None = None,
 ) -> Path:
     validate_recipe(recipe, allow_synthetic=allow_synthetic)
     recipe = recipe.model_copy(
@@ -44,9 +46,12 @@ def build_release(
     )
     captures = {item.capture_id: item for item in recipe.captures}
     captured_bytes = {key: read_capture(data_root, capture) for key, capture in captures.items()}
-    registry = captures[recipe.geography.registry_capture_id]
-    verify_registry(captured_bytes[registry.capture_id], registry.format, recipe.locations)
-    boundaries = select_boundaries(recipe, captured_bytes)
+    validate_geography_reference(recipe, geography_dir)
+    boundaries = None
+    if isinstance(recipe, BuildRecipe):
+        registry = captures[recipe.geography.registry_capture_id]
+        verify_registry(captured_bytes[registry.capture_id], registry.format, recipe.locations)
+        boundaries = select_boundaries(recipe, captured_bytes)
     rows: list[ReleasedObservation] = []
     for capture_id in recipe.observation_capture_ids:
         capture = captures[capture_id]
@@ -66,4 +71,5 @@ def build_release(
         observations=tuple(rows),
         boundaries=boundaries,
         allow_synthetic=allow_synthetic,
+        geography_dir=geography_dir,
     )

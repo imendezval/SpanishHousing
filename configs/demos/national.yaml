@@ -1,0 +1,16 @@
+# Self-authored assumptions; no observed housing data or real-world city ranking.
+generator_version: national-demo-v1
+seed: spanish-housing-national-2026-v1
+# Configured deterministic epoch, not an official/provider capture timestamp.
+logical_timestamp: '2026-10-19T00:00:00Z'
+period_start: '2026-09-01'
+period_end: '2026-10-01'
+purchase_per_m2: {minimum: 800, maximum: 5000}
+rent_per_m2_month: {minimum: 5, maximum: 20}
+room_per_month: {minimum: 250, maximum: 850}
+core_codes: ['08019', '23050', '28079']
+partial_codes: ['07040', '08015', '08019', '23050', '28065', '28079', '29067', '35016', '37274', '38038', '41038', '41091', '44216', '46169', '46250', '47186', '48020', '50297', '51001', '52001']
+partial_gaps:
+  - {location_code: '28065', profile_id: room, status: missing, reason: 'Deliberately missing synthetic room product'}
+  - {location_code: '08015', profile_id: sale, status: missing, reason: 'Deliberately missing synthetic purchase product'}
+  - {location_code: '07040', profile_id: rent, status: missing, reason: 'Deliberately missing synthetic whole-home product'}

@@ -92,3 +92,53 @@ source-policy question has been sent asynchronously to the user: approve that
 explicit display exception or leave national topology blocked awaiting official
 correction. **Do not implement that dependent exception before an answer.**
 Independent regional/schema-2/UI/generator work continues.
+
+## M3/M4 and measured scaling checkpoint
+
+Schema-2 build/load/normalization/reader/CLI/launcher references now work with
+separate geography/display. Old schema-1 entry points, embedded shapes and source
+permission restrictions remain. The composed map supports atlas-superset joins,
+explicit outside-coverage/not-evaluated states, code-based search/picking, view/
+province controls and unchanged underlying numerical bins. Regional 50 m display:
+`data/processed/map-display/display-16b1b35e09cff249f80c559f6ce5814e3d234447d2bc4e5e2eba65ef5f3f6fc6`.
+Independent four-month reference passes: 13,200 ending / 12,000 usable / 40,000
+capacity / 20 m² / target ratio 1/3; purchase-only gap retains capacity.
+
+Canonical source evidence is now retained as an immutable national artifact,
+**without claiming it is edge-matched simplifier input**. Strict validation permits
+only the two inspected, fingerprinted original overlap geometries; any additional
+defect or changed geometry still fails. No canonical coordinate was repaired.
+Artifact: `data/processed/geography/geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d`,
+8,132 municipalities / 81 neutral territories / 52 province outlines / 14,048
+polygon components / 173 holes / 4,443,152 vertices. Source overlap is explicit in
+recipe/report. **National display policy is still pending the user's answer.**
+
+Packaged generator produced actual complete (24,396 observations) and partial
+(20 municipalities, three deliberate product gaps) schema-2 synthetic releases.
+Receipts: `data/raw/national-geography/{complete,partial}-demo-built.json`.
+These intermediate release IDs will change after processing-source changes; keep
+receipt paths current when rebuilding final artifacts. No market values are real.
+
+Exploratory 84-month measurements over national metadata: distributed 250 full
+results **3.761 s** before indexing; **0.143 s** after cached immutable membership
+and a once-built context. Full 8,132 full-trace results **7.708 s**, but process
+peak grew from 334,060 to 1,474,332 KiB: even this conservative incremental peak
+**1,140,272 KiB exceeds 1 GiB**. Evidence JSONs are in the raw root. This concrete
+failure justifies a compact application-owned overview, shared iteration, bounded
+selected details and deferred full export, preserving the existing full API/CLI.
+Do not claim final A9 measurements from these single exploratory samples.
+
+Latest coherent checkpoint: **342 passed in 13.89 s**, full single gate, strict
+mypy (61 files), Ruff/lock and ten contracts. New AppTest verifies geographic-only
+selection, duplicate-name/code handling, default target metric, presentation-only
+controls and compatible-display economic cache identity. Early AppTest helper
+imports and a duplicate test basename were repaired, without disabling tests.
+Tracked small reference: `data/manifests/national_geography.json`. Canonical
+payloads total 186,469,439 bytes; validated Madrid display totals 946,036 bytes,
+22,629 vertices, worst area change 0.1682%, measured displacement 126.001 m.
+
+Next: implement the measured compact overview/detail/deferred-full-export path
+using one shared evaluator iteration. Then repeat national measurements with a
+warm-up plus three samples, finish browser/installed/two-root checks, and update
+all handoff docs. National neutral-overlap display remains dependent on the
+pending user choice; do not infer approval from elapsed time.

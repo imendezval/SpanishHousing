@@ -36,12 +36,16 @@ def validate_capture_permission(
         raise ValueError("observed capture requires a primary URL")
 
 
-def redistribution_scope(decisions: Iterable[SourceDecision]) -> UsageScope:
-    scopes = {source.redistribution for source in decisions}
+def least_permissive(scopes: Iterable[UsageScope]) -> UsageScope:
+    selected = set(scopes)
     return (
         "restricted"
-        if "restricted" in scopes
+        if "restricted" in selected
         else "unresolved"
-        if "unresolved" in scopes
+        if "unresolved" in selected
         else "permitted"
     )
+
+
+def redistribution_scope(decisions: Iterable[SourceDecision]) -> UsageScope:
+    return least_permissive(source.redistribution for source in decisions)

@@ -187,6 +187,7 @@ class ProducerEvidence(Record):
 
 
 class GeographyReference(Record):
+    redistribution: UsageScope
     artifact_id: Annotated[str, StringConstraints(strict=True, pattern=r"^geography-[a-f0-9]{64}$")]
     registry_sha256: Digest
     registry_version: Text

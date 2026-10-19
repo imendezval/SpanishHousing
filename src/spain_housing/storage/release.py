@@ -8,14 +8,18 @@ from pydantic import TypeAdapter
 from spain_housing.models.dataset import (
     BoundaryCollection,
     BuildRecipe,
+    BuildRecipeV2,
     CoverageCell,
     CoverageSummary,
     FileRecord,
     FileRole,
     LocationRecord,
+    MarketManifest,
+    MarketRecipe,
     ReferenceProfile,
     ReleasedObservation,
     ReleaseManifest,
+    ReleaseManifestV2,
     UsageScope,
 )
 from spain_housing.models.market import MarketObservation
@@ -40,6 +44,7 @@ from .files import (
 )
 from .geometry import validate_polygon
 from .permissions import (
+    least_permissive,
     redistribution_scope,
 )
 from .permissions import (
@@ -57,7 +62,7 @@ PAYLOADS: dict[FileRole, str] = {
 }
 
 
-def validate_recipe(recipe: BuildRecipe, *, allow_synthetic: bool = False) -> None:
+def validate_recipe(recipe: MarketRecipe, *, allow_synthetic: bool = False) -> None:
     if recipe.kind == "synthetic" and not allow_synthetic:
         raise ValueError("synthetic releases require explicit allow_synthetic opt-in")
     decisions = {item.source_id: item for item in recipe.decisions}
@@ -69,12 +74,16 @@ def validate_recipe(recipe: BuildRecipe, *, allow_synthetic: bool = False) -> No
         if capture_decision is None:
             raise ValueError("capture references an unknown source/permission decision")
         validate_capture_permission(capture, capture_decision, recipe.kind)
-    required = (
-        *recipe.observation_capture_ids,
-        recipe.geography.registry_capture_id,
-        *recipe.geography.boundary_capture_ids,
-    )
-    if not recipe.geography.boundary_capture_ids or not set(required) <= captures.keys():
+    required = recipe.observation_capture_ids
+    if isinstance(recipe, BuildRecipe):
+        if not recipe.geography.boundary_capture_ids:
+            raise ValueError("missing required capture reference")
+        required = (
+            *required,
+            recipe.geography.registry_capture_id,
+            *recipe.geography.boundary_capture_ids,
+        )
+    if not set(required) <= captures.keys():
         raise ValueError("missing required capture reference")
     for profile in recipe.profiles:
         if profile.source_id not in decisions:
@@ -99,7 +108,7 @@ def validate_recipe(recipe: BuildRecipe, *, allow_synthetic: bool = False) -> No
         raise ValueError("declared gaps must be unique expected gaps")
 
 
-def selected_profile(observation: MarketObservation, recipe: BuildRecipe) -> ReferenceProfile:
+def selected_profile(observation: MarketObservation, recipe: MarketRecipe) -> ReferenceProfile:
     matches = [
         profile
         for profile in recipe.profiles
@@ -133,7 +142,7 @@ def observation_key(row: ReleasedObservation) -> str:
 
 
 def generate_coverage(
-    recipe: BuildRecipe, rows: tuple[ReleasedObservation, ...]
+    recipe: MarketRecipe, rows: tuple[ReleasedObservation, ...]
 ) -> tuple[CoverageCell, ...]:
     available = {
         (row.observation.location.code, selected_profile(row.observation, recipe).profile_id)
@@ -188,11 +197,16 @@ def _coverage_summary(cells: tuple[CoverageCell, ...]) -> CoverageSummary:
     )
 
 
-def _redistribution(recipe: BuildRecipe) -> UsageScope:
-    return redistribution_scope(recipe.decisions)
+def _redistribution(recipe: MarketRecipe) -> UsageScope:
+    market_scope = redistribution_scope(recipe.decisions)
+    return (
+        least_permissive((market_scope, recipe.geography.redistribution))
+        if isinstance(recipe, BuildRecipeV2)
+        else market_scope
+    )
 
 
-def _readiness(recipe: BuildRecipe, cells: tuple[CoverageCell, ...]) -> str:
+def _readiness(recipe: MarketRecipe, cells: tuple[CoverageCell, ...]) -> str:
     if recipe.kind == "synthetic":
         return "synthetic_only"
     core_codes = {loc.location.code for loc in recipe.locations if loc.core}
@@ -206,31 +220,90 @@ def _readiness(recipe: BuildRecipe, cells: tuple[CoverageCell, ...]) -> str:
 def content_identity(metadata: dict[str, object]) -> tuple[str, str]:
     """Hash canonical manifest metadata excluding its own ID/digest, including payload hashes."""
     digest = sha256(canonical_json(metadata))
-    recipe = BuildRecipe.model_validate(metadata["recipe"])
+    recipe = parse_recipe(metadata["recipe"])
     return f"{'synthetic' if recipe.kind == 'synthetic' else 'pilot'}-{digest}", digest
 
 
 @dataclass(frozen=True)
 class ReleaseBundle:
-    manifest: ReleaseManifest
+    manifest: MarketManifest
     observations: tuple[ReleasedObservation, ...]
     locations: tuple[LocationRecord, ...]
-    boundaries: BoundaryCollection
+    boundaries: BoundaryCollection | None
     coverage: tuple[CoverageCell, ...]
 
 
-def load_release(release_dir: Path, *, allow_synthetic: bool = False) -> ReleaseBundle:
-    manifest = ReleaseManifest.model_validate(
+def parse_recipe(value: object) -> MarketRecipe:
+    if not isinstance(value, dict) or type(value.get("schema_version")) is not int:
+        raise ValueError("dataset recipe requires an integer schema_version")
+    if value["schema_version"] == 1:
+        return BuildRecipe.model_validate(value)
+    if value["schema_version"] == 2:
+        return BuildRecipeV2.model_validate(value)
+    raise ValueError("unsupported dataset recipe schema_version")
+
+
+def parse_manifest(value: object) -> MarketManifest:
+    if not isinstance(value, dict) or type(value.get("schema_version")) is not int:
+        raise ValueError("dataset manifest requires an integer schema_version")
+    if value["schema_version"] == 1:
+        return ReleaseManifest.model_validate(value)
+    if value["schema_version"] == 2:
+        return ReleaseManifestV2.model_validate(value)
+    raise ValueError("unsupported dataset manifest schema_version")
+
+
+def validate_geography_reference(recipe: MarketRecipe, geography_dir: Path | None) -> None:
+    if isinstance(recipe, BuildRecipe):
+        if geography_dir is not None:
+            raise ValueError("schema-1 releases use embedded geography; omit --geography")
+        return
+    if geography_dir is None:
+        raise ValueError("schema-2 release requires explicit --geography")
+    from .geography import geography_reference, load_geography
+
+    geography = load_geography(geography_dir, full=False)
+    if recipe.geography != geography_reference(geography.manifest):
+        raise ValueError("market/geography reference identity mismatch")
+    registry = {m.code: m for m in geography.registry}
+    for location in recipe.locations:
+        municipality = registry.get(location.location.code)
+        if municipality is None or (
+            location.official_name,
+            location.control_digit,
+            location.province_code,
+            location.geometry_feature_id,
+            location.geometry_national_code,
+        ) != (
+            municipality.official_name,
+            municipality.control_digit,
+            municipality.province_code,
+            municipality.feature_id,
+            municipality.national_code,
+        ):
+            raise ValueError("market location disagrees with pinned canonical registry")
+
+
+def load_release(
+    release_dir: Path, *, allow_synthetic: bool = False, geography_dir: Path | None = None
+) -> ReleaseBundle:
+    manifest = parse_manifest(
         strict_json(contained_path(release_dir, "manifest.json").read_bytes())
     )
     validate_recipe(manifest.recipe, allow_synthetic=allow_synthetic)
+    validate_geography_reference(manifest.recipe, geography_dir)
     if manifest.recipe.producer.code_fingerprint is None:
         raise ValueError("released recipe lacks the actual producer code fingerprint")
     files = {item.role: item for item in manifest.files}
-    if len(files) != len(manifest.files) or files.keys() != PAYLOADS.keys():
-        raise ValueError("release requires exactly the four canonical payload roles")
+    payload_names = (
+        PAYLOADS
+        if isinstance(manifest, ReleaseManifest)
+        else {role: name for role, name in PAYLOADS.items() if role != "boundaries"}
+    )
+    if len(files) != len(manifest.files) or files.keys() != payload_names.keys():
+        raise ValueError("release requires exactly its versioned canonical payload roles")
     payloads: dict[FileRole, bytes] = {}
-    for role, filename in PAYLOADS.items():
+    for role, filename in payload_names.items():
         record = files[role]
         if record.path != filename:
             raise ValueError("noncanonical payload path")
@@ -245,19 +318,25 @@ def load_release(release_dir: Path, *, allow_synthetic: bool = False) -> Release
     locations = TypeAdapter(tuple[LocationRecord, ...]).validate_python(
         strict_json(payloads["locations"])
     )
-    boundaries = BoundaryCollection.model_validate(strict_json(payloads["boundaries"]))
+    boundaries = (
+        BoundaryCollection.model_validate(strict_json(payloads["boundaries"]))
+        if isinstance(manifest, ReleaseManifest)
+        else None
+    )
     cells = TypeAdapter(tuple[CoverageCell, ...]).validate_python(strict_json(payloads["coverage"]))
     counts: dict[FileRole, int] = {
         "observations": len(rows),
         "locations": len(locations),
-        "boundaries": len(boundaries.features),
         "coverage": len(cells),
     }
+    if boundaries is not None:
+        counts["boundaries"] = len(boundaries.features)
     if any(files[role].record_count != count for role, count in counts.items()):
         raise ValueError("payload record count mismatch")
     if locations != tuple(sorted(manifest.recipe.locations, key=lambda loc: loc.location.code)):
         raise ValueError("released registry disagrees with recipe")
-    validate_geometry(boundaries, locations)
+    if boundaries is not None:
+        validate_geometry(boundaries, locations)
     captures = {item.capture_id: item for item in manifest.recipe.captures}
     location_map = {loc.location.code: loc for loc in locations}
     keys = [observation_key(row) for row in rows]
@@ -309,39 +388,60 @@ def load_release(release_dir: Path, *, allow_synthetic: bool = False) -> Release
 def write_release(
     release_root: Path,
     *,
-    recipe: BuildRecipe,
+    recipe: MarketRecipe,
     observations: tuple[ReleasedObservation, ...],
-    boundaries: BoundaryCollection,
+    boundaries: BoundaryCollection | None = None,
     allow_synthetic: bool = False,
+    geography_dir: Path | None = None,
 ) -> Path:
     validate_recipe(recipe, allow_synthetic=allow_synthetic)
     rows = tuple(sorted(observations, key=observation_key))
     locations = tuple(sorted(recipe.locations, key=lambda loc: loc.location.code))
-    boundaries = boundaries.model_copy(
-        update={
-            "features": tuple(sorted(boundaries.features, key=lambda f: f.properties.location_code))
-        }
-    )
+    validate_geography_reference(recipe, geography_dir)
+    if isinstance(recipe, BuildRecipe):
+        if boundaries is None:
+            raise ValueError("schema-1 release requires embedded boundaries")
+        boundaries = boundaries.model_copy(
+            update={
+                "features": tuple(
+                    sorted(boundaries.features, key=lambda f: f.properties.location_code)
+                )
+            }
+        )
+    elif boundaries is not None:
+        raise ValueError("schema-2 releases must not duplicate embedded geography")
     coverage = generate_coverage(recipe, rows)
     data: dict[FileRole, bytes] = {
         "observations": b"".join(canonical_json(row.model_dump(mode="json")) for row in rows),
         "locations": canonical_json([loc.model_dump(mode="json") for loc in locations]),
-        "boundaries": canonical_json(boundaries.model_dump(mode="json")),
         "coverage": canonical_json([cell.model_dump(mode="json") for cell in coverage]),
     }
-    counts = (len(rows), len(locations), len(boundaries.features), len(coverage))
+    if boundaries is not None:
+        # Preserve the legacy manifest file order/content exactly.
+        data = {
+            "observations": data["observations"],
+            "locations": data["locations"],
+            "boundaries": canonical_json(boundaries.model_dump(mode="json")),
+            "coverage": data["coverage"],
+        }
+    counts = {
+        "observations": len(rows),
+        "locations": len(locations),
+        "boundaries": len(boundaries.features) if boundaries is not None else 0,
+        "coverage": len(coverage),
+    }
     files = tuple(
         FileRecord(
             path=PAYLOADS[role],
             role=role,
             sha256=sha256(payload),
             byte_size=len(payload),
-            record_count=count,
+            record_count=counts[role],
         )
-        for (role, payload), count in zip(data.items(), counts, strict=True)
+        for role, payload in data.items()
     )
     metadata: dict[str, object] = {
-        "schema_version": 1,
+        "schema_version": recipe.schema_version,
         "recipe": recipe.model_dump(mode="json"),
         "files": [file.model_dump(mode="json") for file in files],
         "coverage": _coverage_summary(coverage).model_dump(mode="json"),
@@ -349,14 +449,14 @@ def write_release(
         "readiness": _readiness(recipe, coverage),
     }
     identity, digest = content_identity(metadata)
-    manifest = ReleaseManifest.model_validate(
-        metadata | {"release_id": identity, "content_digest": digest}
-    )
+    manifest = parse_manifest(metadata | {"release_id": identity, "content_digest": digest})
     payloads = {PAYLOADS[role]: payload for role, payload in data.items()}
     payloads["manifest.json"] = canonical_json(manifest.model_dump(mode="json"))
     return publish_artifact(
         release_root,
         identity,
         payloads,
-        lambda path: load_release(path, allow_synthetic=allow_synthetic),
+        lambda path: load_release(
+            path, allow_synthetic=allow_synthetic, geography_dir=geography_dir
+        ),
     )

@@ -5,9 +5,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urljoin, urlsplit
 
-import shapely
 from pydantic import TypeAdapter
-from shapely.geometry import shape
 
 from spain_housing.models.geography import (
     AtlasCollection,
@@ -15,6 +13,7 @@ from spain_housing.models.geography import (
     GeographyRecipe,
     Municipality,
 )
+from spain_housing.storage.coverage_geometry import validate_source_coverage
 from spain_housing.storage.files import canonical_json, read_capture, sha256, strict_json
 from spain_housing.storage.geography import (
     file_record,
@@ -183,14 +182,7 @@ def build_geography(recipe: GeographyRecipe, *, data_root: Path, artifact_root: 
         )
     boundaries = AtlasCollection(features=tuple(sorted(features, key=lambda f: f.id)))
     validate_atlas(boundaries, registry)
-    geometries = [shape(f.geometry.model_dump(mode="json")) for f in boundaries.features]
-    valid_coverage = bool(shapely.coverage_is_valid(geometries))
-    if not valid_coverage:
-        invalid = shapely.coverage_invalid_edges(geometries)
-        failed = [
-            f.id for f, edge in zip(boundaries.features, invalid, strict=True) if not edge.is_empty
-        ]
-        raise ValueError(f"official polygons do not form edge-matched coverage: {failed[:30]}")
+    valid_coverage = validate_source_coverage(boundaries, recipe.source_conflicts)
     province_features = []
     for raw in retained_features(recipe, data_root, recipe.province_page_ids, "Provincia"):
         national = str(raw["properties"]["nationalcode"])
@@ -221,6 +213,7 @@ def build_geography(recipe: GeographyRecipe, *, data_root: Path, artifact_root: 
         municipal_pages=len(recipe.municipal_page_ids),
         province_pages=len(recipe.province_page_ids),
         coverage_valid=valid_coverage,
+        source_conflicts=[conflict.model_dump(mode="json") for conflict in recipe.source_conflicts],
         source_name_crosswalks=names,
         context_territories=[c.model_dump(mode="json") for c in recipe.context_territories],
         scope="selected registry subset"

@@ -7,6 +7,7 @@ from .dataset import (
     CaptureRecord,
     CoverageCell,
     CoverageSummary,
+    GeographyReference,
     LocationRecord,
     ReferenceProfile,
     SourceDecision,
@@ -32,6 +33,7 @@ class ProfileCoverage(Record):
 class ReleaseCoverageReport(Record):
     schema_version: SchemaVersion = 1
     release_id: Text
+    geography: GeographyReference | None = None
     kind: Literal["observed", "synthetic"]
     readiness: Literal["ready", "incomplete", "synthetic_only"]
     registry_version: Text

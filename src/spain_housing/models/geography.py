@@ -3,9 +3,9 @@
 from datetime import date
 from typing import Annotated, Literal
 
-from pydantic import Field, StringConstraints, field_validator, model_validator
+from pydantic import BeforeValidator, Field, StringConstraints, field_validator, model_validator
 
-from .base import Offset, Record, SchemaVersion
+from .base import Offset, Record
 from .dataset import (
     CaptureRecord,
     Digest,
@@ -22,6 +22,14 @@ from .dataset import (
     GeographyReference as GeographyReference,
 )
 
+
+def _artifact_version_one(value: object) -> object:
+    if type(value) is not int or value != 1:
+        raise ValueError("geographic artifact schema_version must be integer 1")
+    return value
+
+
+ArtifactVersionOne = Annotated[Literal[1], BeforeValidator(_artifact_version_one)]
 GeographyId = Annotated[str, StringConstraints(strict=True, pattern=r"^geography-[a-f0-9]{64}$")]
 DisplayId = Annotated[str, StringConstraints(strict=True, pattern=r"^display-[a-f0-9]{64}$")]
 ProvinceCode = Annotated[str, StringConstraints(strict=True, pattern=r"^\d{2}$")]
@@ -77,8 +85,18 @@ class ContextTerritory(Record):
     reason: Text
 
 
+class SourceConflict(Record):
+    """Pin an inspected provider defect without repairing or assigning its geometry."""
+
+    feature_ids: tuple[Text, Text]
+    geometry_sha256: tuple[Digest, Digest]
+    policy: Literal["retain_unmodified_source"] = "retain_unmodified_source"
+    reason: Text
+    evidence_capture_ids: tuple[Identifier, ...]
+
+
 class GeographyRecipe(Record):
-    schema_version: SchemaVersion = 1
+    schema_version: ArtifactVersionOne = 1
     registry_version: Text
     registry_effective_on: date
     boundary_version: Text
@@ -91,6 +109,7 @@ class GeographyRecipe(Record):
     support_capture_ids: tuple[Identifier, ...]
     selected_codes: tuple[MunicipalCode, ...] = ()
     context_territories: tuple[ContextTerritory, ...] = ()
+    source_conflicts: tuple[SourceConflict, ...] = ()
     processing_notes: tuple[Text, ...]
 
     @model_validator(mode="after")
@@ -108,6 +127,11 @@ class GeographyRecipe(Record):
             *self.municipal_page_ids,
             *self.province_page_ids,
             *self.support_capture_ids,
+            *(
+                identity
+                for conflict in self.source_conflicts
+                for identity in conflict.evidence_capture_ids
+            ),
         )
         if not self.municipal_page_ids or not set(required) <= {
             c.capture_id for c in self.captures
@@ -135,7 +159,7 @@ class GeographyCounts(Record):
 
 
 class GeographyManifest(Record):
-    schema_version: SchemaVersion = 1
+    schema_version: ArtifactVersionOne = 1
     artifact_id: GeographyId
     content_digest: Digest
     recipe: GeographyRecipe
@@ -162,7 +186,7 @@ class DisplayQuality(Record):
 
 
 class DisplayManifest(Record):
-    schema_version: SchemaVersion = 1
+    schema_version: ArtifactVersionOne = 1
     artifact_id: DisplayId
     content_digest: Digest
     parent: GeographyReference

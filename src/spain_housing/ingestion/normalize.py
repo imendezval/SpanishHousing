@@ -2,7 +2,7 @@
 
 import re
 
-from spain_housing.models.dataset import BuildRecipe, CaptureRecord, ReleasedObservation
+from spain_housing.models.dataset import CaptureRecord, MarketRecipe, ReleasedObservation
 from spain_housing.models.market import METRIC_UNITS, MarketObservation, MarketUnit
 
 from .adapters.curated import CuratedRow
@@ -35,7 +35,7 @@ def parse_numeric(raw_value: str, numeric_format: str) -> float | None:
 
 
 def normalize_rows(
-    rows: tuple[CuratedRow, ...], capture: CaptureRecord, recipe: BuildRecipe
+    rows: tuple[CuratedRow, ...], capture: CaptureRecord, recipe: MarketRecipe
 ) -> tuple[ReleasedObservation, ...]:
     profiles = {profile.profile_id: profile for profile in recipe.profiles}
     crosswalk = {
