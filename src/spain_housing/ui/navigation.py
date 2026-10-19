@@ -6,7 +6,7 @@ import streamlit as st
 
 from spain_housing.models.geography import MapGeography
 
-from .map import viewport
+from .map import set_view, viewport
 
 
 def render_navigation(
@@ -15,7 +15,7 @@ def render_navigation(
     if "housing-view" not in st.session_state:
         st.session_state["housing-view"] = dict(longitude=-3.5, latitude=40.0, zoom=4.5)
     if st.button("Fit released areas"):
-        st.session_state["housing-view"] = viewport(features)
+        set_view(viewport(features))
     province_filter = None
     if geography is not None and geography.origin == "official":
         view = st.selectbox(
@@ -38,7 +38,7 @@ def render_navigation(
 
             selected = [f for f in features if included(f)]
             if selected:
-                st.session_state["housing-view"] = viewport(selected)
+                set_view(viewport(selected))
             else:
                 st.info("The selected atlas has no features in this territorial view.")
         provinces = {
@@ -59,14 +59,14 @@ def render_navigation(
                 f for f in features if f["properties"].get("province_code") == province_filter
             ]
             if selected:
-                st.session_state["housing-view"] = viewport(selected)
+                set_view(viewport(selected))
         if st.button("Reset national view"):
             mainland = [
                 f
                 for f in features
                 if f["properties"].get("province_code") not in ("35", "38", "51", "52")
             ]
-            st.session_state["housing-view"] = viewport(mainland or features)
+            set_view(viewport(mainland or features))
         st.caption(
             "Territorial/province controls change the view and table only; "
             "economic inputs and evaluated destinations stay fixed."

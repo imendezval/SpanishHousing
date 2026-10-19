@@ -187,6 +187,12 @@ def viewport(features: list[dict[str, Any]]) -> dict[str, float]:
     )
 
 
+def set_view(view: dict[str, float]) -> None:
+    """Explicit camera actions remount the chart; metric rerenders retain user panning."""
+    st.session_state["housing-view"] = view
+    st.session_state["housing-view-revision"] = st.session_state.get("housing-view-revision", 0) + 1
+
+
 def render_map(
     features: list[dict[str, Any]],
     metric: Metric,

@@ -10,7 +10,7 @@ from .contracts import Services
 from .controls import render_controls, scenario_draft
 from .coverage import render_coverage
 from .details import render_details
-from .map import decorate, render_map, selected_code, viewport
+from .map import decorate, render_map, selected_code, set_view, viewport
 from .navigation import render_navigation
 from .presentation import STYLES, Metric
 from .state import Session
@@ -153,14 +153,18 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
     )
     if st.session_state.get("housing-display") != display_id:
         st.session_state["housing-display"] = display_id
-        st.session_state["housing-view"] = dict(longitude=-3.5, latitude=40.0, zoom=4.5)
+        set_view(dict(longitude=-3.5, latitude=40.0, zoom=4.5))
         session.last_pick = None
     view, province_filter = render_navigation(features, geography)
     outlines = (
         [f.model_dump(mode="json") for f in geography.provinces.features] if geography else None
     )
     event = render_map(
-        features, metric, view, outlines=outlines, chart_key="housing-map-" + display_id
+        features,
+        metric,
+        view,
+        outlines=outlines,
+        chart_key=f"housing-map-{display_id}-{st.session_state.get('housing-view-revision', 0)}",
     )
     codes = set(services.inspection_codes)
     picked = selected_code(event, codes)
@@ -181,12 +185,10 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
         format_func=lambda code: f"{names[code]} ({code})",
         key="inspection-location",
     )
-    if st.button("Zoom to selected location"):
-        selected_features = [
-            f for f in features if f["properties"]["location_code"] == session.selected_code
-        ]
-        st.session_state["housing-view"] = viewport(selected_features)
-        st.rerun()
+    selected_features = [
+        f for f in features if f["properties"]["location_code"] == session.selected_code
+    ]
+    st.button("Zoom to selected location", on_click=set_view, args=(viewport(selected_features),))
     st.caption(
         f"{STYLES[metric].unit} · no external tiles or tokens required. "
         "Neutral context is not a financial destination. "

@@ -176,3 +176,25 @@ context. No municipality/island was dropped to evade the overlap.
 Next: fresh core/map wheel checks, second-runtime gate, regional actual browser,
 two-root retained rebuild and portable archive. National display exception still
 requires the pending answer; no approval is inferred from silence.
+
+## Browser camera and restoration repair
+
+A real installed regional browser run rendered 179 official municipalities and
+picked Madrid via WebGL, but visual inspection showed camera commands could
+retain Streamlit's old view. Explicit camera actions now advance a chart revision;
+metric rerenders keep the chart/user pan. Selected zoom uses a pre-rerender
+callback. AppTest verifies repeated reset/zoom actions advance the revision with
+zero additional financial evaluations. Updated full Python 3.12 gate:
+**348 passed in 14.74 s**; final wheel rebuilt and clean core/map environments
+reinstalled. Final browser proof is being repeated after this repair.
+
+First actual archive restoration reproduced the national canonical artifact and
+both national synthetic input/release payloads. It correctly failed on the
+intermediate Madrid identity: that artifact predated `source_conflicts: []` in
+recipe/report serialization. Do not hide this mismatch or rewrite the old
+artifact. Regenerated final regional atlas:
+`geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf`;
+its canonical vertices are unchanged. New paired display:
+`display-3018daeaf69b898617c881a5a725395c52d2c2478328a45b5625c62548ad9497`.
+Receipts and final bundle are being refreshed, then both roots will be restored
+and rebuilt again. The earlier regional IDs above are historical checkpoints.

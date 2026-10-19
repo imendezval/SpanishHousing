@@ -132,12 +132,22 @@ def test_geographic_only_selection_and_display_changes_never_evaluate(
     assert at.selectbox(key="display-metric").value == Metric.RATIO.value
     assert any("Official geographic boundaries" in caption.value for caption in at.caption)
     initial = at.session_state["housing-session"].applied
+    revision = at.session_state["housing-view-revision"]
     at.selectbox(key="inspection-location").set_value("28002").run()
     assert not at.exception
     assert any("Outside selected market coverage" in info.value for info in at.info)
     assert at.subheader[-1].value == "Same name (28002)"
     at.selectbox(key="display-metric").set_value(Metric.PRICE.value).run()
+    assert at.session_state["housing-view-revision"] == revision
     next(button for button in at.button if button.label == "Reset national view").click().run()
+    assert at.session_state["housing-view-revision"] == revision + 1
+    next(button for button in at.button if button.label == "Reset national view").click().run()
+    assert at.session_state["housing-view-revision"] == revision + 2
+    next(
+        button for button in at.button if button.label == "Zoom to selected location"
+    ).click().run()
+    assert at.session_state["housing-view-revision"] == revision + 3
+    assert at.session_state["evaluation-count"] == 1
     assert not at.exception and at.session_state["evaluation-count"] == 1
     assert at.session_state["housing-session"].applied == initial
     # A compatible display identity changes, while economic memo identity stays fixed.
