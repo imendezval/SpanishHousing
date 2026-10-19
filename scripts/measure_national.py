@@ -1,7 +1,8 @@
 """Measure existing national evaluator owners using explicit retained artifacts.
 
 This script acquires nothing and creates no synthetic identities or prices.
-This is economic-only evidence, not national render verification.
+Without --display-geography this is economic-only evidence. With it, the script
+measures backend composition/session/projection/serialization, not browser rendering.
 """
 
 import argparse
@@ -101,7 +102,12 @@ def measure_map(
     )
     cold_load_s = time.perf_counter() - started
     assert services.map_geography is not None
-    outlines = [f.model_dump(mode="json") for f in services.map_geography.provinces.features]
+    gc.collect()
+    baseline_rss = next(
+        int(line.split()[1])
+        for line in Path("/proc/self/status").read_text().splitlines()
+        if line.startswith("VmRSS:")
+    )
     baseline_peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     samples: dict[str, list[float]] = {}
 
@@ -112,6 +118,7 @@ def measure_map(
             started = time.perf_counter()
             result = action()
             duration = time.perf_counter() - started
+            gc.collect()
             if index:
                 durations.append(duration)
         samples[label] = durations
@@ -140,9 +147,11 @@ def measure_map(
             geography=services.map_geography,
             market_geography=services.coverage.geography,
             destinations=services.destinations,
+            share_immutable_coordinates=True,
         )
 
     def encode(features: Any, metric: Metric) -> int:
+        outlines = [f.model_dump(mode="json") for f in services.map_geography.provinces.features]
         # Capture the actual deck owner at its public Streamlit output boundary.
         with (
             patch("spain_housing.ui.map.st.markdown"),
@@ -206,7 +215,9 @@ def measure_map(
         maxrss_KiB=peak,
         incremental_peak_KiB=peak - baseline_peak,
         details=details,
-        presentation_financial_calls=calls - before,
+        presentation_evaluator_calls=calls - before,
+        baseline_current_rss_KiB=baseline_rss,
+        incremental_peak_upper_bound_KiB=peak - baseline_rss,
         memo_entries=len(session.memo),
         detail_entries=len(session.details),
     )

@@ -121,3 +121,41 @@ def test_rendered_spec_disables_remote_basemap_and_uses_plain_tooltips(monkeypat
     monkeypatch.setattr(module.st, "markdown", lambda *args, **kwargs: None)
     monkeypatch.setattr(module.st, "pydeck_chart", capture)
     render_map([], Metric.PRICE, dict(longitude=-3.5, latitude=40, zoom=4.5))
+
+
+def test_internal_shared_coordinates_match_the_default_detached_projection(
+    release_dir: Path,
+) -> None:
+    scenario, services = compose(
+        ROOT / "configs/defaults.yaml",
+        ROOT / "configs/scenarios/phase4_room_demo.yaml",
+        release_dir,
+        allow_synthetic=True,
+    )
+    run = services.evaluate(scenario, services.destinations)
+    standard = decorate(run, services.context, services.boundaries, Metric.RATIO)
+    shared = decorate(
+        run, services.context, services.boundaries, Metric.RATIO, share_immutable_coordinates=True
+    )
+    assert json.loads(json.dumps(shared)) == standard
+    assert isinstance(shared[0]["geometry"]["coordinates"], tuple)
+    assert (
+        shared[0]["geometry"]["coordinates"] is services.boundaries.features[0].geometry.coordinates
+    )
+    shared[0]["geometry"]["coordinates"] = []
+    assert decorate(run, services.context, services.boundaries, Metric.RATIO) == standard
+
+
+def test_compact_deck_has_identical_public_pydeck_content() -> None:
+    import pydeck as pdk
+
+    from spain_housing.ui.map import _CompactDeck
+
+    deck = _CompactDeck(
+        layers=[pdk.Layer("GeoJsonLayer", data={"type": "FeatureCollection", "features": []})],
+        map_provider=None,
+    )
+    compact = deck.to_json()
+    original = pdk.Deck.to_json(deck)
+    assert json.loads(compact) == json.loads(original)
+    assert len(compact) < len(original) and "\n" not in compact

@@ -283,7 +283,7 @@ def prepare_display(
     }
     metadata = dict(
         schema_version=1,
-        encoding="delta-7-v1",
+        encoding="delta-7-v2",
         parent=geography_reference(geography.manifest).model_dump(mode="json"),
         files=[
             file_record(name, data, count).model_dump(mode="json")

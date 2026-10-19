@@ -147,6 +147,7 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
         geography=geography,
         market_geography=services.coverage.geography,
         destinations=services.destinations if run is not None else (),
+        share_immutable_coordinates=True,
     )
     display_id = (
         geography.display_id if geography is not None else services.context.boundary_version

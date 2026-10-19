@@ -234,3 +234,33 @@ Codec round-trip/malformed-input tests pass. Two real unmodified IGN features
 are now an attributed offline fixture under `tests/fixtures/geography/ign_overlap`;
 its hash/source-provenance and 1,440.944794 m² EPSG:25831 overlap are tested.
 Current full gate: **353 passed in 20.83 s**, all existing gates retained.
+
+### Selected national display and render repair
+
+All three final-method candidates preserve complete identities, components and
+holes, valid coverage, and the declared neutral patch. Payloads after lossless
+`delta-7-v2` row/delta encoding: **20 m 30,305,758 bytes** (fails size target),
+**50 m 20,673,592 bytes**, **100 m 20,030,810 bytes**. Select 50 m as the smallest
+passing tolerance. The selected artifact is
+`display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c`;
+optional compatible 100 m artifact:
+`display-6ec9ea4fbc50973d7e3edf32adeefe7c881021c9a47db3837e7f3049dd3742ce`.
+The 50 m candidate has 1,201,676 vertices / 14,049 polygon components including
+the neutral patch; original 173 holes and 81 context areas remain. Maximum area
+change **1.701928%**, displacement bound **246.139481 m**, 26 retained features.
+Source intersection area in its recorded mainland QA CRS (EPSG:25830) is
+1,446.027048 m²; the previously reported 1,440.944794 m² uses local EPSG:25831.
+These are the same unchanged source intersection under different metric CRSs.
+
+A single installed exploratory renderer sample measured 1.768 s projection plus
+3.329 s PyDeck pretty JSON (168,426,584 bytes). The internal renderer now shares
+immutable model coordinate tuples while default `decorate` callers still get
+detached JSON lists. Properties stay detached. A small Deck subclass delegates
+to PyDeck's existing serializer with compact whitespace through public `to_json`;
+no custom JS, widget/protocol edits or alternate financial serialization.
+Normalized map specifications and default projection parity are tested.
+
+Current full single gate: **356 passed in 14.85 s**, all lock/Ruff/mypy/contracts
+pass. Final installed backend sampling and real national browser checks are next.
+Market receipts have been rebuilt with current processing evidence; all economic
+capture inputs/prices remain unchanged and explicitly synthetic.

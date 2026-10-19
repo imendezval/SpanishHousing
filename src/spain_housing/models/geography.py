@@ -205,7 +205,7 @@ class DisplayManifest(Record):
     files: tuple[ArtifactFile, ...]
     quality: DisplayQuality
     neutral_conflicts: tuple[NeutralConflict, ...] = ()
-    encoding: Literal["geojson", "delta-7-v1"] = "geojson"
+    encoding: Literal["geojson", "delta-7-v1", "delta-7-v2"] = "geojson"
     counts: GeographyCounts
     attribution: Text
     redistribution: UsageScope

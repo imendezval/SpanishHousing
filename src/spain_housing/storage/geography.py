@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import shapely
 from pydantic import TypeAdapter
@@ -209,22 +209,86 @@ def _delta_geometry(geometry: dict[str, Any], *, encode: bool) -> None:
                 previous = current
 
 
-def encode_display(collection: AtlasCollection) -> bytes:
+_DISPLAY_COLUMNS = [
+    "id",
+    "location_code",
+    "name",
+    "province_code",
+    "kind_index",
+    "source_national_code",
+    "polygon_type_index",
+    "coordinates",
+]
+_DISPLAY_KINDS = ("municipality", "context", "province", "source_conflict")
+
+
+def encode_display(
+    collection: AtlasCollection,
+    *,
+    encoding: Literal["delta-7-v1", "delta-7-v2"] = "delta-7-v2",
+) -> bytes:
     raw = collection.model_dump(mode="json")
     for feature in raw["features"]:
         _delta_geometry(feature["geometry"], encode=True)
-    return canonical_json(raw | {"encoding": "delta-7-v1"})
+    if encoding == "delta-7-v2":
+        raw["features"] = [
+            [
+                f["id"],
+                f["properties"]["location_code"],
+                f["properties"]["name"],
+                f["properties"]["province_code"],
+                _DISPLAY_KINDS.index(f["properties"]["kind"]),
+                f["properties"]["source_national_code"],
+                0 if f["geometry"]["type"] == "Polygon" else 1,
+                f["geometry"]["coordinates"],
+            ]
+            for f in raw["features"]
+        ]
+        raw["columns"] = _DISPLAY_COLUMNS
+    return canonical_json(raw | {"encoding": encoding})
 
 
 def decode_display(data: bytes, encoding: str) -> AtlasCollection:
     raw = TypeAdapter(dict[str, Any]).validate_python(strict_json(data))
-    if encoding == "delta-7-v1":
+    if encoding in ("delta-7-v1", "delta-7-v2"):
         if raw.pop("encoding", None) != encoding:
             raise ValueError("delta display encoding header mismatch")
         try:
+            if encoding == "delta-7-v2":
+                if raw.pop("columns", None) != _DISPLAY_COLUMNS:
+                    raise ValueError("delta display column header mismatch")
+                features = []
+                for row in raw["features"]:
+                    if (
+                        not isinstance(row, list)
+                        or len(row) != 8
+                        or type(row[4]) is not int
+                        or row[4] not in range(len(_DISPLAY_KINDS))
+                        or type(row[6]) is not int
+                        or row[6] not in (0, 1)
+                    ):
+                        raise ValueError("invalid delta display feature row")
+                    features.append(
+                        dict(
+                            type="Feature",
+                            id=row[0],
+                            properties=dict(
+                                location_code=row[1],
+                                name=row[2],
+                                province_code=row[3],
+                                kind=_DISPLAY_KINDS[row[4]],
+                                source_national_code=row[5],
+                            ),
+                            geometry=dict(
+                                type="Polygon" if row[6] == 0 else "MultiPolygon",
+                                coordinates=row[7],
+                            ),
+                        )
+                    )
+                raw["features"] = features
             for feature in raw["features"]:
                 _delta_geometry(feature["geometry"], encode=False)
-        except (KeyError, TypeError, AttributeError, OverflowError) as exc:
+        except (KeyError, IndexError, TypeError, AttributeError, OverflowError) as exc:
             raise ValueError("malformed delta display geometry") from exc
     elif encoding != "geojson":
         raise ValueError("unsupported display encoding")

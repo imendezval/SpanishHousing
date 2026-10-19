@@ -1,11 +1,13 @@
 """Strict detached geometry joins and rendering-only viewport/selection adapters."""
 
+import json
 import math
 from collections.abc import Mapping
 from typing import Any
 
 import pydeck as pdk  # type: ignore[import-untyped]
 import streamlit as st
+from pydeck.bindings.json_tools import default_serialize  # type: ignore[import-untyped]
 
 from spain_housing.models.dataset import BoundaryCollection, BoundaryFeature, GeographyReference
 from spain_housing.models.evaluation import EvaluationContext
@@ -18,6 +20,20 @@ from .presentation import STYLES, DisplayValue, Metric, colour, formatted, legen
 LAYER_ID = "municipal-affordability"
 
 
+class _CompactDeck(pdk.Deck):  # type: ignore[misc]
+    """Use PyDeck's serializer and public Deck contract with compact whitespace."""
+
+    def to_json(self) -> str:
+        return json.dumps(
+            self,
+            default=default_serialize,
+            sort_keys=True,
+            ensure_ascii=False,
+            allow_nan=False,
+            separators=(",", ":"),
+        )
+
+
 def decorate(
     run: RunResult | RunOverview | None,
     context: EvaluationContext,
@@ -27,6 +43,7 @@ def decorate(
     geography: MapGeography | None = None,
     market_geography: GeographyReference | None = None,
     destinations: tuple[GeographicReference, ...] | None = None,
+    share_immutable_coordinates: bool = False,
 ) -> list[dict[str, Any]]:
     """Require R=E and E⊆M⊆A; geographic absence never becomes an economic result."""
     source_features: tuple[AtlasFeature | BoundaryFeature, ...]
@@ -95,7 +112,13 @@ def decorate(
     features = []
     for feature in source_features:
         code = feature.properties.location_code
-        detached = feature.model_dump(mode="json")
+        detached = feature.model_dump(
+            mode="json", exclude={"geometry"} if share_immutable_coordinates else set()
+        )
+        if share_immutable_coordinates:
+            detached["geometry"] = dict(
+                type=feature.geometry.type, coordinates=feature.geometry.coordinates
+            )
         if code is None:
             conflict = (
                 isinstance(feature, AtlasFeature) and feature.properties.kind == "source_conflict"
@@ -221,7 +244,7 @@ def render_map(
             "1 × target price means capacity covers the estimated target; "
             "this is not a probability."
         )
-    deck = pdk.Deck(
+    deck = _CompactDeck(
         # Keep PyDeck's default style sentinel with no provider. Passing an
         # explicit None/empty style makes Streamlit supply remote themed tiles.
         map_provider=None,

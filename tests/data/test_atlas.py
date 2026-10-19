@@ -339,21 +339,26 @@ def test_retained_official_pair_has_the_pinned_real_source_overlap() -> None:
     assert metric.area == pytest.approx(1440.944794, abs=0.001)
 
 
+@pytest.mark.parametrize("encoding", ["delta-7-v1", "delta-7-v2"])
 def test_display_delta_encoding_preserves_geometry_and_rejects_malformed_pairs(
     atlas_dir: Path,
+    encoding: str,
 ) -> None:
     from spain_housing.storage.geography import decode_display, encode_display
 
     collection = load_geography(atlas_dir).boundaries
     assert collection is not None
-    encoded = encode_display(collection)
-    assert decode_display(encoded, "delta-7-v1") == collection
+    encoded = encode_display(collection, encoding=encoding)
+    assert decode_display(encoded, encoding) == collection
     assert (
         decode_display(canonical_json(collection.model_dump(mode="json")), "geojson") == collection
     )
     wrong = strict_json(encoded)
-    wrong["features"][0]["geometry"]["coordinates"][0][0][0] = True
+    if encoding == "delta-7-v1":
+        wrong["features"][0]["geometry"]["coordinates"][0][0][0] = True
+    else:
+        wrong["features"][0][7][0][0][0] = True
     with pytest.raises(ValueError, match="integers"):
-        decode_display(canonical_json(wrong), "delta-7-v1")
+        decode_display(canonical_json(wrong), encoding)
     with pytest.raises(ValueError, match="header"):
-        decode_display(canonical_json(collection.model_dump(mode="json")), "delta-7-v1")
+        decode_display(canonical_json(collection.model_dump(mode="json")), encoding)
