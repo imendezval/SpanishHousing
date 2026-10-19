@@ -211,11 +211,18 @@ def viewport(features: list[dict[str, Any]]) -> dict[str, float]:
         raise ValueError("map has no geometry coordinates")
     west, east = min(p[0] for p in points), max(p[0] for p in points)
     south, north = min(p[1] for p in points), max(p[1] for p in points)
-    span = max(east - west, (north - south) * 1.5, 0.01)
+
+    # Fit the 960x480 desktop chart in Web Mercator, leaving a 10% margin.
+    def mercator(latitude: float) -> float:
+        return math.degrees(math.log(math.tan(math.pi / 4 + math.radians(latitude) / 2)))
+
+    low, high = mercator(south), mercator(north)
+    span = max(east - west, 2 * (high - low), 0.01)
+    latitude = math.degrees(2 * math.atan(math.exp(math.radians((low + high) / 2))) - math.pi / 2)
     return dict(
         longitude=(west + east) / 2,
-        latitude=(south + north) / 2,
-        zoom=max(3.0, min(12.0, math.log2(360 / span) - 1.5)),
+        latitude=latitude,
+        zoom=max(3.0, min(12.0, math.log2(360 * 768 / (512 * span)))),
     )
 
 
@@ -249,6 +256,7 @@ def render_map(
         # explicit None/empty style makes Streamlit supply remote themed tiles.
         map_provider=None,
         initial_view_state=pdk.ViewState(**view),
+        views=[pdk.View(type="MapView", controller=True, id=chart_key)],
         layers=[
             pdk.Layer(
                 "GeoJsonLayer",
@@ -256,9 +264,9 @@ def render_map(
                 data=dict(type="FeatureCollection", features=features),
                 pickable=True,
                 filled=True,
-                stroked=True,
+                stroked=view.get("zoom", 4.5) >= 7,
                 get_fill_color="properties.colour",
-                get_line_color=[240, 240, 240],
+                get_line_color=[250, 250, 250, 120],
                 get_line_width=8,
                 line_width_units="meters",
                 line_width_min_pixels=0,
@@ -275,11 +283,11 @@ def render_map(
                     pickable=False,
                     filled=False,
                     stroked=True,
-                    get_line_color=[55, 55, 55, 200],
+                    get_line_color=[70, 70, 70, 150],
                     get_line_width=70,
                     line_width_units="meters",
-                    line_width_min_pixels=0.6,
-                    line_width_max_pixels=2,
+                    line_width_min_pixels=0.35,
+                    line_width_max_pixels=1.2,
                 )
             ]
             if outlines

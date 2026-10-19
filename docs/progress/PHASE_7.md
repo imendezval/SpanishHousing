@@ -264,3 +264,30 @@ Current full single gate: **356 passed in 14.85 s**, all lock/Ruff/mypy/contract
 pass. Final installed backend sampling and real national browser checks are next.
 Market receipts have been rebuilt with current processing evidence; all economic
 capture inputs/prices remain unchanged and explicitly synthetic.
+
+### National backend and first browser findings
+
+Installed backend sampling completed (one warm-up plus three samples): 84-month
+national changed Apply through serialization median **5.285 s**; metric projection/
+encoding **0.852–0.863 s**; view bounds **0.522 s**; equal Apply **0.0138 s**;
+selected details **10–12 ms**; full 208,770,585-byte export **7.041 s**. Loaded
+current RSS 610,248 KiB; total process peak 936,436 KiB gives conservative added
+peak upper bound **326,188 KiB**, including full export. Zero presentation evaluator
+calls; overview/detail caches each retain two entries. This is backend evidence,
+not browser timing. Evidence `national-backend.json` captures actual code/runtime.
+
+Actual Chrome national screenshots exposed overly strong outlines and underfit
+territorial views; the first national pick also failed. Municipal strokes now
+appear only in detailed views, province strokes are lighter/thinner, and fit uses
+Web Mercator/960x480 layout bounds with margins. Explicit public MapView IDs follow
+chart camera revisions. An installed quick browser rerun now picks the real
+Madrid (28079) polygon and shows the expected **1.59 × target price**. National
+colour fills/silhouette and detailed municipal borders are visually confirmed.
+The initial software-rendered browser load was **38.214 s**, so do not claim all
+browser targets from backend timing. Full browser workflow and warm observations
+are running; no private widget/protocol state is modified.
+
+Updated source gate after these UI repairs: **356 passed in 14.71 s**, all other
+gates pass. Canonical, selected display and economic payloads are unchanged by
+these presentation-only repairs; only whole-package calculation-code evidence
+changes as designed.
