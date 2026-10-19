@@ -158,3 +158,61 @@ def test_bounded_session_memo_and_revalidation(release_dir: Path) -> None:
     compose(*args, allow_synthetic=True)
     with pytest.raises(ValueError):
         compose(*args, allow_synthetic=True, reload=True)
+
+
+def test_compact_details_and_exports_are_bounded_and_follow_applied_identity(
+    release_dir: Path,
+) -> None:
+    from spain_housing.application.export import full_run_json
+    from spain_housing.application.overview import detail_run, evaluate_overview
+
+    initial, original = compose(
+        ROOT / "configs/defaults.yaml",
+        ROOT / "configs/scenarios/phase4_room_demo.yaml",
+        release_dir,
+        allow_synthetic=True,
+    )
+    from spain_housing.markets.repository import SnapshotMarketRepository
+
+    repo = SnapshotMarketRepository.from_release(release_dir, allow_synthetic=True)
+    counts = dict(evaluate=0, detail=0, export=0)
+
+    def evaluate(value, destinations):
+        counts["evaluate"] += 1
+        return evaluate_overview(
+            value, market_data=repo, context=original.context, mapped_locations=destinations
+        )
+
+    def detail(run, code):
+        counts["detail"] += 1
+        return detail_run(run, code, market_data=repo, context=original.context)
+
+    def export(run):
+        counts["export"] += 1
+        return full_run_json(run, market_data=repo, context=original.context)
+
+    services = replace(original, evaluate=evaluate, detail=detail, full_export=export)
+    session = Session(scenario_draft(initial))
+    assert session.apply(session.draft, services)
+    codes = [r.code for r in services.destinations]
+    session.detail(services, codes[0])
+    session.detail(services, codes[0])
+    assert counts["detail"] == 1
+    for code in codes[1:]:
+        session.detail(services, code)
+    assert len(session.details) == 2
+    session.prepare_export(services)
+    payload = session.full_export
+    session.prepare_export(services)
+    assert counts["export"] == 1
+    assert session.apply(session.draft, services)
+    assert session.full_export is payload and counts["evaluate"] == 1
+    invalid = deepcopy(session.draft)
+    invalid["base"]["saving_months"] = 13
+    assert not session.apply(invalid, services)
+    assert session.full_export is payload and len(session.details) == 2
+    changed = initial.model_copy(update={"retained_reserve_eur": 1})
+    assert session.apply(scenario_draft(changed), services)
+    assert session.full_export is None and not session.details
+    session.clear_results()
+    assert not session.memo and session.applied is None

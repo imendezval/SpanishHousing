@@ -9,6 +9,8 @@ from functools import lru_cache
 from pathlib import Path
 
 from spain_housing.application import evaluate_scenario
+from spain_housing.application.export import full_run_json
+from spain_housing.application.overview import detail_run, evaluate_overview
 from spain_housing.application.version import MODEL_VERSION, code_version, runtime_evidence
 from spain_housing.config import (
     load_mapping,
@@ -99,12 +101,23 @@ def compose(
         values = parse_mapping(text, Path(name).suffix)
         return Scenario.model_validate(merge_mappings(default_values, values))
 
+    evaluator = (
+        evaluate_overview
+        if len(repository.evaluation_context.locations) > 250
+        else evaluate_scenario
+    )
     return resolved, Services(
-        evaluate=lambda value, destinations: evaluate_scenario(
+        evaluate=lambda value, destinations: evaluator(
             value,
             market_data=repository,
             context=repository.evaluation_context,
             mapped_locations=destinations,
+        ),
+        detail=lambda overview, code: detail_run(
+            overview, code, market_data=repository, context=repository.evaluation_context
+        ),
+        full_export=lambda overview: full_run_json(
+            overview, market_data=repository, context=repository.evaluation_context
         ),
         decode_scenario=decode,
         encode_scenario=scenario_json,

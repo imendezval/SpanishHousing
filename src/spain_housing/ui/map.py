@@ -10,7 +10,7 @@ import streamlit as st
 from spain_housing.models.dataset import BoundaryCollection, BoundaryFeature, GeographyReference
 from spain_housing.models.evaluation import EvaluationContext
 from spain_housing.models.geography import AtlasFeature, MapGeography
-from spain_housing.models.results import RunResult
+from spain_housing.models.results import RunOverview, RunResult
 from spain_housing.models.scenario import GeographicReference
 
 from .presentation import STYLES, DisplayValue, Metric, colour, formatted, legend, metric_value
@@ -19,7 +19,7 @@ LAYER_ID = "municipal-affordability"
 
 
 def decorate(
-    run: RunResult | None,
+    run: RunResult | RunOverview | None,
     context: EvaluationContext,
     boundaries: BoundaryCollection | None,
     metric: Metric,

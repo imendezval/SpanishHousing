@@ -7,13 +7,13 @@ from spain_housing.models.coverage import ReleaseCoverageReport
 from spain_housing.models.dataset import BoundaryCollection
 from spain_housing.models.evaluation import EvaluationContext, RuntimeEvidence
 from spain_housing.models.geography import MapGeography
-from spain_housing.models.results import RunResult
+from spain_housing.models.results import RunOverview, RunResult
 from spain_housing.models.scenario import GeographicReference, Scenario
 
 
 @dataclass(frozen=True)
 class Services:
-    evaluate: Callable[[Scenario, tuple[GeographicReference, ...]], RunResult]
+    evaluate: Callable[[Scenario, tuple[GeographicReference, ...]], RunResult | RunOverview]
     decode_scenario: Callable[[bytes, str], Scenario]
     encode_scenario: Callable[[Scenario], str]
     context: EvaluationContext
@@ -23,6 +23,9 @@ class Services:
     runtime: RuntimeEvidence
     coverage: ReleaseCoverageReport
     map_geography: MapGeography | None = None
+
+    detail: Callable[[RunOverview, str], RunResult] | None = None
+    full_export: Callable[[RunOverview], bytes] | None = None
 
     @property
     def destinations(self) -> tuple[GeographicReference, ...]:

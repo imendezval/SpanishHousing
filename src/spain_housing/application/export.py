@@ -10,25 +10,61 @@ from pathlib import Path
 
 from spain_housing.models.contracts import MarketData
 from spain_housing.models.evaluation import EvaluationContext
-from spain_housing.models.results import RunResult
+from spain_housing.models.results import RunOverview, RunResult
 
-from .evaluate import evaluate_scenario
+from .evaluate import evaluate_scenario, iter_location_results
+from .overview import project_location, validate_overview
 
 
-def run_json(run: RunResult) -> str:
-    return (
-        json.dumps(
-            run.model_dump(mode="json"),
-            sort_keys=True,
-            ensure_ascii=False,
-            allow_nan=False,
-            separators=(",", ":"),
-        )
-        + "\n"
+def _canonical(value: object) -> str:
+    return json.dumps(
+        value, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")
     )
 
 
-def summary_csv(run: RunResult) -> str:
+def run_json(run: RunResult) -> str:
+    if not isinstance(run, RunResult):
+        raise ValueError("run.json requires a complete RunResult")
+    return _canonical(run.model_dump(mode="json")) + "\n"
+
+
+def full_run_json(
+    overview: RunOverview,
+    *,
+    market_data: MarketData,
+    context: EvaluationContext,
+) -> bytes:
+    """Encode the existing complete format while retaining one monthly trace at a time."""
+    validate_overview(overview, context)
+    metadata = overview.model_dump(mode="json", exclude={"results", "kind"})
+    output = io.BytesIO()
+    output.write(b"{")
+    for index, key in enumerate(sorted((*metadata, "results"))):
+        if index:
+            output.write(b",")
+        output.write((_canonical(key) + ":").encode("utf-8"))
+        if key != "results":
+            output.write(_canonical(metadata[key]).encode("utf-8"))
+            continue
+        output.write(b"[")
+        results = iter_location_results(
+            overview.resolved_scenario,
+            market_data=market_data,
+            context=context,
+            mapped_locations=tuple(r.buying_location for r in overview.results),
+        )
+        for position, (result, expected) in enumerate(zip(results, overview.results, strict=True)):
+            if project_location(result) != expected:
+                raise ValueError("full export disagrees with the applied overview")
+            if position:
+                output.write(b",")
+            output.write(_canonical(result.model_dump(mode="json")).encode("utf-8"))
+        output.write(b"]")
+    output.write(b"}\n")
+    return output.getvalue()
+
+
+def summary_csv(run: RunResult | RunOverview) -> str:
     savings_fields = ("ending_savings_eur", "usable_savings_eur", "viability")
     purchase_fields = (
         "savings_price_limit_eur",

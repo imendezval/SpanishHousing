@@ -179,6 +179,11 @@ def main(argv: Sequence[str] | None = None) -> int:
                     artifact_id=geography.manifest.artifact_id,
                     counts=geography.manifest.counts.model_dump(mode="json"),
                     display_id=display_id,
+                    source_coverage_valid=geography.coverage_valid,
+                    source_conflicts=[
+                        c.model_dump(mode="json")
+                        for c in geography.manifest.recipe.source_conflicts
+                    ],
                 )
             sys.stdout.write(canonical_json(payload).decode())
             return 0

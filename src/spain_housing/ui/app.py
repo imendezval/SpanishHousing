@@ -3,6 +3,7 @@
 import streamlit as st
 
 from spain_housing.application.export import run_json, summary_csv
+from spain_housing.models.results import RunOverview
 from spain_housing.models.scenario import Scenario
 
 from .contracts import Services
@@ -53,14 +54,12 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
         or session.applied.model_version != services.model_version
         or session.applied.runtime_evidence != services.runtime
     ):
-        session.memo.clear()
-        session.applied = None
+        session.clear_results()
         session.error = (
             "Release or calculation evidence changed. Apply again to calculate a new run."
         )
     if reload:
-        session.memo.clear()
-        session.applied = None
+        session.clear_results()
         session.error = "Release revalidated. Apply the draft to calculate a new run."
     uploaded = st.file_uploader(
         "Import scenario JSON/YAML (UTF-8, maximum 1 MiB)",
@@ -100,14 +99,31 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
             key="download-scenario",
             on_click="ignore",
         )
-        c2.download_button(
-            "Applied run.json",
-            run_json(run),
-            "run.json",
-            "application/json",
-            key="download-run",
-            on_click="ignore",
-        )
+        if isinstance(run, RunOverview):
+            if c2.button("Prepare full run.json"):
+                with st.spinner("Preparing complete monthly results"):
+                    try:
+                        session.prepare_export(services)
+                    except (ValueError, OSError) as exc:
+                        st.error(str(exc))
+            if session.full_export is not None:
+                c2.download_button(
+                    "Applied run.json",
+                    session.full_export,
+                    "run.json",
+                    "application/json",
+                    key="download-run",
+                    on_click="ignore",
+                )
+        else:
+            c2.download_button(
+                "Applied run.json",
+                run_json(run),
+                "run.json",
+                "application/json",
+                key="download-run",
+                on_click="ignore",
+            )
         c3.download_button(
             "Applied summary.csv",
             summary_csv(run),
@@ -208,4 +224,8 @@ def render_app(initial: Scenario, services: Services, *, reload: bool = False) -
         st.info(reason + ". Geography is available; no financial result is substituted.")
     else:
         assert run is not None
-        render_details(result, run, names)
+        if isinstance(run, RunOverview):
+            detail = session.detail(services, session.selected_code)
+            render_details(detail.results[0], detail, names)
+        else:
+            render_details(result, run, names)

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Literal
 
-from spain_housing.models.results import LocationResult
+from spain_housing.models.results import LocationOverview, LocationResult
 
 
 class Metric(StrEnum):
@@ -51,7 +51,7 @@ class DisplayValue:
     reason: str | None
 
 
-def metric_value(result: LocationResult, metric: Metric) -> DisplayValue:
+def metric_value(result: LocationResult | LocationOverview, metric: Metric) -> DisplayValue:
     if metric == Metric.PRICE:
         if result.calculation_status == "available" and result.purchase is not None:
             return DisplayValue("available", result.purchase.maximum_price_eur, None)

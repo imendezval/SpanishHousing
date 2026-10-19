@@ -103,6 +103,7 @@ class GeographyBundle:
     registry: tuple[Municipality, ...]
     boundaries: AtlasCollection | None = None
     provinces: AtlasCollection | None = None
+    coverage_valid: bool | None = None
 
 
 def load_geography(root: Path, *, full: bool = True) -> GeographyBundle:
@@ -161,7 +162,7 @@ def load_geography(root: Path, *, full: bool = True) -> GeographyBundle:
     if not isinstance(report, dict):
         raise ValueError("geography report must be an object")
     validate_atlas(boundaries, registry)
-    validate_source_coverage(boundaries, manifest.recipe.source_conflicts)
+    coverage_valid = validate_source_coverage(boundaries, manifest.recipe.source_conflicts)
     for feature in provinces.features:
         if feature.properties.kind != "province":
             raise ValueError("province layer contains non-province features")
@@ -175,7 +176,7 @@ def load_geography(root: Path, *, full: bool = True) -> GeographyBundle:
     ):
         if records[name].record_count != count:
             raise ValueError("geography payload record count mismatch")
-    return GeographyBundle(manifest, registry, boundaries, provinces)
+    return GeographyBundle(manifest, registry, boundaries, provinces, coverage_valid)
 
 
 @dataclass(frozen=True)

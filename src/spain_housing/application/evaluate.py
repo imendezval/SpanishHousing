@@ -1,5 +1,6 @@
 """Scenario orchestration over typed inputs, with expected gaps as explicit states."""
 
+from collections.abc import Iterator
 from dataclasses import dataclass
 
 from spain_housing.finance import (
@@ -203,32 +204,31 @@ def evaluate_location(
     )
 
 
-def evaluate_scenario(
+def iter_location_results(
     scenario: Scenario,
     *,
     market_data: MarketData,
     context: EvaluationContext,
     mapped_locations: tuple[GeographicReference, ...],
-) -> RunResult:
+) -> Iterator[LocationResult]:
+    """Single iteration/preparation owner for full runs, overviews and streamed exports."""
     validate_selection(scenario.market_selection, context)
-    results = []
     for mapped in ordered_locations(mapped_locations):
         saving, buying = location_pair(scenario, mapped)
         if scenario.locations.mode != "local_local":
-            results.append(
-                _unsupported(saving, buying, "fixed_saving geographic mode is deferred", context)
-            )
+            yield _unsupported(saving, buying, "fixed_saving geographic mode is deferred", context)
         else:
-            results.append(
-                evaluate_location(
-                    scenario,
-                    saving_location=saving,
-                    buying_location=buying,
-                    market_data=market_data,
-                    context=context,
-                )
+            yield evaluate_location(
+                scenario,
+                saving_location=saving,
+                buying_location=buying,
+                market_data=market_data,
+                context=context,
             )
-    return RunResult(
+
+
+def run_metadata(scenario: Scenario, context: EvaluationContext) -> dict[str, object]:
+    return dict(
         schema_version=1,
         resolved_scenario=scenario,
         dataset_release_id=context.release_id,
@@ -236,5 +236,19 @@ def evaluate_scenario(
         model_version=MODEL_VERSION,
         code_version=code_version(),
         runtime_evidence=runtime_evidence(),
-        results=tuple(results),
     )
+
+
+def evaluate_scenario(
+    scenario: Scenario,
+    *,
+    market_data: MarketData,
+    context: EvaluationContext,
+    mapped_locations: tuple[GeographicReference, ...],
+) -> RunResult:
+    results = tuple(
+        iter_location_results(
+            scenario, market_data=market_data, context=context, mapped_locations=mapped_locations
+        )
+    )
+    return RunResult.model_validate(run_metadata(scenario, context) | {"results": results})

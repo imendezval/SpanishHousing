@@ -6,21 +6,25 @@ is authorized for this phase.
 
 ## Plan and state
 
-- M1 in progress: inspected actual schema-1 storage, normalization, official
-  adapter, immutable repository/context, launcher and CLI. Baseline lint, typing
-  and ten import contracts pass; **329 passed in 13.13 s**; wheel/sdist build passed. Initial uv failed because
-  its default cache is read-only; use `UV_CACHE_DIR=/tmp/phase7-uv-cache` and
-  `/tmp/phase6-tools/bin` on PATH. No baseline import-order defect reproduced.
-- M2 pending: retain complete official pagination and registry/change evidence,
-  reconcile a regional slice then the national set; canonical immutable artifact.
-- M3 pending: topology-aware metric display QA and schema-2 references, preserving
-  schema-1 serialization and component-specific permission checks.
-- M4 pending: packaged deterministic generator; complete/partial releases;
-  atlas-superset join, navigation and independent financial reference.
-- M5 pending: national 84-month measurements, bounded justified optimizations,
-  real installed browser proof and numerical parity.
-- M6 pending: final two-runtime gate, wheel/core/map installs, two-root retained
-  artifact rebuild/replay, portable bundle and documentation.
+- M1 complete: actual baseline 329 tests, lock/Ruff/mypy/ten import contracts and
+  wheel/sdist build verified; no baseline lint defect reproduced.
+- M2 implemented: retained complete official national acquisition; canonical
+  national artifact preserves the two fingerprinted original source polygons
+  with an explicit overlap. Geographic identity coverage is complete; source
+  coverage topology is **not** valid for national simplification.
+- M3 implemented for regional geography/schema-2 composition; national display
+  blocked by the unapproved source-boundary policy described below.
+- M4 engineering implemented: deterministic complete/partial national synthetic
+  releases, atlas-superset joins, provenance, navigation and independent numeric
+  reference. National rendered outcome remains blocked by M3.
+- M5 in progress: compact shared evaluator, bounded caches, deferred complete
+  export and national economic measurements pass; national browser/display
+  measurements remain blocked.
+- M6 in progress: final installed/core/map, second-runtime gate, retained-input
+  restoration and handoff verification underway.
+
+Use `UV_CACHE_DIR=/tmp/phase7-uv-cache` and `/tmp/phase6-tools/bin` on PATH here;
+its default cache is read-only. No financial model version or formulas changed.
 
 ## Contract decisions
 
@@ -35,16 +39,14 @@ registry metadata, not full-resolution geometry; display composition validates
 the explicit derivative and parent. Atlas/market/evaluation/result joins enforce
 `E ⊆ M ⊆ A` and `R = E`.
 
-## Acceptance evidence
+## Acceptance evidence (current; final matrix below when verification finishes)
 
-A1 baseline verified; contract implementation remains in progress. A2–A12 not yet verified. Previous phase results are
-historical evidence only. Observed market acquisition remains blocked and does
-not block the authorized synthetic Phase 7 economics. Portable off-machine
-transfer requires a user-authorized durable destination; prepare actual local
-bundle and tested restoration without claiming an external upload.
-
-Next: finish baseline, inspect national IGN pages/queryables and source topology,
-then implement independent artifact contracts/shared publication primitives.
+A1 verified. A2/A3/A6/A7 have automated engineering evidence; final installed
+checks are in progress. A4 has complete identity/source evidence but a retained
+source overlap; A5/A8/national display portions of A9 are blocked by the pending
+policy question. A10–A12 verification/handoff remains in progress. Previous
+phase browser results are historical evidence only. Observed prices/rents remain
+blocked and are never replaced with purported observations.
 
 Official probe retained in `data/raw/national-geography/probe.json`: collection,
 queryables, one-feature municipality response, 2026 INE dictionary and current
@@ -142,3 +144,35 @@ using one shared evaluator iteration. Then repeat national measurements with a
 warm-up plus three samples, finish browser/installed/two-root checks, and update
 all handoff docs. National neutral-overlap display remains dependent on the
 pending user choice; do not infer approval from elapsed time.
+
+## Compact evaluator checkpoint
+
+Full single gate: **348 passed in 14.95 s**, strict mypy (62 package files),
+Ruff/lock and ten contracts. `RunOverview` is an explicitly different model,
+never a truncated `RunResult`. Full evaluation, overview, detail and deferred
+JSON share location iteration. Canonical JSON/summary CSV retain byte parity;
+normal, missing-input, zero-capacity, exhaustion and unsupported cases pass.
+Selected detail and complete exports verify pinned scenario/release/code/runtime
+and numerical projection before returning. Details retain at most two locations;
+national memo retains two overviews; full export is explicit and tied to Apply.
+Invalid edits/equal Apply preserve current exports; changed Apply/reload clears.
+
+Actual national economic-only measurement: one warm-up plus three samples
+**4.353 / 4.221 / 4.247 s**, median **4.247 s**, 8,132 destinations × 84 months.
+Selected detail **0.0119 / 0.0121 / 0.0130 s**. Linux peak RSS **383,500 KiB**,
+loaded-resource peak **335,208 KiB**, conservative peak increment **48,292 KiB**
+while retaining two overviews. Evidence: raw-root `compact-national.json` with
+actual code/runtime, methodology and scope. This excludes geometry, browser,
+and explicit full export; it does not establish full national A9.
+
+INE in-year changes reviewed from retained `probe.json` changes capture: no
+creations/removals; 15 name changes, including Girona 17118 and Navarra 31243
+effective 1 October. Registry remains explicitly the retained 1 January snapshot;
+no name change alters the exact full-code join. IGN's 53rd province feature is
+collective code 53, not an INE province; all 52 INE province outlines are retained,
+while its 81 nonmunicipal territories are classified neutral municipal-layer
+context. No municipality/island was dropped to evade the overlap.
+
+Next: fresh core/map wheel checks, second-runtime gate, regional actual browser,
+two-root retained rebuild and portable archive. National display exception still
+requires the pending answer; no approval is inferred from silence.

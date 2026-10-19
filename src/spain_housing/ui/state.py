@@ -4,7 +4,7 @@ import json
 from collections import OrderedDict
 from dataclasses import dataclass, field
 
-from spain_housing.models.results import RunResult
+from spain_housing.models.results import RunOverview, RunResult
 from spain_housing.models.scenario import Scenario
 
 from .contracts import Services
@@ -30,12 +30,37 @@ def cache_key(scenario: Scenario, services: Services) -> str:
 class Session:
     draft: Draft
     epoch: int = 0
-    applied: RunResult | None = None
+    applied: RunResult | RunOverview | None = None
     error: str | None = None
     pending_import: bool = False
     selected_code: str | None = None
     last_pick: str | None = None
-    memo: OrderedDict[str, RunResult] = field(default_factory=OrderedDict)
+    memo: OrderedDict[str, RunResult | RunOverview] = field(default_factory=OrderedDict)
+
+    details: OrderedDict[str, RunResult] = field(default_factory=OrderedDict)
+    full_export: bytes | None = None
+
+    def clear_results(self) -> None:
+        self.applied = None
+        self.memo.clear()
+        self.details.clear()
+        self.full_export = None
+
+    def detail(self, services: Services, code: str) -> RunResult:
+        if not isinstance(self.applied, RunOverview) or services.detail is None:
+            raise ValueError("overview detail service is unavailable")
+        if code not in self.details:
+            self.details[code] = services.detail(self.applied, code)
+        self.details.move_to_end(code)
+        while len(self.details) > 2:
+            self.details.popitem(last=False)
+        return self.details[code]
+
+    def prepare_export(self, services: Services) -> None:
+        if not isinstance(self.applied, RunOverview) or services.full_export is None:
+            raise ValueError("overview export service is unavailable")
+        if self.full_export is None:
+            self.full_export = services.full_export(self.applied)
 
     def stage_import(self, payload: bytes, name: str, services: Services) -> bool:
         try:
@@ -69,11 +94,14 @@ class Session:
                 raise ValueError("evaluation service identity does not agree with requested inputs")
             self.memo[key] = run
             self.memo.move_to_end(key)
-            while len(self.memo) > 32:
+            while len(self.memo) > (2 if len(services.destinations) > 250 else 32):
                 self.memo.popitem(last=False)
         except (ValueError, OSError) as exc:
             self.error = str(exc)
             return False
+        if self.applied is not run:
+            self.details.clear()
+            self.full_export = None
         self.applied = run
         self.error = None
         self.pending_import = False

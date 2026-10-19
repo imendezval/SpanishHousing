@@ -128,20 +128,49 @@ class LocationResult(Record):
         return self
 
 
-class RunResult(Record):
+class RunEvidence(Record):
     schema_version: SchemaVersion
     resolved_scenario: Scenario
     dataset_release_id: Annotated[str, StringConstraints(strict=True, min_length=1)]
     model_version: Annotated[str, StringConstraints(strict=True, min_length=1)]
     code_version: Annotated[str, StringConstraints(strict=True, min_length=1)]
-    results: tuple[LocationResult, ...]
     evaluation_context: EvaluationContext | None = None
     runtime_evidence: RuntimeEvidence | None = None
 
     @model_validator(mode="after")
-    def matching_context(self) -> "RunResult":
+    def matching_context(self) -> "RunEvidence":
         if self.evaluation_context is not None and (
             self.dataset_release_id != self.evaluation_context.release_id
         ):
             raise ValueError("dataset release ID and evaluation context disagree")
         return self
+
+
+class RunResult(RunEvidence):
+    results: tuple[LocationResult, ...]
+
+
+class SavingsSummary(Record):
+    ending_savings_eur: FiniteAmount
+    usable_savings_eur: Money
+    viability: Literal["viable", "funds_exhausted"]
+
+
+class LocationOverview(Record):
+    """Returned aggregates only; no claim to contain a full monthly calculation trace."""
+
+    saving_location: GeographicReference
+    buying_location: GeographicReference
+    calculation_status: Literal["available", "unviable", "missing_input", "unsupported"]
+    savings: SavingsSummary | None
+    purchase: PurchaseResult | None
+    affordable_area_m2: Indicator
+    target_affordability_ratio: Indicator
+    explanation: str | None
+    market_inputs: tuple[MarketInputUse, ...]
+    warnings: tuple[str, ...]
+
+
+class RunOverview(RunEvidence):
+    kind: Literal["overview"] = "overview"
+    results: tuple[LocationOverview, ...]
