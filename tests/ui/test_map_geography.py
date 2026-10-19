@@ -87,13 +87,17 @@ def test_superset_join_distinguishes_outside_coverage_gap_and_unevaluated(compos
         )
 
 
-def _app(defaults: str, scenario: str, release: str, geo: str, display: str) -> None:
+def _app(
+    defaults: str, scenario: str, release: str, geo: str, display: str, compact: bool = False
+) -> None:
     import dataclasses
     from pathlib import Path
 
     import streamlit as st
 
+    from spain_housing.application.overview import project_location
     from spain_housing.launcher import compose
+    from spain_housing.models.results import RunOverview
     from spain_housing.ui.app import render_app
 
     initial, services = compose(
@@ -108,9 +112,25 @@ def _app(defaults: str, scenario: str, release: str, geo: str, display: str) -> 
 
     def counted(value, destinations):
         st.session_state["evaluation-count"] += 1
-        return services.evaluate(value, destinations)
+        run = services.evaluate(value, destinations)
+        if compact:
+            return RunOverview.model_validate(
+                run.model_dump(exclude={"results"})
+                | {"results": tuple(project_location(row) for row in run.results)}
+            )
+        return run
 
-    render_app(initial, dataclasses.replace(services, evaluate=counted))
+    def detail(run, code):
+        st.session_state["detail-count"] = st.session_state.get("detail-count", 0) + 1
+        return services.detail(run, code)
+
+    def export(run):
+        st.session_state["export-count"] = st.session_state.get("export-count", 0) + 1
+        return services.full_export(run)
+
+    render_app(
+        initial, dataclasses.replace(services, evaluate=counted, detail=detail, full_export=export)
+    )
 
 
 def test_geographic_only_selection_and_display_changes_never_evaluate(
@@ -174,3 +194,40 @@ def test_geographic_only_selection_and_display_changes_never_evaluate(
     assert cache_key(initial.resolved_scenario, first_services) == cache_key(
         initial.resolved_scenario, second_services
     )
+
+
+def test_compact_app_defers_complete_export_and_reuses_selected_details(composed) -> None:
+    from spain_housing.models.results import RunResult
+
+    geo, display, release = composed
+    at = AppTest.from_function(
+        _app,
+        args=tuple(
+            map(
+                str,
+                (
+                    ROOT / "configs/defaults.yaml",
+                    ROOT / "configs/scenarios/phase4_room_demo.yaml",
+                    release,
+                    geo,
+                    display,
+                ),
+            )
+        )
+        + (True,),
+        default_timeout=15,
+    ).run()
+    assert not at.exception
+    assert at.session_state["detail-count"] == 1
+    assert not any(b.label == "Applied run.json" for b in at.get("download_button"))
+    at.selectbox(key="display-metric").set_value(Metric.PRICE.value).run()
+    assert at.session_state["evaluation-count"] == at.session_state["detail-count"] == 1
+    next(b for b in at.button if b.label == "Prepare full run.json").click().run()
+    assert not at.exception and at.session_state["export-count"] == 1
+    session = at.session_state["housing-session"]
+    full = RunResult.model_validate_json(session.full_export)
+    assert len(full.results) == 1 and full.results[0].prepared_budgets
+    at.selectbox(key="inspection-location").set_value("28002").run()
+    assert not at.exception and at.session_state["detail-count"] == 1
+    assert any("Outside selected market coverage" in info.value for info in at.info)
+    assert at.session_state["housing-session"].full_export == session.full_export
