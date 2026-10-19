@@ -116,6 +116,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     display_build.add_argument(
         "--tolerance-m", type=float, choices=(20.0, 50.0, 100.0), default=50.0
     )
+    display_build.add_argument(
+        "--neutral-source-conflicts",
+        action="store_true",
+        help="retain pinned source overlaps as neutral display context, with neither owner",
+    )
     demo = commands.add_parser(
         "generate-demo", help="prepare explicitly synthetic economic inputs over a canonical atlas"
     )
@@ -154,7 +159,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 from spain_housing.ingestion.map_geometry import prepare_display
 
                 path = prepare_display(
-                    args.geography, artifact_root=args.artifact_root, tolerance_m=args.tolerance_m
+                    args.geography,
+                    artifact_root=args.artifact_root,
+                    tolerance_m=args.tolerance_m,
+                    neutral_source_conflicts=args.neutral_source_conflicts,
                 )
                 payload = dict(path=str(path), artifact_id=path.name)
             elif args.command == "generate-demo":

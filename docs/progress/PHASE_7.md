@@ -1,3 +1,8 @@
+> Resumed 20 October 2026: user explicitly approved the neutral intersection
+> display treatment. The previous approval blocker below is historical.
+> Canonical source artifacts remain unchanged. Implementing opt-in declared
+> neutral display patches, then national fidelity/performance/browser/wheel QA.
+
 # Phase 7 progress — national geography, synthetic economics
 
 ## Status and next action
@@ -179,3 +184,21 @@ for actual paths and commands, including conda/venv.
 
 No all-A1–A12 or full-phase completion claim. Resolve the display policy before
 resuming dependent work; preserve source bytes and all financial behavior.
+
+## Resumed display checkpoint (20 October)
+
+User approval covers retaining the exact positive-area intersection as a neutral
+source-conflict display feature, with no economic code or owner. Implementation
+is explicit `build-map-display --neutral-source-conflicts`; canonical inputs and
+all market/finance rules remain unchanged. The display manifest records source
+feature IDs, policy, metric CRS and measured patch area; hover and attribution
+identify the derived treatment. Shared line-only contacts are excluded from the
+positive-area intersection. Old display manifests still validate by original
+serialized metadata rather than newly defaulted fields.
+
+Current full gate: **350 passed in 15.98 s**, Ruff/typing/lock and ten contracts.
+Tests verify opt-in, original canonical bytes unchanged, neutral no-code identity,
+no overlapping display interiors, municipal counts and deterministic publication.
+National 50 m candidate correctly fails Palma (07040) boundary displacement
+**270.792 m**, above the unchanged 250 m limit (area change 0.05968%). The bounded
+20 m candidate is running full national QA. No geometry threshold is waived.

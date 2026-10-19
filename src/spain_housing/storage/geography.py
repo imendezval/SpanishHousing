@@ -190,8 +190,13 @@ def load_display(root: Path, geography: GeographyBundle) -> DisplayBundle:
     path = contained_path(root, "manifest.json")
     if path.stat().st_size > 1024 * 1024:
         raise ValueError("display manifest exceeds 1 MiB")
-    manifest = DisplayManifest.model_validate(strict_json(path.read_bytes()))
-    metadata = manifest.model_dump(mode="json", exclude={"artifact_id", "content_digest"})
+    raw_manifest = TypeAdapter(dict[str, object]).validate_python(strict_json(path.read_bytes()))
+    manifest = DisplayManifest.model_validate(raw_manifest)
+    metadata = {
+        key: value
+        for key, value in raw_manifest.items()
+        if key not in ("artifact_id", "content_digest")
+    }
     if (manifest.artifact_id, manifest.content_digest) != artifact_identity("display", metadata):
         raise ValueError("display content identity mismatch")
     if manifest.parent != geography_reference(geography.manifest):
@@ -215,8 +220,21 @@ def load_display(root: Path, geography: GeographyBundle) -> DisplayBundle:
         [shape(feature.geometry.model_dump(mode="json")) for feature in boundaries.features]
     ):
         raise ValueError("display geography is not an edge-matched polygon coverage")
+    patches = tuple(f for f in boundaries.features if f.properties.kind == "source_conflict")
+    patch_ids = [c.feature_id for c in manifest.neutral_conflicts]
+    if len(set(patch_ids)) != len(patch_ids) or set(patch_ids) != {f.id for f in patches}:
+        raise ValueError("neutral display patches disagree with declared conflicts")
+    if manifest.neutral_conflicts and (
+        {c.source_feature_ids for c in manifest.neutral_conflicts}
+        != {c.feature_ids for c in geography.manifest.recipe.source_conflicts}
+    ):
+        raise ValueError("neutral display conflicts disagree with pinned source evidence")
+    original = AtlasCollection(
+        features=tuple(f for f in boundaries.features if f.properties.kind != "source_conflict")
+    )
+    original_counts = geometry_counts(original, len(provinces.features))
     if any(
-        getattr(manifest.counts, field) != getattr(geography.manifest.counts, field)
+        getattr(original_counts, field) != getattr(geography.manifest.counts, field)
         for field in (
             "municipalities",
             "context_territories",

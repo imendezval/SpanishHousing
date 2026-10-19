@@ -55,7 +55,7 @@ class AtlasProperties(Record):
     location_code: MunicipalCode | None
     name: Text
     province_code: ProvinceCode | None
-    kind: Literal["municipality", "context", "province"]
+    kind: Literal["municipality", "context", "province", "source_conflict"]
     source_national_code: Text
 
     @model_validator(mode="after")
@@ -185,6 +185,16 @@ class DisplayQuality(Record):
     coverage_valid: Literal[True]
 
 
+class NeutralConflict(Record):
+    """Derived display patch; no claim to determine legal municipal ownership."""
+
+    feature_id: Text
+    source_feature_ids: tuple[Text, Text]
+    area_m2: Annotated[float, Field(strict=True, gt=0, allow_inf_nan=False)]
+    metric_crs: Text
+    policy: Literal["neutral_intersection_v1"] = "neutral_intersection_v1"
+
+
 class DisplayManifest(Record):
     schema_version: ArtifactVersionOne = 1
     artifact_id: DisplayId
@@ -192,6 +202,7 @@ class DisplayManifest(Record):
     parent: GeographyReference
     files: tuple[ArtifactFile, ...]
     quality: DisplayQuality
+    neutral_conflicts: tuple[NeutralConflict, ...] = ()
     counts: GeographyCounts
     attribution: Text
     redistribution: UsageScope

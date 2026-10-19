@@ -9,7 +9,12 @@ from pyproj import Transformer
 from shapely.geometry import mapping, shape
 from shapely.geometry.base import BaseGeometry
 
-from spain_housing.models.geography import AtlasCollection, AtlasFeature, DisplayQuality
+from spain_housing.models.geography import (
+    AtlasCollection,
+    AtlasFeature,
+    DisplayQuality,
+    NeutralConflict,
+)
 from spain_housing.storage.files import canonical_json
 from spain_housing.storage.geography import (
     file_record,
@@ -39,16 +44,79 @@ def _structure(geometry: BaseGeometry) -> tuple[int, tuple[int, ...]]:
     return len(polygons), tuple(sorted(len(p.interiors) for p in polygons))
 
 
-def prepare_display(geography_dir: Path, *, artifact_root: Path, tolerance_m: float = 50.0) -> Path:
+def prepare_display(
+    geography_dir: Path,
+    *,
+    artifact_root: Path,
+    tolerance_m: float = 50.0,
+    neutral_source_conflicts: bool = False,
+) -> Path:
     if tolerance_m not in (20.0, 50.0, 100.0):
         raise ValueError(
             "display tolerance must be one of the bounded candidates 20, 50, 100 metres"
         )
     geography = load_geography(geography_dir)
     assert geography.boundaries is not None and geography.provinces is not None
+    source = list(geography.boundaries.features)
+    neutral_conflicts = []
+    if neutral_source_conflicts:
+        by_id = {f.id: index for index, f in enumerate(source)}
+        for conflict in geography.manifest.recipe.source_conflicts:
+            first, second = (source[by_id[identity]] for identity in conflict.feature_ids)
+            if first.properties.province_code != second.properties.province_code:
+                raise ValueError(
+                    "neutral conflict crosses provinces; an explicit orientation policy is required"
+                )
+            original = [shape(f.geometry.model_dump(mode="json")) for f in (first, second)]
+            # Shared line-only boundaries carry no conflicting area or ownership.
+            intersection = original[0].intersection(original[1])
+            patch = shapely.union_all(
+                [
+                    part
+                    for part in shapely.get_parts(intersection)
+                    if part.geom_type in ("Polygon", "MultiPolygon")
+                ]
+            )
+            if patch.is_empty or patch.geom_type not in ("Polygon", "MultiPolygon"):
+                raise ValueError("source conflict has no polygonal intersection")
+            metric_crs = METRIC_CRS[_group(first)]
+            forward = Transformer.from_crs("OGC:CRS84", metric_crs, always_xy=True)
+            identity = "source-conflict:" + ":".join(sorted(conflict.feature_ids))
+            neutral_conflicts.append(
+                NeutralConflict(
+                    feature_id=identity,
+                    source_feature_ids=conflict.feature_ids,
+                    area_m2=_transform(patch, forward).area,
+                    metric_crs=metric_crs,
+                )
+            )
+            for feature, geometry in zip((first, second), original, strict=True):
+                source[by_id[feature.id]] = AtlasFeature.model_validate(
+                    feature.model_dump(mode="json")
+                    | {"geometry": mapping(geometry.difference(patch))}
+                )
+            source.append(
+                AtlasFeature.model_validate(
+                    dict(
+                        id=identity,
+                        properties=dict(
+                            location_code=None,
+                            name="Source boundary conflict: "
+                            + first.properties.name
+                            + " / "
+                            + second.properties.name,
+                            province_code=first.properties.province_code,
+                            kind="source_conflict",
+                            source_national_code="intersection:" + ":".join(conflict.feature_ids),
+                        ),
+                        geometry=mapping(patch),
+                    )
+                )
+            )
     groups: dict[str, list[AtlasFeature]] = defaultdict(list)
-    for feature in geography.boundaries.features:
+    for feature in source:
         groups[_group(feature)].append(feature)
+    canonical = {f.id: f for f in geography.boundaries.features}
     display_features: list[AtlasFeature] = []
     area_errors: list[tuple[float, str]] = []
     displacements: list[tuple[float, str]] = []
@@ -71,9 +139,16 @@ def prepare_display(geography_dir: Path, *, artifact_root: Path, tolerance_m: fl
             code = feature.properties.location_code or feature.id
             if actual.is_empty or not actual.is_valid or _structure(actual) != _structure(before):
                 raise ValueError(f"display loses polygon components/holes or validity: {code}")
-            relative_area = abs(actual.area - before.area) / before.area
+            reference = (
+                _transform(shape(canonical[feature.id].geometry.model_dump(mode="json")), forward)
+                if feature.id in canonical
+                else before
+            )
+            if _structure(actual) != _structure(reference):
+                raise ValueError(f"display loses canonical polygon components/holes: {code}")
+            relative_area = abs(actual.area - reference.area) / reference.area
             displacement = float(
-                shapely.hausdorff_distance(before.boundary, actual.boundary, densify=0.25)
+                shapely.hausdorff_distance(reference.boundary, actual.boundary, densify=0.25)
             )
             if relative_area > 0.02 or displacement > 250:
                 raise ValueError(
@@ -143,9 +218,15 @@ def prepare_display(geography_dir: Path, *, artifact_root: Path, tolerance_m: fl
             )
         ],
         quality=quality.model_dump(mode="json"),
+        neutral_conflicts=[c.model_dump(mode="json") for c in neutral_conflicts],
         counts=counts.model_dump(mode="json"),
         attribution=geography.manifest.recipe.attribution
-        + " Simplified display derivative; not a legal boundary survey.",
+        + " Simplified display derivative; not a legal boundary survey."
+        + (
+            " Source overlaps are neutral display context, assigned to neither municipality."
+            if neutral_conflicts
+            else ""
+        ),
         redistribution=geography.manifest.redistribution,
     )
     return write_display(artifact_root, metadata, payloads, geography)

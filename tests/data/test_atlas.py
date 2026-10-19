@@ -248,3 +248,53 @@ def test_inspected_source_conflict_is_retained_but_never_becomes_simplifier_inpu
             data_root=raw,
             artifact_root=tmp_path / "atlas",
         )
+
+
+def test_approved_neutral_display_preserves_source_and_all_economic_identities(
+    tmp_path: Path,
+) -> None:
+    from shapely.geometry import shape
+
+    from spain_housing.ingestion.map_geometry import prepare_display
+    from spain_housing.models.geography import SourceConflict
+    from spain_housing.storage.geography import load_display
+
+    raw = tmp_path / "raw"
+    recipe = atlas_inputs(raw, defect="overlap_small")
+    page = strict_json((raw / "municipal_json").read_bytes())
+    conflict = SourceConflict(
+        feature_ids=("one", "two"),
+        geometry_sha256=tuple(sha256(canonical_json(f["geometry"])) for f in page["features"]),
+        reason="Self-authored narrow overlap, approved neutral display test",
+        evidence_capture_ids=("municipal_json",),
+    )
+    atlas = build_geography(
+        recipe.model_copy(update={"source_conflicts": (conflict,)}),
+        data_root=raw,
+        artifact_root=tmp_path / "atlas",
+    )
+    original = {p.name: p.read_bytes() for p in atlas.iterdir()}
+    display = prepare_display(
+        atlas, artifact_root=tmp_path / "display", neutral_source_conflicts=True
+    )
+    bundle = load_display(display, load_geography(atlas, full=False))
+    assert {p.name: p.read_bytes() for p in atlas.iterdir()} == original
+    assert {f.properties.location_code for f in bundle.boundaries.features} == {
+        "28001",
+        "28002",
+        None,
+    }
+    patches = [f for f in bundle.boundaries.features if f.properties.kind == "source_conflict"]
+    assert len(patches) == 1 and patches[0].properties.location_code is None
+    assert bundle.manifest.neutral_conflicts[0].source_feature_ids == ("one", "two")
+    assert bundle.manifest.neutral_conflicts[0].area_m2 > 0
+    polygons = [shape(f.geometry.model_dump(mode="json")) for f in bundle.boundaries.features]
+    assert all(
+        a.intersection(b).area == 0 for i, a in enumerate(polygons) for b in polygons[i + 1 :]
+    )
+    assert bundle.manifest.counts.polygon_components == 3
+    assert bundle.manifest.counts.municipalities == 2
+    assert (
+        prepare_display(atlas, artifact_root=tmp_path / "display", neutral_source_conflicts=True)
+        == display
+    )

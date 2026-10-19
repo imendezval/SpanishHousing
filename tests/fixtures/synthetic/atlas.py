@@ -29,10 +29,10 @@ def atlas_inputs(root: Path, *, defect: str | None = None) -> GeographyRecipe:
     registry = b"CPRO,CMUN,DC,NOMBRE\n28,001,0,Same name\n28,002,1,Same name\n"
     first = [[[-4.0, 40.0], [-3.5, 40.0], [-3.5, 40.5], [-3.5, 41.0], [-4.0, 41.0], [-4.0, 40.0]]]
     second = [[[-3.5, 40.0], [-3.0, 40.0], [-3.0, 41.0], [-3.5, 41.0], [-3.5, 40.5], [-3.5, 40.0]]]
-    if defect == "overlap":
+    if defect in ("overlap", "overlap_small"):
         for position in second[0]:
             if position[0] == -3.5:
-                position[0] = -3.6
+                position[0] = -3.6 if defect == "overlap" else -3.5001
     if defect == "edge":
         second[0].pop(-2)
     features = []

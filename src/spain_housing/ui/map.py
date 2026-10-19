@@ -97,12 +97,21 @@ def decorate(
         code = feature.properties.location_code
         detached = feature.model_dump(mode="json")
         if code is None:
+            conflict = (
+                isinstance(feature, AtlasFeature) and feature.properties.kind == "source_conflict"
+            )
             detached["properties"].update(
                 display_value=None,
-                display_text="Geographic context",
+                display_text="Source boundary conflict" if conflict else "Geographic context",
                 status="context",
-                reason="Nonmunicipal territory; not a financial destination",
-                evidence="Official geographic context",
+                reason=(
+                    "Overlap assigned to neither municipality; canonical sources unchanged"
+                    if conflict
+                    else "Nonmunicipal territory; not a financial destination"
+                ),
+                evidence="Declared display treatment of official source overlap"
+                if conflict
+                else "Official geographic context",
                 colour=[225, 225, 225, 230],
             )
             features.append(detached)
