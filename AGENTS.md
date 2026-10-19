@@ -1,0 +1,7 @@
+Check out docs/SPAIN_HOUSING_PROJECT_BRIEF.md for a recap on what exactly this repo is about. No need to do it every prompt / new implementation, but check it out whenever you need refreshing in any particular aspect, or check if a new implemntation I give you has more info about it inside.
+
+Check out docs/IMPLEMENTATION_PLAN.md every time we are implementing a new phase. It is of extreme importance to mantain the repo structure mentioned there, and the same with the general guidelines. Throughout implementation I will direct you to more detailed md files corresponding to each implementation phase.
+
+Commits always start in lowercase. Furthermore, make sure to make intermediate commits in big implementation sessions. Ensure always how you break up a big implementation into commits is reasonable and modular. A commit alone should not make the system break if not combined with another commit. If you think it applies, make sure to pytest before each commit.
+
+It is of utmost importance that your implementations are clean, DO NOT add redundant code, are modular in a way that they permit adding functionalities later without restructuring the repo. Plan ahead mainly always before starting implementation to ensure these constraints are satisfied.
