@@ -6,6 +6,7 @@ from typing import Annotated, Literal
 
 from pydantic import (
     AwareDatetime,
+    BeforeValidator,
     Field,
     HttpUrl,
     StrictBool,
@@ -17,6 +18,15 @@ from pydantic import (
 from .base import FiniteAmount, Month, Offset, Record, SchemaVersion
 from .market import MarketBasis, MarketMetric, MarketObservation, MarketSegment, MarketStatistic
 from .scenario import GeographicReference
+
+
+def _version_two(value: object) -> object:
+    if type(value) is not int or value != 2:
+        raise ValueError("dataset schema_version must be integer 2")
+    return value
+
+
+DatasetVersionTwo = Annotated[Literal[2], BeforeValidator(_version_two)]
 
 Text = Annotated[str, StringConstraints(strict=True, min_length=1)]
 Digest = Annotated[str, StringConstraints(strict=True, pattern=r"^[a-f0-9]{64}$")]
@@ -68,7 +78,7 @@ class CaptureRecord(Record):
     source_release: Text | None = None
     methodology_version: Text | None = None
     route: Literal["provider_download", "curated_extract", "synthetic_fixture"]
-    format: Literal["csv", "geojson", "xlsx", "html", "json", "pdf"]
+    format: Literal["csv", "geojson", "xlsx", "html", "json", "pdf", "xml", "zip"]
     permission_reference: Text
     http_status: Annotated[int, Field(strict=True, ge=100, le=599)] | None = None
     content_type: Text | None = None
@@ -176,8 +186,15 @@ class ProducerEvidence(Record):
     code_fingerprint: Digest | None = None
 
 
-class BuildRecipe(Record):
-    schema_version: SchemaVersion
+class GeographyReference(Record):
+    artifact_id: Annotated[str, StringConstraints(strict=True, pattern=r"^geography-[a-f0-9]{64}$")]
+    registry_sha256: Digest
+    registry_version: Text
+    boundary_version: Text
+    attribution: Text
+
+
+class RecipeFields(Record):
     kind: Literal["observed", "synthetic"]
     processing_version: Text
     producer: ProducerEvidence
@@ -188,12 +205,11 @@ class BuildRecipe(Record):
     decisions: tuple[SourceDecision, ...]
     captures: tuple[CaptureRecord, ...]
     observation_capture_ids: tuple[Identifier, ...]
-    geography: GeographyMetadata
     declared_gaps: tuple[CoverageCell, ...] = ()
     limitations: tuple[Text, ...] = ()
 
     @model_validator(mode="after")
-    def unique_recipe_keys(self) -> "BuildRecipe":
+    def unique_recipe_keys(self) -> "RecipeFields":
         for label, keys in (
             ("locations", [item.location.code for item in self.locations]),
             ("profiles", [item.profile_id for item in self.profiles]),
@@ -224,6 +240,19 @@ class BuildRecipe(Record):
         return self
 
 
+class BuildRecipe(RecipeFields):
+    schema_version: SchemaVersion
+    geography: GeographyMetadata
+
+
+class BuildRecipeV2(RecipeFields):
+    schema_version: DatasetVersionTwo
+    geography: GeographyReference
+
+
+MarketRecipe = BuildRecipe | BuildRecipeV2
+
+
 class ReleasedObservation(Record):
     observation: MarketObservation
     capture_id: Identifier
@@ -247,21 +276,36 @@ class CoverageSummary(Record):
     unsupported: Offset
 
 
-class ReleaseManifest(Record):
-    schema_version: SchemaVersion
+class ManifestFields(Record):
     release_id: Annotated[
         str, StringConstraints(strict=True, pattern=r"^(pilot|synthetic)-[a-f0-9]{64}$")
     ]
     content_digest: Digest
-    recipe: BuildRecipe
     files: tuple[FileRecord, ...]
     coverage: CoverageSummary
     redistribution: UsageScope
     readiness: Literal["ready", "incomplete", "synthetic_only"]
 
+
+class ReleaseManifest(ManifestFields):
+    schema_version: SchemaVersion
+    recipe: BuildRecipe
+
     @property
     def kind(self) -> Literal["observed", "synthetic"]:
         return self.recipe.kind
+
+
+class ReleaseManifestV2(ManifestFields):
+    schema_version: DatasetVersionTwo
+    recipe: BuildRecipeV2
+
+    @property
+    def kind(self) -> Literal["observed", "synthetic"]:
+        return self.recipe.kind
+
+
+MarketManifest = ReleaseManifest | ReleaseManifestV2
 
 
 Position = tuple[FiniteAmount, FiniteAmount]

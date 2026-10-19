@@ -53,25 +53,29 @@ def _registry_table(rows: Iterable[tuple[object, ...]]) -> dict[str, tuple[str, 
     return result
 
 
-def verify_registry(data: bytes, format: str, locations: tuple[LocationRecord, ...]) -> None:
+def read_registry(data: bytes, format: str) -> dict[str, tuple[str, str]]:
+    """Read the authoritative code/name/control table once, shared by both schemas."""
     if format == "xlsx":
         workbook = load_workbook(io.BytesIO(data), read_only=True, data_only=True)
         try:
-            registry = (
+            return (
                 _registry_table(workbook.active.iter_rows(values_only=True))
                 if workbook.active is not None
                 else {}
             )
         finally:
             workbook.close()
-    elif format == "csv":
-        registry = _registry_table(
+    if format == "csv":
+        return _registry_table(
             tuple(
                 tuple(row) for row in csv.reader(io.StringIO(data.decode("utf-8-sig")), strict=True)
             )
         )
-    else:
-        raise ValueError("registry capture must be csv or xlsx")
+    raise ValueError("registry capture must be csv or xlsx")
+
+
+def verify_registry(data: bytes, format: str, locations: tuple[LocationRecord, ...]) -> None:
+    registry = read_registry(data, format)
     for location in locations:
         if registry.get(location.location.code) != (location.official_name, location.control_digit):
             raise ValueError(

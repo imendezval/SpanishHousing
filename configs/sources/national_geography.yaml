@@ -1,0 +1,1133 @@
+attribution: Obra derivada de IGN AU Unidades administrativas, capturas 2026-10-19, CC BY 4.0 ign.es;
+  INE 2026-01-01, www.ine.es. Sin respaldo institucional.
+boundary_version: ign-national-4c16fc5c0937098ae6ff9625de0df283007f53cb22ccc9e27667c0659c69bb76
+captures:
+- byte_size: 5932
+  capture_id: capture-05d2f8f8a4010cb5d9ec364cb2eb3350756b9556001277a2729b77d61981b035
+  captured_at: '2026-10-19T15:23:09.471002Z'
+  content_type: application/json
+  format: json
+  http_status: 200
+  methodology_version: null
+  path: captures/8ae89b34391bc561dd9a1a9dcb067d831b415054213a4b69f6633f6a2012080f.json
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit?f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit?f=json
+  route: provider_download
+  sha256: 8ae89b34391bc561dd9a1a9dcb067d831b415054213a4b69f6633f6a2012080f
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 1226
+  capture_id: capture-470e49b17fcb913d8e88af3032b293be04d08e1a59a526e38a17360ddad961e9
+  captured_at: '2026-10-19T15:23:09.632326Z'
+  content_type: application/schema+json
+  format: json
+  http_status: 200
+  methodology_version: null
+  path: captures/f9bf50be263819b12fa7011396742b6f6dc7823415ac3e4caa14e89fc6e03160.json
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/queryables?f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/queryables?f=json
+  route: provider_download
+  sha256: f9bf50be263819b12fa7011396742b6f6dc7823415ac3e4caa14e89fc6e03160
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 306819
+  capture_id: capture-92a99c4dab1d6f92475feb7f8fe8d7761f9893786405cf29a23ddc5793ce24fa
+  captured_at: '2026-10-19T15:23:10.322594Z'
+  content_type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  format: xlsx
+  http_status: 200
+  methodology_version: null
+  path: captures/07f8e8d64eba73fe9d425196fe82f4e09a9886a287abd650e88ca8d98dd49052.xlsx
+  permission_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed
+    2026-10-07
+  primary_url: https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx
+  published_on: null
+  resolved_url: https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx
+  route: provider_download
+  sha256: 07f8e8d64eba73fe9d425196fe82f4e09a9886a287abd650e88ca8d98dd49052
+  source_id: ine-municipalities
+  source_release: null
+- byte_size: 26930
+  capture_id: capture-d389a4adbb398719c1d7ef9bca9dd6b92673622b6cf36ca9eb5bb426ab913332
+  captured_at: '2026-10-19T15:23:10.565657Z'
+  content_type: text/html
+  format: html
+  http_status: 200
+  methodology_version: null
+  path: captures/800f9869f805a033afa1934943b536d561f73b5dff4dd7c05881e4f0df47a1cb.html
+  permission_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed
+    2026-10-07
+  primary_url: https://www.ine.es/daco/daco42/codmun/codmun_anual.htm
+  published_on: null
+  resolved_url: https://www.ine.es/daco/daco42/codmun/codmun_anual.htm
+  route: provider_download
+  sha256: 800f9869f805a033afa1934943b536d561f73b5dff4dd7c05881e4f0df47a1cb
+  source_id: ine-municipalities
+  source_release: null
+- byte_size: 145381
+  capture_id: capture-69b35fe79d2477652a181956c68901a02964a00275a53c67b8a3d0080ca3426c
+  captured_at: '2026-10-19T15:31:41.021401Z'
+  content_type: application/pdf
+  format: pdf
+  http_status: 200
+  methodology_version: null
+  path: captures/48b745c62276e4d5ae8870922b9db89d276e9b339f66e3d1f9eea6379f2957d9.pdf
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf
+  published_on: null
+  resolved_url: https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf
+  route: provider_download
+  sha256: 48b745c62276e4d5ae8870922b9db89d276e9b339f66e3d1f9eea6379f2957d9
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 35942
+  capture_id: capture-ee2b4281dc675b5e853e99b37e99f22849a6ceafa0ce637c3ce7489529e8bbc0
+  captured_at: '2026-10-19T15:31:41.317116Z'
+  content_type: text/html;charset=UTF-8
+  format: html
+  http_status: 200
+  methodology_version: null
+  path: captures/dee543da71a573082ac9f17d09d2a0a6971c3d19214a28b63f2e0aa1ae77e897.html
+  permission_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed
+    2026-10-07
+  primary_url: https://www.ine.es/dyngs/AYU/index.htm?cid=125
+  published_on: null
+  resolved_url: https://www.ine.es/dyngs/AYU/index.htm?cid=125
+  route: provider_download
+  sha256: dee543da71a573082ac9f17d09d2a0a6971c3d19214a28b63f2e0aa1ae77e897
+  source_id: ine-municipalities
+  source_release: null
+- byte_size: 36111017
+  capture_id: capture-a21251cc8f547bdab0b4a67e7b1a43f64e60e3ef0b7c485d7655bcb350918ab7
+  captured_at: '2026-10-19T15:24:38.149111Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/ac3de008ff1c80cf85c31c809d9cdbe9a9d5e82e3752de56a3e585b527c9f2b9.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&nationallevelname=Municipio&limit=200
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&nationallevelname=Municipio&limit=200
+  route: provider_download
+  sha256: ac3de008ff1c80cf85c31c809d9cdbe9a9d5e82e3752de56a3e585b527c9f2b9
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 18328299
+  capture_id: capture-0f11c0c1c0c3003507c3cb8e85e7c35fadcc9b2b1ebdd0f4498e8fb9585f0a26
+  captured_at: '2026-10-19T15:24:46.915283Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/60917b3b440274b4fcde3fbce4bee03d4aa79bdab49616c1fbbc5e2f793080aa.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 60917b3b440274b4fcde3fbce4bee03d4aa79bdab49616c1fbbc5e2f793080aa
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 22793609
+  capture_id: capture-58ee4e7cd5423ed83d9c7bea33178cba8be94ed6ebe30cf4e1e6bd48141de925
+  captured_at: '2026-10-19T15:24:54.994739Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/ac4499d9480b2d9ec01f430cc4dc4412fe5b384a3fdb4c6a21424b855d73fc7d.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: ac4499d9480b2d9ec01f430cc4dc4412fe5b384a3fdb4c6a21424b855d73fc7d
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 20175018
+  capture_id: capture-17dbec7289de6744e4df9fd37e362b95aed79ffa94f4e3052548c25d798bdf33
+  captured_at: '2026-10-19T15:25:01.170647Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/c99f50402c30bfe2b167606c003de5446173d6b48d99cedc19448d0833ee9b77.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: c99f50402c30bfe2b167606c003de5446173d6b48d99cedc19448d0833ee9b77
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 13271224
+  capture_id: capture-c3b84a6124b3fcdb7fb3fbdc67a7094558346066d588ba6f19eabc607642577e
+  captured_at: '2026-10-19T15:25:05.273287Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/862ea9a8bfc4405f632384660ca9631532e8fa819fb6cad874289f734bf07dce.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 862ea9a8bfc4405f632384660ca9631532e8fa819fb6cad874289f734bf07dce
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 7583044
+  capture_id: capture-319092a073fef2590804f591c5935478d9b05537d2aed3496a59a162a73b61dc
+  captured_at: '2026-10-19T15:25:07.549745Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/23378e5273222e09e48f64c65cf5e7dcb3442455bf7d8d3f089aa125a03ef341.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 23378e5273222e09e48f64c65cf5e7dcb3442455bf7d8d3f089aa125a03ef341
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 7461571
+  capture_id: capture-d3ae105d79bb6962c6aed98a1af9d96cebe3d9e956fd18a0477cb66ca950598f
+  captured_at: '2026-10-19T15:25:10.181587Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/6e208edea918068799ab74dbb7390084f4e1aaa1a681032e79b36e6c3c90769a.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 6e208edea918068799ab74dbb7390084f4e1aaa1a681032e79b36e6c3c90769a
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 19197107
+  capture_id: capture-4a226cf6e906a9cdb616d19031d1c0ff56540542272cf0d820f4fa1c81b46012
+  captured_at: '2026-10-19T15:25:18.938885Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/384f90beed964c15426f8da5ad1406c9499b0e2c618428df0b6cf5c126d7a7c7.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 384f90beed964c15426f8da5ad1406c9499b0e2c618428df0b6cf5c126d7a7c7
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 70356636
+  capture_id: capture-c2a88cefd01ac42fc1652e1c0380dd73e8240ca4d734d15394d45d6fca41da0d
+  captured_at: '2026-10-19T15:25:37.594196Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/d344190bc84fac1c1d638de290553d140a42c47d4bc4b8e0934f87eb6182d8e7.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: d344190bc84fac1c1d638de290553d140a42c47d4bc4b8e0934f87eb6182d8e7
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 8866026
+  capture_id: capture-613304e862ba0f0d6a8705711bbeb1e1edf63d453120851429d36812194f879c
+  captured_at: '2026-10-19T15:25:40.870478Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/4680a4bda9767651bc8d22088b75f1ef60a945e025668467aae8d17d777621ef.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=1800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 4680a4bda9767651bc8d22088b75f1ef60a945e025668467aae8d17d777621ef
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 6213057
+  capture_id: capture-d7427b7faf9765db74e78b653aea77c34cf745b3328100f325f0d80a0766ae1c
+  captured_at: '2026-10-19T15:25:42.819488Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/d5c74450db1520939b8ffa00b08fb89a4cbef6ed88ec0c4a9a761c5ddc972d78.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: d5c74450db1520939b8ffa00b08fb89a4cbef6ed88ec0c4a9a761c5ddc972d78
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 5278028
+  capture_id: capture-700def1d2fffef25164086154d3a3febfadf8980ee16516a9b0ff5aada56fb4b
+  captured_at: '2026-10-19T15:25:44.415222Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/830070646c4326bf2be022b0cd61a5872b2b3e2f38a5c07f312a016e7e457e3a.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 830070646c4326bf2be022b0cd61a5872b2b3e2f38a5c07f312a016e7e457e3a
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 5859639
+  capture_id: capture-7cc09ff94735b03d4a037ae0873d4faa6f880c17cc73d8d68158e65fe14d535b
+  captured_at: '2026-10-19T15:25:46.269614Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/22cd8854fda259c912440680fcde2fb8f040392598556af2f65def1ee122d86e.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 22cd8854fda259c912440680fcde2fb8f040392598556af2f65def1ee122d86e
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 6942484
+  capture_id: capture-ac7b5bb4632174966f8f206264c44e4802c32b0bd7eb5ec4a4351801078d3b53
+  captured_at: '2026-10-19T15:25:48.518370Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/c47f297422bd8002d37fb3ec364459c1095c04054f268b2a8828e002908a5f60.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: c47f297422bd8002d37fb3ec364459c1095c04054f268b2a8828e002908a5f60
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 6116738
+  capture_id: capture-1de5bfed26e41a8e8452432b73a03caf8b3d472b6e626d82df7234619c648be6
+  captured_at: '2026-10-19T15:25:53.223391Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/3976b960daf842c80364e2acf3c5ad854dca3d562926fac0c76a75cc4c942094.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=2800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 3976b960daf842c80364e2acf3c5ad854dca3d562926fac0c76a75cc4c942094
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 7093127
+  capture_id: capture-132ff00eee03da18584d347112cd05b7850bc87a6fe3df6e695463aa4f66eb75
+  captured_at: '2026-10-19T15:25:55.736046Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/9200f8751beb83f691b0aabd601c551e39509de3f00960d7b8f463eb2baab7fc.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 9200f8751beb83f691b0aabd601c551e39509de3f00960d7b8f463eb2baab7fc
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 5501361
+  capture_id: capture-3d530d09d0db4a0a6927c2ecc083fbe84b328dd1dcff854a5c7a1219b5d252c4
+  captured_at: '2026-10-19T15:26:53.459866Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/bd6a59858d9bb2588ae6fc3bf3c737562caac74b766046034825d6625ed18230.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: bd6a59858d9bb2588ae6fc3bf3c737562caac74b766046034825d6625ed18230
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 5518271
+  capture_id: capture-78c910cd9e8943d2cee685043f3cdf331b8d754558515bf15c5bf9928183c0f3
+  captured_at: '2026-10-19T15:26:55.073051Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/e0edcd94906604c69f915b433715892efbce2df0e26de406932a270df78aceb2.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: e0edcd94906604c69f915b433715892efbce2df0e26de406932a270df78aceb2
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 4954717
+  capture_id: capture-c234b0384ebbf7118b0987b14f22bffab62d7d46c675dc84cd8574c23f6fefc2
+  captured_at: '2026-10-19T15:26:56.610469Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/5b9d0bddbfb46b2680e767d5823266f99e6cf2a5cabeeac40847f2c06a785400.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 5b9d0bddbfb46b2680e767d5823266f99e6cf2a5cabeeac40847f2c06a785400
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 4950995
+  capture_id: capture-a541257df8dfadbdd8fda25a2c4bc65d9f2542f1cbd178f255ef8c8bf4494d3a
+  captured_at: '2026-10-19T15:26:58.198086Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/16e8b51827d7d2fd1a6e57a53b22b5f6db8b5148fe9218edfc54b42f1da0ad50.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=3800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 16e8b51827d7d2fd1a6e57a53b22b5f6db8b5148fe9218edfc54b42f1da0ad50
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 7266743
+  capture_id: capture-1dbc93bf6189c065684adec65c91ecd1432aac8d4b7345b6a721c9ff79e9277a
+  captured_at: '2026-10-19T15:27:00.320711Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/5895825a5a60ed413d81635cfca85e9651981f9e11adcc4822efff621b8761eb.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 5895825a5a60ed413d81635cfca85e9651981f9e11adcc4822efff621b8761eb
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 18216741
+  capture_id: capture-4fc3ab3c74c4993ba383df37b9eb1122377c23879b76112665863ef9f01eb4c9
+  captured_at: '2026-10-19T15:27:05.093725Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/337a473a034390d06d679bd3f4363e2de54ffa7b9078fd9fd913c845e3963d9f.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 337a473a034390d06d679bd3f4363e2de54ffa7b9078fd9fd913c845e3963d9f
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 8112238
+  capture_id: capture-a1bac887e7937cc6f2e5a057ada37b4703b3c9b9aefdf255d76a657104f3b3b7
+  captured_at: '2026-10-19T15:27:08.496540Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/33f460485f67044f2ee4a6f4d9d36136f553022683210d30df87d2209e71a03d.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 33f460485f67044f2ee4a6f4d9d36136f553022683210d30df87d2209e71a03d
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 7480806
+  capture_id: capture-bfe9ae17dfd76b37dbc6874a20df531b6902e38e667aaacc48a23e8ebe434e7f
+  captured_at: '2026-10-19T15:27:11.021743Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/b9734d792a8dee943d5b0b4903bcad84547d9e0e37f60dc6bb4b7b90dd7e291a.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: b9734d792a8dee943d5b0b4903bcad84547d9e0e37f60dc6bb4b7b90dd7e291a
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 10668916
+  capture_id: capture-df47ddff85115138729171f9277ecf8ad98b04bce3e5856070d98f2e449629be
+  captured_at: '2026-10-19T15:27:14.602133Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/3eeb75f9a46599d7989f1814f34e69c4c13488b61633193936eb643dd53e6773.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=4800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 3eeb75f9a46599d7989f1814f34e69c4c13488b61633193936eb643dd53e6773
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 25138285
+  capture_id: capture-be3107fcb48224e567e25c3ebdf825b2acd8077c0bd72b308a2e10c942b01676
+  captured_at: '2026-10-19T15:27:25.120638Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/c98272c8c183466ee8f276bc40f1beccdbbf0b39c3a59d51abd2017ebbff7ec9.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: c98272c8c183466ee8f276bc40f1beccdbbf0b39c3a59d51abd2017ebbff7ec9
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 34676948
+  capture_id: capture-5cd10d219b6308b7372253ba5552f5b2130cdb46f744d2fc16dd50c50ef8d6d3
+  captured_at: '2026-10-19T15:27:36.931399Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/e74c1aff6e4f33d941f5d558c39dc4427f579026c73b42e265ef1bb6e474b779.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: e74c1aff6e4f33d941f5d558c39dc4427f579026c73b42e265ef1bb6e474b779
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 39616353
+  capture_id: capture-ee5091af560355545f3ea484fc0d35cc436c3d47cd3d14c8bdce207c4d84085e
+  captured_at: '2026-10-19T15:27:53.913253Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/79cc15dbf1decd34acbd9da19fc0566e4f933b5a4073c5f8c5bab2c8060c3828.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 79cc15dbf1decd34acbd9da19fc0566e4f933b5a4073c5f8c5bab2c8060c3828
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 33049987
+  capture_id: capture-203db0e709cab3d58fec7acd2d921fefd55a359e72f894b43a8453cf1cf7af62
+  captured_at: '2026-10-19T15:28:02.943628Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/6b6f80105dff9462c040040b77908e4f0b961ba47a14b14d5b2895e2b6260bcb.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 6b6f80105dff9462c040040b77908e4f0b961ba47a14b14d5b2895e2b6260bcb
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 33032167
+  capture_id: capture-2bbc867b5563ec12f35a0e354572a5efd6f2773cb47c17ee73531a6f9acdc7d6
+  captured_at: '2026-10-19T15:28:14.387079Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/f315ce5748d3d3b90272fa6d6f02b99fa462f6a4202b16cbdd9747f485eded7c.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=5800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: f315ce5748d3d3b90272fa6d6f02b99fa462f6a4202b16cbdd9747f485eded7c
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 16923520
+  capture_id: capture-6e6c5eb5222ac2102fffb0ec644205cdf636fbdfe4ece4fb1d08d725c3ca2b49
+  captured_at: '2026-10-19T15:28:20.513935Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/301d89ee2f68c0c6acb08f12f8c445dfc3501eb0b4dfb59d148766fb3cfd2ccc.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 301d89ee2f68c0c6acb08f12f8c445dfc3501eb0b4dfb59d148766fb3cfd2ccc
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 10608724
+  capture_id: capture-020b8548664e9fa850a947df05dd3e791ad0f7823bd738e17eaa519c53cbb59b
+  captured_at: '2026-10-19T15:28:23.487094Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/3278ac3067426cf093bde9f53c5fb9677f3a031c323adc25990ed9dda647fbcc.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 3278ac3067426cf093bde9f53c5fb9677f3a031c323adc25990ed9dda647fbcc
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 13408968
+  capture_id: capture-c9c2a930e425d83ba1c81f0155683373c642dcbcec14764968b0c781939f3b63
+  captured_at: '2026-10-19T15:28:27.997122Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/907090563d115d40537b8992d8eb1c1e45efe599fe28ea768d273f378a8cd067.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 907090563d115d40537b8992d8eb1c1e45efe599fe28ea768d273f378a8cd067
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 19854584
+  capture_id: capture-763bd8553c0d7efaf59f1d1cd5385cd4a6bef6155e3ac767961cbe90d4b255b5
+  captured_at: '2026-10-19T15:28:34.163823Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/45582def1ac5de4f5b5932058b17089f369273489f375802f7df1fe867e74fdc.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 45582def1ac5de4f5b5932058b17089f369273489f375802f7df1fe867e74fdc
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 25292755
+  capture_id: capture-a96c6620407cbcdcea5364f455a377e248bb01267b7ca54ac8b1f03fd2641a9c
+  captured_at: '2026-10-19T15:28:46.492198Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/1e87724e506253c43a45434c3e1465843dd425b9da7dfcf4cd8d43d11d6cfa6f.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=6800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 1e87724e506253c43a45434c3e1465843dd425b9da7dfcf4cd8d43d11d6cfa6f
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 21836200
+  capture_id: capture-a6d90c31770d285b55957b9bf764a93cbf4ed5912b49bbf67f0c79710cf9e992
+  captured_at: '2026-10-19T15:28:55.603108Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/07a4ea70be4484e8363f20626df5f701ddacb35c9c9137fbef604acdd0fc6431.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 07a4ea70be4484e8363f20626df5f701ddacb35c9c9137fbef604acdd0fc6431
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 27752105
+  capture_id: capture-918e00ccc79e3d78998ba8dd4ee04f3e323862c981531201af37dd46e424426d
+  captured_at: '2026-10-19T15:29:03.242820Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/59f42e8fb6f839763e1c1e4626e9485e8e4948b25076d60d381d54e5425c02bb.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 59f42e8fb6f839763e1c1e4626e9485e8e4948b25076d60d381d54e5425c02bb
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 27633016
+  capture_id: capture-a6cc0e42b05073bbca65e5a3ce1cb79970ecb1ca30b18ea65337db6e81717b77
+  captured_at: '2026-10-19T15:29:17.324650Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/9cea6304b7983fea50ea82d98f76b9549dd3e69013f52358fa747ed1449bbeab.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7400&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7400&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 9cea6304b7983fea50ea82d98f76b9549dd3e69013f52358fa747ed1449bbeab
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 11301767
+  capture_id: capture-46a3edf877a6ad5c1a9186ebc2e5a7c152489502a7e9cf8d9020508711913df2
+  captured_at: '2026-10-19T15:29:20.891481Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/a403a6a50c7a4c9d52032bcedb66105118640654344f4ae8279b9cbe31c8c6e7.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7600&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7600&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: a403a6a50c7a4c9d52032bcedb66105118640654344f4ae8279b9cbe31c8c6e7
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 18920942
+  capture_id: capture-1ab361dc4494ea426cd3efad48eab48129403396a4e5944bf865e1ed490fd3ba
+  captured_at: '2026-10-19T15:29:27.275987Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/ba016d3865e060c322781dd78d127ff0a3037e44c3645eee76e87c3d98c95ee6.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7800&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=7800&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: ba016d3865e060c322781dd78d127ff0a3037e44c3645eee76e87c3d98c95ee6
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 7780328
+  capture_id: capture-9f88e72a76fbbc4549634bd56b02db5612e89b5f8081baaa01c7e5e75b187809
+  captured_at: '2026-10-19T15:29:29.817179Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/0638ecba9c1dcd5852ff58a91859648b9b44ec5c75f519d33091dad19d2ccde1.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=8000&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=8000&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 0638ecba9c1dcd5852ff58a91859648b9b44ec5c75f519d33091dad19d2ccde1
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 914057
+  capture_id: capture-3594d16287648ac37dcf43a365a7254720ef7c404e6cd57b7e8d551467394783
+  captured_at: '2026-10-19T15:29:30.525693Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/57fdae50aaf2c1eac77dd5689ea920273e47d2c0bee7fd0f8c1a2462a17f9faa.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?offset=8200&nationallevelname=Municipio&limit=200&f=json
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?offset=8200&nationallevelname=Municipio&limit=200&f=json
+  route: provider_download
+  sha256: 57fdae50aaf2c1eac77dd5689ea920273e47d2c0bee7fd0f8c1a2462a17f9faa
+  source_id: ign-administrativeunit
+  source_release: null
+- byte_size: 187127244
+  capture_id: capture-d52678cd495e05ea1357bde199a3df160ac83a2339607934530afa7f73ba8c64
+  captured_at: '2026-10-19T15:30:27.211464Z'
+  content_type: application/json
+  format: geojson
+  http_status: 200
+  methodology_version: null
+  path: captures/07225b728c22cca94d49a3b579d66e293ad7d6f68514c4f9ff8e5a5bf1c2ece1.geojson
+  permission_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  primary_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&nationallevelname=Provincia&limit=200
+  published_on: null
+  resolved_url: https://api-features.ign.es/collections/administrativeunit/items?f=json&nationallevelname=Provincia&limit=200
+  route: provider_download
+  sha256: 07225b728c22cca94d49a3b579d66e293ad7d6f68514c4f9ff8e5a5bf1c2ece1
+  source_id: ign-administrativeunit
+  source_release: null
+context_territories:
+- feature_id: '1166814'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Cuarto del Madroño; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1167226'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunero de Ansó y Hecho; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1167463'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de la Pardina del Mercadal;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1167464'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: El Franco; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1168093'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Campoo y Cabuérniga; no
+    municipal INE identity and no economic destination.'
+- feature_id: '1168713'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Arauzo de Miel y Huerta
+    del Rey; no municipal INE identity and no economic destination.'
+- feature_id: '1168714'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Los Ausines y Revilla del
+    Campo; no municipal INE identity and no economic destination.'
+- feature_id: '1168715'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Barbadillo de Herreros y
+    Vallejimeno (E.L.M.); no municipal INE identity and no economic destination.'
+- feature_id: '1168716'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de 09076, 09290, 09578, 09606
+    y 09822; no municipal INE identity and no economic destination.'
+- feature_id: '1168717'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de 09076, 09290, 09578 y 09822;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168718'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Cabeza Alta; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1168719'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de 09076, 09150 y 09578; no
+    municipal INE identity and no economic destination.'
+- feature_id: '1168720'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de 09076, 09498 y 09578; no
+    municipal INE identity and no economic destination.'
+- feature_id: '1168721'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de 09076, 09578, 09606 y 09822;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168722'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Barbadillo del Pez y Jaramillo
+    de la Fuente; no municipal INE identity and no economic destination.'
+- feature_id: '1168723'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Barbadillo del Pez y Riocavado
+    de la Sierra; no municipal INE identity and no economic destination.'
+- feature_id: '1168724'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Bascuñana y Viloria de Rioja;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168725'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Monte Revenga; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1168726'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Canicosa de la Sierra y
+    Vilviestre del Pinar; no municipal INE identity and no economic destination.'
+- feature_id: '1168727'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Canicosa de la Sierra y
+    Casarejos; no municipal INE identity and no economic destination.'
+- feature_id: '1168728'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Soncarazo; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1168729'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Fuente Carazo; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1168730'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Ledanía de 09162, 09290, 09412 y 09606;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168731'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Dehesa de San Felices; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1168732'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Cilleruelo de Arriba y Pineda
+    Trasmonte; no municipal INE identity and no economic destination.'
+- feature_id: '1168733'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Covarrubias, Quintanilla
+    del Coco y Retuerta; no municipal INE identity and no economic destination.'
+- feature_id: '1168734'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Cubillo del Campo y Hontoria
+    de la Cantera; no municipal INE identity and no economic destination.'
+- feature_id: '1168735'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Gete y Hacinas; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1168736'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Ledanía de Hacinas y Salas de los Infantes;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168737'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Ledanía de Hacinas, Salas de los Infantes
+    y Villanueva de Carazo; no municipal INE identity and no economic destination.'
+- feature_id: '1168738'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de 09314, 09374, 09356 y 09126;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168739'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Valle de las Venadas; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1168740'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Palacios de la Sierra, Vilviestre
+    del Pinar y San Leonardo de Yagüe; no municipal INE identity and no economic destination.'
+- feature_id: '1168741'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Quintanaortuño y Merindad
+    de Río Ubierna; no municipal INE identity and no economic destination.'
+- feature_id: '1168742'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Quintanar de la Sierra y
+    Vilviestre del Pinar; no municipal INE identity and no economic destination.'
+- feature_id: '1168743'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Revilla del Campo y Torrelara;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168744'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Ledanía de Castrillo de la Reina, Hacinas
+    y Salas de los Infantes; no municipal INE identity and no economic destination.'
+- feature_id: '1168745'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de la Aynosa; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1168746'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Villagalijo y San Vicente
+    del Valle; no municipal INE identity and no economic destination.'
+- feature_id: '1168747'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Tardajos y Las Quintanillas;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168748'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Tardajos y Rabé de las Calzadas;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168749'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Tinieblas de la Sierra y
+    San Millán de Lara; no municipal INE identity and no economic destination.'
+- feature_id: '1168750'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Vilviestre del Pinar y Palacios
+    de la Sierra; no municipal INE identity and no economic destination.'
+- feature_id: '1168751'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Villoruebo y Torrelara;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168752'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Vizcaínos y Jaramillo de
+    la Fuente; no municipal INE identity and no economic destination.'
+- feature_id: '1168753'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Quintanilla del Agua y Tordueles
+    y Puentedura; no municipal INE identity and no economic destination.'
+- feature_id: '1168754'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Merindad de Río Ubierna,
+    Quintanilla Vivar y Sotragero; no municipal INE identity and no economic destination.'
+- feature_id: '1168755'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Monte de la Mata; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1168967'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Castrotierra de la Valduerna;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168968'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Foncabada; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1168969'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Soto de la Vega y Villazala;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1168970'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Mancomunidad de Villagatón y Quintana
+    del Castillo; no municipal INE identity and no economic destination.'
+- feature_id: '1169524'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Coto Mancomunado; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1169734'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Sepúlveda y Riaza; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1169918'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: San Bartolomé; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1170479'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Dehesa de Santiago; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1171108'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Aldovera; no municipal INE identity and
+    no economic destination.'
+- feature_id: '1172076'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de El Pont de Bar y Cava; no
+    municipal INE identity and no economic destination.'
+- feature_id: '1173683'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Los Baldios; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1173684'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: El Redegüelo; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1174002'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facero de Uzamalarre; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1174003'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facería de Arambelza; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1174004'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Mancomunidad de Beunza y Juarbe; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1174005'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de Barbarín y Olejúa; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1174006'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Monte Comunal de las Limitaciones de
+    las Améscoas; no municipal INE identity and no economic destination.'
+- feature_id: '1174007'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facería de Ezcabarte y otros; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1174008'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facería de Aldape; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1174009'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facería de Montejurra; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1174010'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad del Valle de Salazar; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1174011'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facero de Aristregui; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1174012'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facero de Ujué y Lerga; no municipal
+    INE identity and no economic destination.'
+- feature_id: '1174013'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facería de Ayarza; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1174014'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Bardenas Reales; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1174015'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Sierra de Aralar; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1174016'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Sierra de Lokiz; no municipal INE identity
+    and no economic destination.'
+- feature_id: '1174017'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Facería de Cogullo Alto, Cogullo Bajo,
+    Sarmindieta y Chandivar; no municipal INE identity and no economic destination.'
+- feature_id: '1174069'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Comunidad de la Sierra Brava de Badaya;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1174070'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Parzoneria de Entzia; no municipal INE
+    identity and no economic destination.'
+- feature_id: '1174159'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Parzonería general de Guipuzkoa y Araba/Álava;
+    no municipal INE identity and no economic destination.'
+- feature_id: '1174160'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Mancomunidad de Amezketa y Ordizia; no
+    municipal INE identity and no economic destination.'
+- feature_id: '1174448'
+  reason: 'Retained IGN 53-series shared/nonmunicipal territory: Mancomunidad de Nalda, Sorzano y Viguera;
+    no municipal INE identity and no economic destination.'
+decisions:
+- acquisition_route: official XLSX download and retained in-year-change review
+  attribution: 'Elaboración propia con datos extraídos del sitio web del INE: www.ine.es; reference 2026-01-01,
+    published 2026-02-04'
+  evidence_reference: INE legal notice reuse section, CC BY 4.0 for INE-origin information, reviewed 2026-10-07
+  local_use: permitted
+  notes:
+  - INE assigns the municipal codes; five digits exclude the separate control digit.
+  - Current operation links https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx and https://www.ine.es/daco/daco42/codmun/codmun_anual.htm.
+  - The reviewed in-year change list contains no changes to the four pilot municipalities. Do not imply
+    INE endorsement.
+  primary_url: https://www.ine.es/daco/daco42/codmun/diccionario26.xlsx
+  product: INE municipality code dictionary at 2026-01-01 and in-year changes
+  redistribution: permitted
+  reviewed_on: '2026-10-19'
+  source_id: ine-municipalities
+  terms_url: https://www.ine.es/dyngs/AYU/index.htm?cid=125
+- acquisition_route: bounded official API GeoJSON, complete municipality features in OGC:CRS84
+  attribution: Obra derivada de IGN AU Unidades administrativas, API snapshot 2026-10-07, CC BY 4.0 ign.es
+  evidence_reference: collection license link and IGN geographic data CC BY 4.0 license, reviewed 2026-10-07
+  local_use: permitted
+  notes:
+  - 'The collection advertises OGC:CRS84 storage and separate municipality/province features. No invented
+    official edition: snapshot is identified by capture timestamps and hashes.'
+  - Selected features preserve multipart territories and holes; no repair, clipping or simplification.
+  - Retain attribution for a later map. Metadata/queryables/items were inspected before selecting identifiers.
+  primary_url: https://api-features.ign.es/collections/administrativeunit?f=json
+  product: IGN administrativeunit municipality polygons, frozen API snapshot
+  redistribution: permitted
+  reviewed_on: '2026-10-19'
+  source_id: ign-administrativeunit
+  terms_url: https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf
+municipal_page_ids:
+- capture-a21251cc8f547bdab0b4a67e7b1a43f64e60e3ef0b7c485d7655bcb350918ab7
+- capture-0f11c0c1c0c3003507c3cb8e85e7c35fadcc9b2b1ebdd0f4498e8fb9585f0a26
+- capture-58ee4e7cd5423ed83d9c7bea33178cba8be94ed6ebe30cf4e1e6bd48141de925
+- capture-17dbec7289de6744e4df9fd37e362b95aed79ffa94f4e3052548c25d798bdf33
+- capture-c3b84a6124b3fcdb7fb3fbdc67a7094558346066d588ba6f19eabc607642577e
+- capture-319092a073fef2590804f591c5935478d9b05537d2aed3496a59a162a73b61dc
+- capture-d3ae105d79bb6962c6aed98a1af9d96cebe3d9e956fd18a0477cb66ca950598f
+- capture-4a226cf6e906a9cdb616d19031d1c0ff56540542272cf0d820f4fa1c81b46012
+- capture-c2a88cefd01ac42fc1652e1c0380dd73e8240ca4d734d15394d45d6fca41da0d
+- capture-613304e862ba0f0d6a8705711bbeb1e1edf63d453120851429d36812194f879c
+- capture-d7427b7faf9765db74e78b653aea77c34cf745b3328100f325f0d80a0766ae1c
+- capture-700def1d2fffef25164086154d3a3febfadf8980ee16516a9b0ff5aada56fb4b
+- capture-7cc09ff94735b03d4a037ae0873d4faa6f880c17cc73d8d68158e65fe14d535b
+- capture-ac7b5bb4632174966f8f206264c44e4802c32b0bd7eb5ec4a4351801078d3b53
+- capture-1de5bfed26e41a8e8452432b73a03caf8b3d472b6e626d82df7234619c648be6
+- capture-132ff00eee03da18584d347112cd05b7850bc87a6fe3df6e695463aa4f66eb75
+- capture-3d530d09d0db4a0a6927c2ecc083fbe84b328dd1dcff854a5c7a1219b5d252c4
+- capture-78c910cd9e8943d2cee685043f3cdf331b8d754558515bf15c5bf9928183c0f3
+- capture-c234b0384ebbf7118b0987b14f22bffab62d7d46c675dc84cd8574c23f6fefc2
+- capture-a541257df8dfadbdd8fda25a2c4bc65d9f2542f1cbd178f255ef8c8bf4494d3a
+- capture-1dbc93bf6189c065684adec65c91ecd1432aac8d4b7345b6a721c9ff79e9277a
+- capture-4fc3ab3c74c4993ba383df37b9eb1122377c23879b76112665863ef9f01eb4c9
+- capture-a1bac887e7937cc6f2e5a057ada37b4703b3c9b9aefdf255d76a657104f3b3b7
+- capture-bfe9ae17dfd76b37dbc6874a20df531b6902e38e667aaacc48a23e8ebe434e7f
+- capture-df47ddff85115138729171f9277ecf8ad98b04bce3e5856070d98f2e449629be
+- capture-be3107fcb48224e567e25c3ebdf825b2acd8077c0bd72b308a2e10c942b01676
+- capture-5cd10d219b6308b7372253ba5552f5b2130cdb46f744d2fc16dd50c50ef8d6d3
+- capture-ee5091af560355545f3ea484fc0d35cc436c3d47cd3d14c8bdce207c4d84085e
+- capture-203db0e709cab3d58fec7acd2d921fefd55a359e72f894b43a8453cf1cf7af62
+- capture-2bbc867b5563ec12f35a0e354572a5efd6f2773cb47c17ee73531a6f9acdc7d6
+- capture-6e6c5eb5222ac2102fffb0ec644205cdf636fbdfe4ece4fb1d08d725c3ca2b49
+- capture-020b8548664e9fa850a947df05dd3e791ad0f7823bd738e17eaa519c53cbb59b
+- capture-c9c2a930e425d83ba1c81f0155683373c642dcbcec14764968b0c781939f3b63
+- capture-763bd8553c0d7efaf59f1d1cd5385cd4a6bef6155e3ac767961cbe90d4b255b5
+- capture-a96c6620407cbcdcea5364f455a377e248bb01267b7ca54ac8b1f03fd2641a9c
+- capture-a6d90c31770d285b55957b9bf764a93cbf4ed5912b49bbf67f0c79710cf9e992
+- capture-918e00ccc79e3d78998ba8dd4ee04f3e323862c981531201af37dd46e424426d
+- capture-a6cc0e42b05073bbca65e5a3ce1cb79970ecb1ca30b18ea65337db6e81717b77
+- capture-46a3edf877a6ad5c1a9186ebc2e5a7c152489502a7e9cf8d9020508711913df2
+- capture-1ab361dc4494ea426cd3efad48eab48129403396a4e5944bf865e1ed490fd3ba
+- capture-9f88e72a76fbbc4549634bd56b02db5612e89b5f8081baaa01c7e5e75b187809
+- capture-3594d16287648ac37dcf43a365a7254720ef7c404e6cd57b7e8d551467394783
+processing_notes:
+- National INE 2026 dictionary; retained current in-year-change page must be reviewed with reconciliation
+  report.
+- 'IGN has no advertised immutable edition: complete retained count/ID-reconciled API snapshot, not a
+  transactional atomic provider snapshot.'
+- 53-series shared areas retained as neutral context, never municipalities.
+- 'Small nonmunicipal North-African sovereign territories outside this administrativeunit collection are
+  not invented: Chafarinas, Alhucemas and Velez de la Gomera; Isla de los Faisanes has special shared
+  international jurisdiction.'
+- Canonical coordinates are not repaired, clipped, quantized or simplified.
+province_page_ids:
+- capture-d52678cd495e05ea1357bde199a3df160ac83a2339607934530afa7f73ba8c64
+registry_capture_id: capture-92a99c4dab1d6f92475feb7f8fe8d7761f9893786405cf29a23ddc5793ce24fa
+registry_effective_on: '2026-01-01'
+registry_version: INE-2026-01-01
+schema_version: 1
+selected_codes: []
+support_capture_ids:
+- capture-05d2f8f8a4010cb5d9ec364cb2eb3350756b9556001277a2729b77d61981b035
+- capture-470e49b17fcb913d8e88af3032b293be04d08e1a59a526e38a17360ddad961e9
+- capture-d389a4adbb398719c1d7ef9bca9dd6b92673622b6cf36ca9eb5bb426ab913332
+- capture-69b35fe79d2477652a181956c68901a02964a00275a53c67b8a3d0080ca3426c
+- capture-ee2b4281dc675b5e853e99b37e99f22849a6ceafa0ce637c3ce7489529e8bbc0

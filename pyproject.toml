@@ -8,7 +8,13 @@ version = "0.1.0"
 description = "Foundations for a Spain housing affordability simulator"
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
-dependencies = ["pydantic>=2.10,<3", "PyYAML>=6,<7", "shapely>=2.1,<3", "openpyxl>=3.1,<4"]
+dependencies = [
+    "pydantic>=2.10,<3",
+    "PyYAML>=6,<7",
+    "shapely>=2.1,<3",
+    "openpyxl>=3.1,<4",
+    "pyproj>=3.7,<4",
+]
 
 [project.optional-dependencies]
 map = ["streamlit>=1.65,<2", "pydeck>=0.9.3,<1"]

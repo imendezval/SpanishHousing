@@ -1,23 +1,13 @@
 """One canonical format, verifier and atomic publisher for offline releases."""
 
-import hashlib
-import json
-import math
-import os
-import shutil
-import tempfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
 
 from pydantic import TypeAdapter
-from shapely.geometry import shape
-from shapely.validation import explain_validity
 
 from spain_housing.models.dataset import (
     BoundaryCollection,
     BuildRecipe,
-    CaptureRecord,
     CoverageCell,
     CoverageSummary,
     FileRecord,
@@ -26,11 +16,38 @@ from spain_housing.models.dataset import (
     ReferenceProfile,
     ReleasedObservation,
     ReleaseManifest,
-    SourceDecision,
     UsageScope,
-    relative_path,
 )
 from spain_housing.models.market import MarketObservation
+
+from .files import (
+    canonical_json as canonical_json,
+)
+from .files import (
+    contained_path as contained_path,
+)
+from .files import (
+    publish_artifact,
+)
+from .files import (
+    read_capture as read_capture,
+)
+from .files import (
+    sha256 as sha256,
+)
+from .files import (
+    strict_json as strict_json,
+)
+from .geometry import validate_polygon
+from .permissions import (
+    redistribution_scope,
+)
+from .permissions import (
+    validate_capture_permission as validate_capture_permission,
+)
+from .permissions import (
+    validate_source_use as validate_source_use,
+)
 
 PAYLOADS: dict[FileRole, str] = {
     "observations": "observations.jsonl",
@@ -38,98 +55,6 @@ PAYLOADS: dict[FileRole, str] = {
     "boundaries": "boundaries.geojson",
     "coverage": "coverage.json",
 }
-
-
-def canonical_json(value: object) -> bytes:
-    return (
-        json.dumps(
-            value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False
-        )
-        + "\n"
-    ).encode("utf-8")
-
-
-def sha256(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
-
-
-def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
-    result: dict[str, object] = {}
-    for key, value in pairs:
-        if key in result:
-            raise ValueError(f"duplicate JSON key: {key}")
-        result[key] = value
-    return result
-
-
-def _finite_float(value: str) -> float:
-    number = float(value)
-    if not math.isfinite(number):
-        raise ValueError("non-finite JSON number")
-    return number
-
-
-def _invalid_constant(value: str) -> object:
-    raise ValueError(f"non-finite JSON token: {value}")
-
-
-def strict_json(data: bytes) -> object:
-    result: object = json.loads(
-        data,
-        object_pairs_hook=_unique_object,
-        parse_float=_finite_float,
-        parse_constant=_invalid_constant,
-    )
-    return result
-
-
-def contained_path(root: Path, relative: str) -> Path:
-    relative_path(relative)
-    result = root / relative
-    if not result.resolve().is_relative_to(root.resolve()):
-        raise ValueError(f"path escapes root: {relative}")
-    return result
-
-
-def read_capture(data_root: Path, capture: CaptureRecord) -> bytes:
-    data = contained_path(data_root, capture.path).read_bytes()
-    if len(data) != capture.byte_size or sha256(data) != capture.sha256:
-        raise ValueError(f"capture hash/size mismatch: {capture.capture_id}")
-    if capture.format not in ("html",) and data.lstrip().lower().startswith(
-        (b"<!doctype html", b"<html")
-    ):
-        raise ValueError(f"error/login HTML is not {capture.format}: {capture.capture_id}")
-    return data
-
-
-def validate_source_use(decision: SourceDecision, kind: Literal["observed", "synthetic"]) -> None:
-    if decision.local_use != "permitted":
-        raise ValueError(
-            f"source local acquisition/use is {decision.local_use}: {decision.source_id}"
-        )
-    if kind == "observed" and (
-        decision.source_id.startswith("synthetic:")
-        or decision.primary_url is None
-        or decision.terms_url is None
-    ):
-        raise ValueError("observed sources require real URLs and usage evidence")
-    if kind == "synthetic" and not decision.source_id.startswith("synthetic:"):
-        raise ValueError("synthetic release cannot include real source decisions")
-
-
-def validate_capture_permission(
-    capture: CaptureRecord, decision: SourceDecision, kind: Literal["observed", "synthetic"]
-) -> None:
-    validate_source_use(decision, kind)
-    if (
-        capture.source_id != decision.source_id
-        or capture.permission_reference != decision.evidence_reference
-    ):
-        raise ValueError("capture references an unknown source/permission decision")
-    if (capture.route == "synthetic_fixture") != (kind == "synthetic"):
-        raise ValueError("synthetic/observed capture mixing is prohibited")
-    if kind == "observed" and capture.primary_url is None:
-        raise ValueError("observed capture requires a primary URL")
 
 
 def validate_recipe(recipe: BuildRecipe, *, allow_synthetic: bool = False) -> None:
@@ -251,27 +176,7 @@ def validate_geometry(
             or feature.properties.boundary_version != location.boundary_version
         ):
             raise ValueError("geometry ID/version disagrees with registry")
-        geometry = feature.geometry
-        polygons = (geometry.coordinates,) if geometry.type == "Polygon" else geometry.coordinates
-        if not polygons:
-            raise ValueError("empty polygon geometry")
-        for polygon in polygons:
-            if not polygon:
-                raise ValueError("empty polygon")
-            for ring in polygon:
-                if len(ring) < 4 or ring[0] != ring[-1]:
-                    raise ValueError(
-                        "polygon rings must be explicitly closed with at least four positions"
-                    )
-                for longitude, latitude in ring:
-                    # Inspected IGN Spain extent catches projected coordinates and swapped axes.
-                    if not (-19 <= longitude <= 5 and 27 <= latitude <= 44):
-                        raise ValueError(
-                            "coordinates must be Spain longitude/latitude in OGC:CRS84"
-                        )
-        polygon_shape = shape(geometry.model_dump(mode="json"))
-        if polygon_shape.is_empty or not polygon_shape.is_valid:
-            raise ValueError(f"invalid polygon topology: {explain_validity(polygon_shape)}")
+        validate_polygon(feature.geometry)
 
 
 def _coverage_summary(cells: tuple[CoverageCell, ...]) -> CoverageSummary:
@@ -284,14 +189,7 @@ def _coverage_summary(cells: tuple[CoverageCell, ...]) -> CoverageSummary:
 
 
 def _redistribution(recipe: BuildRecipe) -> UsageScope:
-    scopes = {source.redistribution for source in recipe.decisions}
-    return (
-        "restricted"
-        if "restricted" in scopes
-        else "unresolved"
-        if "unresolved" in scopes
-        else "permitted"
-    )
+    return redistribution_scope(recipe.decisions)
 
 
 def _readiness(recipe: BuildRecipe, cells: tuple[CoverageCell, ...]) -> str:
@@ -454,27 +352,11 @@ def write_release(
     manifest = ReleaseManifest.model_validate(
         metadata | {"release_id": identity, "content_digest": digest}
     )
-    release_root.mkdir(parents=True, exist_ok=True)
-    staging = Path(tempfile.mkdtemp(prefix=".staging-", dir=release_root))
-    lock = release_root / f".{identity}.lock"
-    owned_lock = False
-    try:
-        for role, payload in data.items():
-            (staging / PAYLOADS[role]).write_bytes(payload)
-        (staging / "manifest.json").write_bytes(canonical_json(manifest.model_dump(mode="json")))
-        load_release(staging, allow_synthetic=allow_synthetic)
-        lock.mkdir()
-        owned_lock = True
-        destination = release_root / identity
-        if destination.exists():
-            existing = load_release(destination, allow_synthetic=allow_synthetic)
-            if existing.manifest != manifest:
-                raise ValueError("existing release ID has different content; refusing overwrite")
-        else:
-            os.rename(staging, destination)
-        return destination
-    finally:
-        if staging.exists():
-            shutil.rmtree(staging)
-        if owned_lock:
-            lock.rmdir()
+    payloads = {PAYLOADS[role]: payload for role, payload in data.items()}
+    payloads["manifest.json"] = canonical_json(manifest.model_dump(mode="json"))
+    return publish_artifact(
+        release_root,
+        identity,
+        payloads,
+        lambda path: load_release(path, allow_synthetic=allow_synthetic),
+    )
