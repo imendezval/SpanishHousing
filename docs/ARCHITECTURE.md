@@ -202,3 +202,46 @@ job uses the same map-enabled gate/build on Python 3.12 and 3.13.
 Next essential extension remains save in A/buy in B with explicit purchase-time
 income and reusable saving/purchase services. Salary realism, historical models,
 new taxes/financing and public deployment remain outside Phase 6.
+
+## Phase 7 independent geography and national synthetic economics
+
+Canonical geography and display artifacts have independent schema-1 manifests;
+dataset schema 2 pins a `GeographyReference`, rather than embedding polygons.
+Schema-1 market serialization and synthetic permission restrictions remain.
+`storage/files.py`, `permissions.py` and `geometry.py` own shared byte/path,
+publication, component permission and polygon rules. `storage/geography.py`
+validates independent artifacts; economic metadata-only reads explicitly omit
+canonical geometry, while full validation checks all payloads. The original
+national source overlap is fingerprinted evidence, not a general geometry-repair
+or display-validation exception.
+
+`ingestion/atlas.py` assembles retained official pagination and exact INE joins;
+`map_geometry.py` owns metric shared-coverage preparation and measured fidelity.
+`ingestion/demo.py` generates declared synthetic assumptions over that registry
+and feeds the existing market normalizer/builder. No preparation is triggered by
+an application read. Pyproj is the locked coordinate-transformation dependency.
+
+`markets/geography.py` composes explicit geography/display inputs and adapts old
+embedded shapes without relabelling them official. The launcher caches immutable
+resources by manifest bytes and paths; geography reads stay out of finance and
+UI. Geographic atlas A, economic population M, requested destinations E and
+results R enforce `E ⊆ M ⊆ A` and `R = E`. Context has no financial identity;
+outside coverage and not evaluated are presentation states, not fabricated
+`LocationResult` rows. Province/territorial controls do not filter evaluation.
+
+Measured full national trace retention exceeded 1 GiB additional memory.
+`application/evaluate.py::iter_location_results` now owns shared iteration;
+`application/overview.py` projects validated results and discards monthly traces.
+`RunOverview` is distinct from replayable `RunResult`. On-demand detail/export
+checks full applied evidence and aggregate parity. Existing JSON encoding is the
+single canonical format for full runs and streamed exports; summary CSV has one
+projection for both models. Full API/CLI and numerical owners are unchanged.
+National sessions retain two overviews, two selected details, and an explicitly
+prepared current export. No personal scenario/result is cached process-wide.
+Camera actions advance a chart revision to apply an explicit view; metric
+rerenders keep the chart and manual pan. Economic cache keys exclude display ID.
+
+National source topology still blocks a national display/browser claim. See
+[geography decisions and actual run commands](GEOGRAPHY.md) and
+[Phase 7 evidence](progress/PHASE_7.md). Observed economics remains a separate,
+blocked prerequisite; official geography does not make synthetic prices real.

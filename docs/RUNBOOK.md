@@ -1,7 +1,10 @@
 # Offline MVP runbook
 
 Supported: Python 3.12/3.13, explicit local/local scenarios, immutable releases.
-Use a checkout containing Phase 6 (`60ab273` or its later verification commits).
+The Phase 6 workflow below remains available. For Phase 7 official geography,
+actual local archive/restoration and runnable regional map commands, use
+[GEOGRAPHY.md](GEOGRAPHY.md). The national display is blocked by a retained
+official-source overlap; do not attempt to bypass display topology validation.
 The tested synthetic path below needs no provider account. Observed-market
 reproduction remains blocked; official geography is independently verified.
 See [expansion decisions](DATA_EXPANSION.md) and [architecture](ARCHITECTURE.md).

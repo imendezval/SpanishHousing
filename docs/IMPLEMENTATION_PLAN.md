@@ -202,6 +202,24 @@ Deliver:
 
 **Done when:** another environment can run the supported MVP from its documented code, configuration and data release. Source/schema failures are diagnosed during release preparation instead of silently changing map results.
 
+### Phase 7 — National municipal geography with synthetic market inputs
+
+Execution guide: [PHASE_7_map_geo.md](phases/PHASE_7_map_geo.md).
+
+Implemented independent canonical/display contracts, dataset-v2 composition,
+retained official national identities/boundaries, deterministic complete/partial
+synthetic economic inputs, atlas-superset UI and measured bounded evaluation.
+Financial rules, old releases and original fixture demos remain unchanged.
+
+Status: **incomplete due to a genuine official-source topology blocker**.
+The national atlas retains the inspected Bellver/Prullans overlap unchanged;
+national simplification/browser verification awaits the explicit display-policy
+decision. The real Madrid regional display is available. Full gate, installed,
+restoration and performance evidence are tracked in
+[Phase 7 progress](progress/PHASE_7.md); available commands/data are in
+[geography](GEOGRAPHY.md). Do not equate national synthetic economics with an
+observed national affordability dataset or a completed national map.
+
 ## 6. Later phases and extension points
 
 Keep the following order of major extensions; detailed model refinements can be implemented as smaller independent changes when prioritised.
