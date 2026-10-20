@@ -23,7 +23,40 @@ manifest alone does not contain the retained dataset.
 
 ## Run from this workspace
 
-Install the locked environment and launch the actual available release:
+Run these commands from the repository root. Choose either Conda or uv; the
+geographic and market artifacts listed below must already be present. A fresh
+clone needs the [portable data bundle](#portable-data-bundle) as well.
+
+### Option 1: Conda
+
+Create an environment with Python 3.12 and install the package with map support:
+
+```bash
+conda create -n spanish-housing python=3.12 pip
+conda activate spanish-housing
+python -m pip install -e '.[map]'
+```
+
+If the environment already exists, activate it and run the installation command.
+This editable installation uses the dependency ranges in `pyproject.toml`, rather
+than the exact versions in `uv.lock`. Python 3.13 is also supported. For the
+retained, pinned wheel installation, use the portable-bundle instructions below.
+
+Launch the map in the activated Conda environment:
+
+```bash
+spain-housing serve \
+  --defaults configs/defaults.yaml \
+  --scenario configs/scenarios/phase7_national_demo.yaml \
+  --release data/releases/synthetic-5b2e10583ed3460cf983a2e3e75a27d36a3e8ba0860ca842c0bb1f8e4b3d4726 \
+  --geography data/processed/geography/geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d \
+  --display-geography data/processed/map-display/display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c \
+  --allow-synthetic --port 8501
+```
+
+### Option 2: uv (locked dependencies)
+
+Install the locked environment and launch the same release:
 
 ```bash
 uv sync --locked --extra map
@@ -36,7 +69,10 @@ uv run --locked --extra map spain-housing serve \
   --allow-synthetic --port 8501
 ```
 
-Open `http://127.0.0.1:8501`. Default metric is target affordability; maximum
+### Using the map
+
+For either option, open `http://127.0.0.1:8501`. Stop the server with `Ctrl+C`.
+Default metric is target affordability; maximum
 purchase price and affordable area are also available. Search/select by full
 municipal code. Territorial/province controls and selected zoom change the view,
 not the financial population. Desktop fit uses the map's 960×480 nominal layout
@@ -59,7 +95,7 @@ purchase inputs retain purchase capacity but make price-based comparisons missin
 Outside coverage, not evaluated, missing, unsupported, unviable and numeric zero
 are distinct. Original four-/16-/250-location regression demos remain unchanged.
 
-## Conda / venv and portable bytes
+## Portable data bundle
 
 The actual current archive is `data/raw/phase7-national-portable.tar.gz`, with
 size/SHA-256 in `data/raw/phase7-national-portable.json` after final packaging.
@@ -76,15 +112,33 @@ Verify SHA-256 against the receipt, then extract into an empty directory:
 mkdir /tmp/housing-phase7
 tar -xzf data/raw/phase7-national-portable.tar.gz -C /tmp/housing-phase7
 cd /tmp/housing-phase7
+```
+
+Then choose one of the following installation methods from the extracted folder.
+
+### Conda
+
+```bash
+conda create -n spanish-housing python=3.12 pip
+conda activate spanish-housing
+python -m pip install --require-hashes -r requirements-map.txt
+python -m pip install --no-deps dist/spain_housing-0.1.0-py3-none-any.whl
+```
+
+If `spanish-housing` already exists, activate it instead of creating it again.
+Run the `spain-housing serve` command from the Conda section above while still
+in the extracted folder; the bundle contains the same configs and artifact paths.
+
+### venv
+
+```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install --require-hashes -r requirements-map.txt
 .venv/bin/python -m pip install --no-deps dist/spain_housing-0.1.0-py3-none-any.whl
 ```
 
-For conda, create/activate an environment with Python 3.12 (3.13 is supported)
-and use `python -m pip` for those same installation commands. Run the command in
-the first section with `.venv/bin/spain-housing` instead of `uv run ...` (or just
-`spain-housing` in the activated conda environment). Core-only installations use
+Use `.venv/bin/spain-housing serve` with the same arguments as the Conda launch
+command. Core-only installations use
 `requirements-core.txt` and do not install Streamlit. Exact replay requires the
 saved code/model/Python/dependency evidence; a compatible version range alone is
 insufficient. No server token, tiles, provider account or runtime download is used.
