@@ -1,6 +1,7 @@
 """Safe configuration loading, merging and deterministic scenario serialization."""
 
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -28,18 +29,20 @@ def test_merge_replaces_lists_and_nulls_without_mutation() -> None:
     defaults = {"nested": {"a": 1, "items": [1, 2], "b": 2}}
     changed = merge_mappings(defaults, {"nested": {"items": [3], "b": None}})
     assert changed == {"nested": {"a": 1, "items": [3], "b": None}}
-    assert defaults["nested"]["items"] == [1, 2]
+    assert defaults == {"nested": {"a": 1, "items": [1, 2], "b": 2}}
 
 
 @pytest.mark.parametrize("name", ["room_only", "staged_living", "joint_saving"])
 def test_examples_round_trip(name: str) -> None:
     scenario = load_scenario(DEFAULTS, EXAMPLES / f"{name}.yaml")
-    assert Scenario.model_validate_json(scenario_json(scenario)) == scenario
-    assert scenario_json(scenario) == scenario_json(scenario)
+    encoded = scenario_json(scenario)
+    restored = Scenario.model_validate_json(encoded)
+    assert restored == scenario
+    assert scenario_json(restored) == encoded
 
 
 def test_sequential_loads_do_not_change_defaults() -> None:
-    before = load_mapping(DEFAULTS)
+    before = deepcopy(load_mapping(DEFAULTS))
     load_scenario(DEFAULTS, EXAMPLES / "joint_saving.yaml")
     load_scenario(DEFAULTS, EXAMPLES / "room_only.yaml")
     assert load_mapping(DEFAULTS) == before

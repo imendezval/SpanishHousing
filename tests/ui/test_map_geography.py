@@ -102,7 +102,7 @@ def _app(
         Path(release),
         allow_synthetic=True,
         geography_dir=Path(geo),
-        display_geography=Path(display),
+        display_geography=Path(st.session_state.get("injected-display", display)),
     )
     st.session_state.setdefault("evaluation-count", 0)
 
@@ -190,6 +190,12 @@ def test_geographic_only_selection_and_display_changes_never_evaluate(
     assert cache_key(initial.resolved_scenario, first_services) == cache_key(
         initial.resolved_scenario, second_services
     )
+    at.session_state["injected-display"] = str(second)
+    at.run()
+    assert not at.exception
+    assert at.session_state["housing-display"] == second_services.map_geography.display_id
+    assert at.session_state["housing-session"].applied == initial
+    assert at.session_state["evaluation-count"] == 1
 
 
 def test_compact_app_defers_complete_export_and_reuses_selected_details(composed) -> None:
@@ -221,9 +227,11 @@ def test_compact_app_defers_complete_export_and_reuses_selected_details(composed
     next(b for b in at.button if b.label == "Prepare full run.json").click().run()
     assert not at.exception and at.session_state["export-count"] == 1
     session = at.session_state["housing-session"]
-    full = RunResult.model_validate_json(session.full_export)
+    prepared_export = session.full_export
+    full = RunResult.model_validate_json(prepared_export)
     assert len(full.results) == 1 and full.results[0].prepared_budgets
     at.selectbox(key="inspection-location").set_value("28002").run()
     assert not at.exception and at.session_state["detail-count"] == 1
     assert any("Outside selected market coverage" in info.value for info in at.info)
-    assert at.session_state["housing-session"].full_export == session.full_export
+    assert at.session_state["housing-session"].full_export == prepared_export
+    assert at.session_state["export-count"] == 1

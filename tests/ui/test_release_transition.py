@@ -1,5 +1,6 @@
 """Streamlit release transitions clear economic results and retire selections."""
 
+from copy import deepcopy
 from pathlib import Path
 
 from streamlit.testing.v1 import AppTest
@@ -38,7 +39,7 @@ def test_expanded_report_release_transition_and_selection(expanded_dir, release_
     assert any("43/48 captured cells" in e.value for e in at.markdown)
     at.selectbox(key="inspection-location").set_value("08015").run()
     assert session.selected_code == "08015"
-    previous_draft = session.draft.copy()
+    previous_draft = deepcopy(session.draft)
     at.session_state["injected-release"] = str(release_dir)
     at.run()
     assert not at.exception

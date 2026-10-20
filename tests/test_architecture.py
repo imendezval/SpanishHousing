@@ -1,123 +1,90 @@
-"""Import Linter must detect a real forbidden edge, not just parse a config."""
+"""Probe the repository's real import rules with direct and indirect violations."""
 
 import subprocess
+from collections.abc import Callable
 from pathlib import Path
 
 import pytest
 
+from fixtures import PROJECT_ROOT
 
-def test_forbidden_import_contract_is_sensitive(tmp_path: Path) -> None:
+type ImportCheck = Callable[[tuple[tuple[str, str], ...], str], None]
+
+
+@pytest.fixture
+def check_imports(tmp_path: Path) -> ImportCheck:
+    # Keep the actual module layout and configuration, but omit implementation
+    # imports so each probe isolates the intended forbidden dependency.
+    source = PROJECT_ROOT / "src/spain_housing"
     package = tmp_path / "spain_housing"
-    (package / "models").mkdir(parents=True)
-    (package / "finance").mkdir()
-    (package / "__init__.py").write_text("")
-    (package / "models/__init__.py").write_text("import spain_housing.finance\n")
-    (package / "finance/__init__.py").write_text("")
+    for original in source.rglob("*.py"):
+        target = package / original.relative_to(source)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text("")
     config = tmp_path / "pyproject.toml"
-    config.write_text(
-        '[tool.importlinter]\nroot_package = "spain_housing"\n'
-        '[[tool.importlinter.contracts]]\nname = "models boundary"\ntype = "forbidden"\n'
-        'source_modules = ["spain_housing.models"]\n'
-        'forbidden_modules = ["spain_housing.finance"]\n'
-    )
-    result = subprocess.run(
-        ["lint-imports", "--config", str(config)],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    assert result.returncode != 0
-    assert "models boundary" in result.stdout
+    config.write_text((PROJECT_ROOT / "pyproject.toml").read_text())
+
+    def check(edges: tuple[tuple[str, str], ...], contract: str) -> None:
+        for origin, destination in edges:
+            module = package.joinpath(*origin.split("."))
+            path = module / "__init__.py" if module.is_dir() else module.with_suffix(".py")
+            assert path.is_file(), f"probe source is not a repository module: {origin}"
+            path.write_text(f"import spain_housing.{destination}\n")
+        result = subprocess.run(
+            ["lint-imports", "--no-cache", "--config", str(config)],
+            cwd=tmp_path,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert result.returncode == 1, result.stdout + result.stderr
+        # An unrelated broken contract or a malformed config is not evidence
+        # that this particular boundary is enforced.
+        assert f"{contract} BROKEN" in result.stdout, result.stdout + result.stderr
+
+    return check
 
 
 @pytest.mark.parametrize(
-    "source,target",
+    "source,target,contract",
     [
-        ("finance", "storage"),
-        ("storage", "ingestion"),
-        ("application", "storage"),
-        ("application", "ingestion"),
-        ("markets", "finance"),
-        ("ui", "launcher"),
-        ("finance", "launcher"),
-        ("application", "launcher"),
+        ("models", "finance", "models do not depend on implementations"),
+        ("finance", "storage", "finance has no providers or interface dependencies"),
+        ("storage", "ingestion", "storage has only model dependencies"),
+        ("application", "storage", "application has no interface or ingestion dependencies"),
+        ("application", "ingestion", "application has no interface or ingestion dependencies"),
+        ("markets", "finance", "market access has no acquisition or interface dependencies"),
+        ("ui", "launcher", "lower layers never import launcher"),
+        ("finance", "launcher", "lower layers never import launcher"),
+        ("application", "launcher", "lower layers never import launcher"),
+    ],
+    ids=[
+        "models-finance",
+        "finance-storage",
+        "storage-ingestion",
+        "application-storage",
+        "application-ingestion",
+        "markets-finance",
+        "ui-launcher",
+        "finance-launcher",
+        "application-launcher",
     ],
 )
-def test_storage_boundaries_detect_forbidden_edges(
-    tmp_path: Path, source: str, target: str
+def test_direct_forbidden_imports(
+    check_imports: ImportCheck, source: str, target: str, contract: str
 ) -> None:
-    package = tmp_path / "spain_housing"
-    package.mkdir()
-    (package / "__init__.py").write_text("")
-    for name in (source, target):
-        (package / name).mkdir()
-        (package / name / "__init__.py").write_text("")
-    (package / source / "__init__.py").write_text(f"import spain_housing.{target}\n")
-    config = tmp_path / "pyproject.toml"
-    config.write_text(
-        '[tool.importlinter]\nroot_package = "spain_housing"\n'
-        '[[tool.importlinter.contracts]]\nname = "storage boundary"\ntype = "forbidden"\n'
-        f'source_modules = ["spain_housing.{source}"]\n'
-        f'forbidden_modules = ["spain_housing.{target}"]\n'
-    )
-    result = subprocess.run(
-        ["lint-imports", "--config", str(config)],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    assert result.returncode != 0
-    assert "storage boundary" in result.stdout
+    check_imports(((source, target),), contract)
 
 
-def test_application_indirect_storage_boundary(tmp_path: Path) -> None:
-    package = tmp_path / "spain_housing"
-    package.mkdir()
-    (package / "__init__.py").write_text("")
-    for module in ("application", "markets", "storage"):
-        (package / module).mkdir()
-        (package / module / "__init__.py").write_text("")
-    (package / "application/__init__.py").write_text("import spain_housing.markets\n")
-    (package / "markets/__init__.py").write_text("import spain_housing.storage\n")
-    config = tmp_path / "pyproject.toml"
-    config.write_text(
-        '[tool.importlinter]\nroot_package = "spain_housing"\n'
-        '[[tool.importlinter.contracts]]\nname = "indirect storage"\ntype = "forbidden"\n'
-        'source_modules = ["spain_housing.application"]\n'
-        'forbidden_modules = ["spain_housing.storage"]\n'
+def test_application_indirect_storage_boundary(check_imports: ImportCheck) -> None:
+    check_imports(
+        (("application", "markets"), ("markets", "storage")),
+        "application has no interface or ingestion dependencies",
     )
-    result = subprocess.run(
-        ["lint-imports", "--config", str(config)],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    assert result.returncode != 0 and "indirect storage" in result.stdout
 
 
-def test_coverage_indirect_repository_boundary(tmp_path: Path) -> None:
-    package = tmp_path / "spain_housing"
-    for name in ("markets", "storage"):
-        (package / name).mkdir(parents=True)
-        (package / name / "__init__.py").write_text("")
-    (package / "__init__.py").write_text("")
-    (package / "markets/coverage.py").write_text("import spain_housing.markets.repository\n")
-    (package / "markets/repository.py").write_text("import spain_housing.storage\n")
-    config = tmp_path / "pyproject.toml"
-    config.write_text(
-        '[tool.importlinter]\nroot_package = "spain_housing"\n'
-        '[[tool.importlinter.contracts]]\nname = "pure coverage"\ntype = "forbidden"\n'
-        'source_modules = ["spain_housing.markets.coverage"]\n'
-        'forbidden_modules = ["spain_housing.markets.repository", "spain_housing.storage"]\n'
+def test_coverage_indirect_repository_boundary(check_imports: ImportCheck) -> None:
+    check_imports(
+        (("markets.coverage", "markets.repository"), ("markets.repository", "storage")),
+        "pure market rules have no storage dependencies",
     )
-    result = subprocess.run(
-        ["lint-imports", "--config", str(config)],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    assert result.returncode != 0 and "pure coverage" in result.stdout

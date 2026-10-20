@@ -101,7 +101,11 @@ def test_zero_income_interest_and_later_income_target_accepted() -> None:
 def test_rent_sharing_does_not_add_a_borrower() -> None:
     data = example("staged_living")
     assert data["living_stages"][-1]["rent_share"] == 0.5
-    assert data["borrower_ids"] == ["buyer"]
+    original = Scenario.model_validate(data)
+    data["living_stages"][-1]["rent_share"] = 0.75
+    changed = Scenario.model_validate(data)
+    assert changed.borrower_ids == original.borrower_ids == ("buyer",)
+    assert changed.saver_ids == original.saver_ids
 
 
 @pytest.mark.parametrize(
