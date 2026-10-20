@@ -2,9 +2,9 @@ from dataclasses import FrozenInstanceError
 from pathlib import Path
 
 import pytest
-from conftest import FIXTURES
 from pydantic import ValidationError
 
+from fixtures import PILOT
 from spain_housing.markets.repository import SnapshotMarketRepository
 from spain_housing.models.contracts import MarketData
 from spain_housing.models.market import MarketQuery, MarketSegment
@@ -12,7 +12,7 @@ from spain_housing.storage.release import load_release, strict_json, write_relea
 
 
 def sale_query(**changes: object) -> MarketQuery:
-    original = strict_json((FIXTURES / "query_sale.json").read_bytes())
+    original = strict_json((PILOT / "query_sale.json").read_bytes())
     return MarketQuery.model_validate(original | changes)
 
 
@@ -56,7 +56,7 @@ def test_exact_period_segment_and_capability_statuses(
 def test_room_quarter_is_never_reinterpreted_as_september(release_dir: Path) -> None:
     repository = SnapshotMarketRepository.from_release(release_dir, allow_synthetic=True)
     query = MarketQuery.model_validate(
-        strict_json((FIXTURES / "query_missing_room.json").read_bytes())
+        strict_json((PILOT / "query_missing_room.json").read_bytes())
     )
     missing = repository.get(query)
     assert missing.status == "missing"

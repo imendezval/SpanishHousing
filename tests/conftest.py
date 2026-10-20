@@ -2,30 +2,31 @@ from pathlib import Path
 
 import pytest
 
+from fixtures import PILOT, PROJECT_ROOT
+from fixtures.synthetic.atlas import atlas_inputs
 from spain_housing.config import load_scenario
+from spain_housing.ingestion.atlas import build_geography
 from spain_housing.ingestion.release import build_release
 from spain_housing.models.dataset import BuildRecipe
 from spain_housing.models.scenario import Scenario
 from spain_housing.storage.release import strict_json
 
-FIXTURES = Path(__file__).resolve().parent / "fixtures/synthetic/pilot"
-
 
 @pytest.fixture
 def recipe() -> BuildRecipe:
-    return BuildRecipe.model_validate(strict_json((FIXTURES / "recipe.json").read_bytes()))
+    return BuildRecipe.model_validate(strict_json((PILOT / "recipe.json").read_bytes()))
 
 
 @pytest.fixture
 def release_dir(tmp_path: Path, recipe: BuildRecipe) -> Path:
     return build_release(
-        recipe, data_root=FIXTURES, release_root=tmp_path / "releases", allow_synthetic=True
+        recipe, data_root=PILOT, release_root=tmp_path / "releases", allow_synthetic=True
     )
 
 
 @pytest.fixture
 def scenario() -> Scenario:
-    root = Path(__file__).resolve().parents[1]
+    root = PROJECT_ROOT
     data = load_scenario(
         root / "configs/defaults.yaml", root / "configs/scenarios/room_only.yaml"
     ).model_dump(mode="json")
@@ -67,4 +68,13 @@ def expanded_dir(tmp_path: Path) -> Path:
         data_root=data_root,
         release_root=tmp_path / "expanded-releases",
         allow_synthetic=True,
+    )
+
+
+@pytest.fixture
+def atlas_dir(tmp_path: Path) -> Path:
+    """A fresh two-municipality atlas, safe for corruption and identity checks."""
+    source = tmp_path / "atlas-source"
+    return build_geography(
+        atlas_inputs(source), data_root=source, artifact_root=tmp_path / "geography"
     )

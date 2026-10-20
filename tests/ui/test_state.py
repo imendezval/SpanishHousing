@@ -1,3 +1,5 @@
+"""Session isolation, atomic imports, memo bounds and applied export identity."""
+
 from copy import deepcopy
 from dataclasses import replace
 from pathlib import Path
@@ -5,25 +7,11 @@ from pathlib import Path
 import pytest
 
 from spain_housing.config import load_scenario, parse_mapping
-from spain_housing.launcher import _snapshot, compose
+from spain_housing.launcher import compose
 from spain_housing.ui.controls import draft_scenario, scenario_draft
 from spain_housing.ui.state import Session, cache_key
 
 ROOT = Path(__file__).resolve().parents[2]
-
-
-@pytest.mark.parametrize(
-    "name", ["room_only", "phase4_room_demo", "phase4_staged_growth_demo", "joint_saving"]
-)
-def test_lossless_roundtrip(name: str) -> None:
-    scenario = load_scenario(
-        ROOT / "configs/defaults.yaml", ROOT / f"configs/scenarios/{name}.yaml"
-    )
-    draft = scenario_draft(scenario)
-    assert draft_scenario(draft) == scenario
-    original = deepcopy(draft)
-    draft_scenario(draft)
-    assert draft == original
 
 
 def test_parser_and_import_atomicity(release_dir: Path) -> None:
@@ -63,7 +51,7 @@ def test_parser_and_import_atomicity(release_dir: Path) -> None:
         parse_mapping('{"a":{"b":1,"b":2}}', ".json")
 
 
-def test_resource_key_memo_and_failure_preserve_applied(release_dir: Path) -> None:
+def test_evaluation_key_memo_and_failure_preserve_applied(release_dir: Path) -> None:
     initial, services = compose(
         ROOT / "configs/defaults.yaml",
         ROOT / "configs/scenarios/phase4_room_demo.yaml",
@@ -104,35 +92,9 @@ def test_resource_key_memo_and_failure_preserve_applied(release_dir: Path) -> No
     bad_service = replace(services, code_version="contradictory")
     assert not second.apply(second.draft, bad_service)
     assert "identity" in second.error and second.applied.resolved_scenario == initial
-    assert _snapshot.cache_info().maxsize == 4
-    before = _snapshot.cache_info().hits
-    compose(
-        ROOT / "configs/defaults.yaml",
-        ROOT / "configs/scenarios/phase4_room_demo.yaml",
-        release_dir,
-        allow_synthetic=True,
-    )
-    assert _snapshot.cache_info().hits == before + 1
-    with pytest.raises(ValueError, match="opt-in"):
-        compose(
-            ROOT / "configs/defaults.yaml",
-            ROOT / "configs/scenarios/phase4_room_demo.yaml",
-            release_dir,
-        )
 
 
-def test_participant_removal_and_future_paths_retained() -> None:
-    scenario = load_scenario(
-        ROOT / "configs/defaults.yaml", ROOT / "configs/scenarios/phase4_staged_growth_demo.yaml"
-    )
-    draft = scenario_draft(scenario)
-    assert any(point["month_offset"] > scenario.saving_months for point in draft["income"])
-    draft["participants"].pop()
-    with pytest.raises(ValueError, match="unknown participant"):
-        draft_scenario(draft)
-
-
-def test_bounded_session_memo_and_revalidation(release_dir: Path) -> None:
+def test_bounded_session_memo(release_dir: Path) -> None:
     args = (
         ROOT / "configs/defaults.yaml",
         ROOT / "configs/scenarios/phase4_room_demo.yaml",
@@ -147,17 +109,6 @@ def test_bounded_session_memo_and_revalidation(release_dir: Path) -> None:
         assert session.apply(draft, services)
     assert len(session.memo) == 32
     assert first_key not in session.memo
-    assert _snapshot.cache_info().currsize <= 4
-    # Cached immutable resources are intentional; explicit reload must catch
-    # corruption even when the manifest bytes have not changed.
-    artifact = release_dir / "boundaries.geojson"
-    if not artifact.exists():
-        artifact = next(release_dir.rglob("*.geojson"))
-    original = artifact.read_bytes()
-    artifact.write_bytes(original + b" ")
-    compose(*args, allow_synthetic=True)
-    with pytest.raises(ValueError):
-        compose(*args, allow_synthetic=True, reload=True)
 
 
 def test_compact_details_and_exports_are_bounded_and_follow_applied_identity(

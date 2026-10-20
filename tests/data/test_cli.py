@@ -2,7 +2,7 @@ import json
 import subprocess
 from pathlib import Path
 
-from conftest import FIXTURES
+from fixtures import PILOT
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -17,9 +17,9 @@ def test_build_validate_open_query_cli_in_another_directory(tmp_path: Path) -> N
     args = [
         "build-release",
         "--config",
-        str(FIXTURES / "recipe.json"),
+        str(PILOT / "recipe.json"),
         "--data-root",
-        str(FIXTURES),
+        str(PILOT),
         "--release-root",
         str(tmp_path / "releases"),
     ]
@@ -44,13 +44,13 @@ def test_build_validate_open_query_cli_in_another_directory(tmp_path: Path) -> N
             "--release",
             path,
             "--query",
-            str(FIXTURES / query),
+            str(PILOT / query),
             "--allow-synthetic",
         )
         assert result.returncode == 0 and result.stderr == ""
         assert json.loads(result.stdout)["status"] == expected_status
     unsupported_query = tmp_path / "unsupported.json"
-    value = json.loads((FIXTURES / "query_sale.json").read_bytes())
+    value = json.loads((PILOT / "query_sale.json").read_bytes())
     value["segment"] = {"property_type": "flat"}
     unsupported_query.write_text(json.dumps(value))
     unsupported = command(
@@ -108,7 +108,7 @@ def test_invalid_recipe_query_release_and_blocked_real_recipe(
         "--config",
         str(bad_query),
         "--data-root",
-        str(FIXTURES),
+        str(PILOT),
         "--release-root",
         str(tmp_path / "invalid"),
         "--allow-synthetic",

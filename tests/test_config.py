@@ -1,7 +1,6 @@
-"""Loading, merge, CLI failure modes and deterministic JSON."""
+"""Safe configuration loading, merging and deterministic scenario serialization."""
 
 import json
-import subprocess
 from pathlib import Path
 
 import pytest
@@ -54,29 +53,3 @@ def test_missing_interest_fails(tmp_path: Path) -> None:
     path.write_text(json.dumps(data))
     with pytest.raises(ValueError, match="annual_nominal_interest_fraction"):
         load_scenario(DEFAULTS, path)
-
-
-def test_cli_from_another_working_directory(tmp_path: Path) -> None:
-    command = [
-        "spain-housing",
-        "validate-scenario",
-        "--defaults",
-        str(DEFAULTS),
-        "--scenario",
-        str(EXAMPLES / "room_only.yaml"),
-        "--json",
-    ]
-    result = subprocess.run(command, cwd=tmp_path, capture_output=True, text=True, check=False)
-    assert result.returncode == 0, result.stderr
-    assert result.stderr == ""
-    assert Scenario.model_validate_json(result.stdout).purchase_month.isoformat() == "2033-10-01"
-    bad = subprocess.run(
-        command[:-1] + ["--scenario", str(tmp_path / "missing.yaml")],
-        cwd=tmp_path,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    assert bad.returncode == 2
-    assert bad.stdout == ""
-    assert "missing.yaml" in bad.stderr

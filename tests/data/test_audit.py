@@ -2,11 +2,12 @@
 
 import csv
 from collections import Counter
-from pathlib import Path
+
+from fixtures import PROJECT_ROOT
 
 
 def test_audit_has_every_area_metric_and_no_invented_missing_values() -> None:
-    path = Path(__file__).resolve().parents[1] / "data/manifests/coverage_audit.csv"
+    path = PROJECT_ROOT / "data/manifests/coverage_audit.csv"
     with path.open(newline="", encoding="utf-8") as source:
         rows = list(csv.DictReader(source))
     assert len(rows) == 48

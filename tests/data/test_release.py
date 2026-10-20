@@ -3,8 +3,8 @@ import shutil
 from pathlib import Path
 
 import pytest
-from conftest import FIXTURES
 
+from fixtures import PILOT
 from spain_housing.ingestion.release import build_release
 from spain_housing.models.dataset import BuildRecipe
 from spain_housing.storage.release import (
@@ -37,10 +37,10 @@ def test_deterministic_build_identity_relocation_and_input_immutability(
 ) -> None:
     original = recipe.model_dump_json()
     again = build_release(
-        recipe, data_root=FIXTURES, release_root=release_dir.parent, allow_synthetic=True
+        recipe, data_root=PILOT, release_root=release_dir.parent, allow_synthetic=True
     )
     other = build_release(
-        recipe, data_root=FIXTURES, release_root=tmp_path / "another-root", allow_synthetic=True
+        recipe, data_root=PILOT, release_root=tmp_path / "another-root", allow_synthetic=True
     )
     assert again == release_dir
     assert other.name == release_dir.name
@@ -64,13 +64,13 @@ def test_changed_recipe_capture_value_and_geometry_change_identity(
     changed_version = recipe.model_copy(update={"processing_version": "pilot-v2"})
     changed = build_release(
         changed_version,
-        data_root=FIXTURES,
+        data_root=PILOT,
         release_root=tmp_path / "releases",
         allow_synthetic=True,
     )
     assert changed.name != release_dir.name
     raw = tmp_path / "retained"
-    shutil.copytree(FIXTURES, raw)
+    shutil.copytree(PILOT, raw)
     for capture_id, old, new in [
         ("prices", b"3.000", b"3.001"),
         ("boundaries", b"-3.8,40.2", b"-3.81,40.2"),
@@ -91,7 +91,7 @@ def test_changed_recipe_capture_value_and_geometry_change_identity(
             allow_synthetic=True,
         )
         assert changed.name != release_dir.name
-        (raw / capture.path).write_bytes((FIXTURES / capture.path).read_bytes())
+        (raw / capture.path).write_bytes((PILOT / capture.path).read_bytes())
 
 
 @pytest.mark.parametrize(
@@ -167,7 +167,7 @@ def test_existing_corrupt_release_is_not_overwritten(
     path.write_bytes(b"corrupt")
     with pytest.raises(ValueError, match="hash/size"):
         build_release(
-            recipe, data_root=FIXTURES, release_root=release_dir.parent, allow_synthetic=True
+            recipe, data_root=PILOT, release_root=release_dir.parent, allow_synthetic=True
         )
     assert path.read_bytes() == b"corrupt"
     assert not list(release_dir.parent.glob(".staging-*"))
@@ -246,9 +246,7 @@ def test_restricted_redistribution_and_capture_mix_are_not_hidden(
         }
     )
     with pytest.raises(ValueError, match="mixing"):
-        build_release(
-            mixed, data_root=FIXTURES, release_root=tmp_path / "mix", allow_synthetic=True
-        )
+        build_release(mixed, data_root=PILOT, release_root=tmp_path / "mix", allow_synthetic=True)
 
 
 def test_raw_capture_integrity_and_html_errors_are_rejected(

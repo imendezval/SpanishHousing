@@ -1,6 +1,6 @@
 import pytest
-from conftest import FIXTURES
 
+from fixtures import PILOT
 from spain_housing.ingestion.adapters.curated import read_curated_csv
 from spain_housing.ingestion.normalize import normalize_rows, parse_numeric
 from spain_housing.models.dataset import BuildRecipe
@@ -44,7 +44,7 @@ def test_normalized_values_keep_capture_time_periods_and_source_meaning(
     recipe: BuildRecipe,
 ) -> None:
     capture = next(c for c in recipe.captures if c.capture_id == "prices")
-    rows = read_curated_csv(read_capture(FIXTURES, capture))
+    rows = read_curated_csv(read_capture(PILOT, capture))
     result = normalize_rows(rows, capture, recipe)
     assert result[0].observation.value == 3_000
     assert result[1].observation.value == 12.5
@@ -54,7 +54,7 @@ def test_normalized_values_keep_capture_time_periods_and_source_meaning(
     assert result[0].source_locator == "row 1"
     room_capture = next(c for c in recipe.captures if c.capture_id == "rooms")
     rooms = normalize_rows(
-        read_curated_csv(read_capture(FIXTURES, room_capture)), room_capture, recipe
+        read_curated_csv(read_capture(PILOT, room_capture)), room_capture, recipe
     )
     assert rooms[0].observation.period_start.isoformat() == "2026-04-01"
     assert rooms[0].observation.period_end.isoformat() == "2026-07-01"
@@ -80,7 +80,7 @@ def test_wrong_source_details_are_not_silently_normalized(
     recipe: BuildRecipe, change: dict
 ) -> None:
     capture = next(c for c in recipe.captures if c.capture_id == "prices")
-    original = read_curated_csv(read_capture(FIXTURES, capture))[0]
+    original = read_curated_csv(read_capture(PILOT, capture))[0]
     row = type(original).model_validate(original.model_dump() | change)
     with pytest.raises(ValueError):
         normalize_rows((row,), capture, recipe)
@@ -88,7 +88,7 @@ def test_wrong_source_details_are_not_silently_normalized(
 
 def test_suppressed_values_are_missing_and_csv_errors_are_rejected(recipe: BuildRecipe) -> None:
     capture = next(c for c in recipe.captures if c.capture_id == "prices")
-    original = read_curated_csv(read_capture(FIXTURES, capture))[0]
+    original = read_curated_csv(read_capture(PILOT, capture))[0]
     assert (
         normalize_rows((original.model_copy(update={"raw_value": "suppressed"}),), capture, recipe)
         == ()

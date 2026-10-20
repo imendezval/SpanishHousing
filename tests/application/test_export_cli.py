@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from conftest import FIXTURES
+from fixtures import PILOT
 from spain_housing.application import evaluate_scenario
 from spain_housing.application.export import export_run, replay_run, run_json, summary_csv
 from spain_housing.config import load_scenario
@@ -22,9 +22,9 @@ def test_complete_cli_build_then_evaluate_and_replay(tmp_path: Path) -> None:
         tmp_path,
         "build-release",
         "--config",
-        str(FIXTURES / "recipe.json"),
+        str(PILOT / "recipe.json"),
         "--data-root",
-        str(FIXTURES),
+        str(PILOT),
         "--release-root",
         str(tmp_path / "releases"),
         "--allow-synthetic",

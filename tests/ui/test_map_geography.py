@@ -5,8 +5,7 @@ from pathlib import Path
 import pytest
 from streamlit.testing.v1 import AppTest
 
-from fixtures.synthetic.atlas import atlas_inputs, demo_config
-from spain_housing.ingestion.atlas import build_geography
+from fixtures.synthetic.atlas import demo_config
 from spain_housing.ingestion.demo import generate_demo
 from spain_housing.ingestion.map_geometry import prepare_display
 from spain_housing.ingestion.release import build_release
@@ -20,11 +19,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 @pytest.fixture
-def composed(tmp_path: Path):
-    source = tmp_path / "raw"
-    geo = build_geography(
-        atlas_inputs(source), data_root=source, artifact_root=tmp_path / "geographies"
-    )
+def composed(tmp_path: Path, atlas_dir: Path) -> tuple[Path, Path, Path]:
+    geo = atlas_dir
     display = prepare_display(geo, artifact_root=tmp_path / "displays")
     config = demo_config()
     inputs = generate_demo(geo, config, output_root=tmp_path / "inputs", variant="partial")

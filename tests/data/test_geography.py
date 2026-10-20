@@ -1,9 +1,9 @@
 import io
 
 import pytest
-from conftest import FIXTURES
 from openpyxl import Workbook
 
+from fixtures import PILOT
 from spain_housing.ingestion.geography import select_boundaries, verify_registry
 from spain_housing.models.dataset import BoundaryCollection, BuildRecipe
 from spain_housing.storage.release import (
@@ -15,13 +15,13 @@ from spain_housing.storage.release import (
 
 
 def boundaries(recipe: BuildRecipe) -> BoundaryCollection:
-    captures = {c.capture_id: read_capture(FIXTURES, c) for c in recipe.captures}
+    captures = {c.capture_id: read_capture(PILOT, c) for c in recipe.captures}
     return select_boundaries(recipe, captures)
 
 
 def test_control_digit_leading_zero_full_multipart_and_holes(recipe: BuildRecipe) -> None:
     capture = next(c for c in recipe.captures if c.capture_id == "registry")
-    verify_registry(read_capture(FIXTURES, capture), "csv", recipe.locations)
+    verify_registry(read_capture(PILOT, capture), "csv", recipe.locations)
     selected = boundaries(recipe)
     barcelona = next(f for f in selected.features if f.properties.location_code == "08019")
     madrid = next(f for f in selected.features if f.properties.location_code == "28079")
@@ -30,7 +30,7 @@ def test_control_digit_leading_zero_full_multipart_and_holes(recipe: BuildRecipe
     assert len(madrid.geometry.coordinates) == 2  # exterior plus retained hole
     with pytest.raises(ValueError, match="INE identity"):
         verify_registry(
-            read_capture(FIXTURES, capture).replace(b"08,019,0", b"08,019,1"),
+            read_capture(PILOT, capture).replace(b"08,019,0", b"08,019,1"),
             "csv",
             recipe.locations,
         )
@@ -61,7 +61,7 @@ def test_actual_xlsx_adapter_reads_documented_numeric_column_widths(recipe: Buil
     "defect", ["province", "wrong_id", "missing", "duplicate", "pagination", "projected"]
 )
 def test_source_identity_and_completeness_failures(recipe: BuildRecipe, defect: str) -> None:
-    captures = {c.capture_id: read_capture(FIXTURES, c) for c in recipe.captures}
+    captures = {c.capture_id: read_capture(PILOT, c) for c in recipe.captures}
     source = strict_json(captures["boundaries"])
     if defect == "province":
         source["features"][0]["properties"]["nationallevelname"] = "Provincia"

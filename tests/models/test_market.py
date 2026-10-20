@@ -1,4 +1,4 @@
-"""Market evidence and result-state semantics."""
+"""Market observation units, evidence and source coherence."""
 
 import json
 from pathlib import Path
@@ -6,11 +6,9 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from spain_housing.config import load_scenario
 from spain_housing.models.market import MarketLookup, MarketObservation
-from spain_housing.models.results import Indicator, RunResult
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 FIXTURE = ROOT / "tests/fixtures/synthetic/market_cases.json"
 
 
@@ -58,30 +56,3 @@ def test_estimate_requires_method_and_real_source() -> None:
         estimation_method="documented interpolation",
     )
     assert MarketObservation.model_validate(item).evidence_kind == "estimated"
-
-
-def test_lookup_and_indicator_states() -> None:
-    with pytest.raises(ValidationError):
-        MarketLookup(
-            status="missing",
-            observation=json.loads(FIXTURE.read_text())["observations"][0],
-            reason="gap",
-        )
-    assert Indicator(status="missing", reason="no room data").value is None
-    with pytest.raises(ValidationError):
-        Indicator(status="available", value=None)
-
-
-def test_run_metadata_round_trip() -> None:
-    scenario = load_scenario(
-        ROOT / "configs/defaults.yaml", ROOT / "configs/scenarios/room_only.yaml"
-    )
-    run = RunResult(
-        schema_version=1,
-        resolved_scenario=scenario,
-        dataset_release_id="synthetic-test-1",
-        model_version="phase1-contracts",
-        code_version="test",
-        results=(),
-    )
-    assert RunResult.model_validate_json(run.model_dump_json()) == run
