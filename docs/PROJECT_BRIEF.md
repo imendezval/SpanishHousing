@@ -2,12 +2,13 @@
 
 Planning baseline: 4 October 2026. This document consolidates the requirements and design discussion; it does not claim that an application or complete dataset already exists.
 
-Implementation checkpoint (Phase 7): official national geography and explicitly
-synthetic national economic inputs are prepared. The national display is blocked
-by an inspected overlap in both official boundary products; a real-geography
-Madrid regional demonstration is available. Observed housing inputs remain
-unavailable. See [current progress](progress/PHASE_7.md) and
-[geography/run instructions](GEOGRAPHY.md); financial meaning below is unchanged.
+Implementation checkpoint (Phase 7): the national map uses retained official
+boundaries and explicitly synthetic housing inputs. The inspected source overlap
+has an approved, declared neutral display treatment; canonical source bytes stay
+unchanged. National browser and installed reproduction evidence, including the
+remaining software-rendered browser performance limit, are recorded in
+[current progress](progress/PHASE_7.md). See [geography/run instructions](GEOGRAPHY.md).
+Observed housing inputs remain unavailable; financial meaning below is unchanged.
 
 ## 1. Project objective and scope
 

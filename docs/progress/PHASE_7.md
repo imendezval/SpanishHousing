@@ -1,293 +1,282 @@
-> Resumed 20 October 2026: user explicitly approved the neutral intersection
-> display treatment. The previous approval blocker below is historical.
-> Canonical source artifacts remain unchanged. Implementing opt-in declared
-> neutral display patches, then national fidelity/performance/browser/wheel QA.
+# Phase 7 progress — real national geography, synthetic economics
 
-# Phase 7 progress — national geography, synthetic economics
+Updated 20 October 2026. Execution guide:
+[PHASE_7_map_geo.md](../phases/PHASE_7_map_geo.md).
 
-## Status and next action
+## Current state and resume point
 
-**Phase incomplete: national display preparation is blocked by an official-source
-boundary overlap and the pending user decision.** Independent implementation,
-national synthetic economics, regional browser and available-artifact packaging/
-restoration work are complete. Do not infer permission from elapsed time.
+The national map is available with **8,132 official municipalities** and explicitly
+synthetic housing prices/rents. The user approved the Bellver/Prullans neutral
+intersection treatment on resumption; the earlier pending-approval report is
+historical (commit `9b54b40`). Canonical geometry is unchanged. No push, merge,
+deployment, provider outreach or external artifact upload occurred.
 
-Both official IGN API and independently downloaded CNIG GML contain the same
-Bellver de Cerdanya (25051) / Prullans (25179) overlap: **1,440.945 m²** in
-EPSG:25831. Canonical coordinates stay unchanged. The asynchronous question asks
-whether the display should retain the intersection as explicitly neutral
-“source boundary conflict”, assigning it to neither municipality, or remain
-blocked pending official correction. That display exception is **not implemented**.
-The guide §5.3/§6 forbids arbitrary ownership/silent cleaning and requires an
-explicit preparation decision. Existing display preparation refuses this source.
+National geometry, display fidelity/size, both supported Python gates and two
+independent installed artifact rebuilds pass. **A9 is not fully verified:** initial
+confirmed national browser images take 31–41 s using software graphics, above
+the 15 s goal. Backend timings do not establish browser paint performance.
+National and partial browser exports are byte-identical to installed core CLI
+and replay. Actual release/display transitions, missing/outside/unviable states,
+all metric tooltips and restored browser behavior pass. A same-session browser
+check also verifies prepared full export/download, retention during staging and
+invalidation after Apply. All functional checks are complete; A9 remains open.
 
-**Next:** obtain that decision; if approved, implement only the exact pinned
-conflict's declared neutral display treatment, test unchanged canonical identity
-and coverage/fidelity, then complete national 20/50/100 m bounded QA, browser and
-full-map scale evidence. Otherwise retain the national display blocker. Observed
-price acquisition/use remains a separate blocker, not solved by official maps.
+### Milestones
 
-## Milestones
-
-| Milestone | Actual state |
+| Milestone | State |
 |---|---|
-| M1 | Complete: brief/plan/architecture/data decisions, Phase 5/6 implementation/instructions inspected; actual baseline verified |
-| M2 | Complete retained national identities/source artifact with explicit original topology defect; all registry codes reconciled |
-| M3 | Regional display and dataset-v2 composition complete; national display blocked |
-| M4 | Complete/partial national synthetic inputs and UI engineering complete; national rendered demonstration blocked |
-| M5 | Economic scaling/compact parity and regional installed browser verified; national map/browser targets unverified |
-| M6 | Final wheel/core/map, two Python gates and two-root available-artifact reproduction verified; full phase acceptance blocked by national display |
+| M1 | Complete: actual Phase 5/6 baseline, instructions and contracts inspected |
+| M2 | Complete: retained national INE/IGN inputs, exact reconciliation, declared source defect |
+| M3 | Complete: independent canonical/display contracts, strict dataset-v2 references, selected national display |
+| M4 | Complete: deterministic complete/partial synthetic markets, geographic superset joins and actual national UI |
+| M5 | Functional/browser/backend checks verified; browser performance goal remains open |
+| M6 | Complete local verification: both gates/build/clean core-map installs, two-root rebuild, restored browser, deferred exports and UI/CLI/replay parity; transfer prerequisite remains |
 
-Started at `ba3580a`, 19 October 2026. The supplied phase guide was the only
-untracked starting file and was preserved unchanged. No push, merge, deployment,
-provider contact or external artifact upload occurred. Local commits:
-`a7b75fc` baseline/guide; `b3fa655` geography/storage; `f204152` dataset-v2/demo/UI;
-`08f02d0` bounded overview/detail/export; `d38378d` explicit camera actions.
-Current implementation checkpoint: `d38378d`; compact Streamlit coverage is
-committed separately. Final evidence/docs commit follows these checkpoints.
+Started at `ba3580a`, 19 October. The supplied phase guide was the only initial
+untracked file and was preserved unchanged. Coherent local commits:
+`a7b75fc` baseline; `b3fa655` geography/storage; `f204152` v2/demo/UI;
+`08f02d0` compact evaluation; `d38378d` camera actions; `1b6b093` AppTest;
+`9b54b40` previous evidence; `9336d90` approved neutral policy; `9362166`
+shared-edge retention/precision; `b6e36f9` measured encoding/render size;
+`665d1a9` Mercator fitting/legible fills. Final docs/index are committed separately
+with a lowercase subject; source and wheel fingerprint are frozen at this code.
 
-## Implementation and compatibility
+## Implementation boundaries
 
-- Independent canonical/display schema-1 artifacts; strict dataset-v2 references.
-  Old dataset-v1 fields, embedded geometry and permission restrictions preserved.
-- Shared storage bytes/paths/atomic publication, permissions and polygon rules;
-  no duplicate persistence or finance pipeline. Explicit runtime geography paths.
-- Complete retained pagination, exact INE joins, source/name/context evidence.
-  Canonical source validation permits only the two inspected original geometry
-  fingerprints; every changed/additional defect still fails. This does not
-  approve those polygons for shared-coverage simplification.
-- Packaged deterministic code/seed-based synthetic generator feeds the existing
-  normalizer/query/evaluator. Logical generator epoch is not a provider timestamp.
-- Atlas/market/evaluation/result joins enforce `E ⊆ M ⊆ A`, `R = E`. Context,
-  outside coverage, not evaluated, missing, unsupported and unviable are distinct.
-  Default target metric, all three indicators, code selection and territory/
-  province controls are implemented; geography never enters finance.
-- Measured linear membership scans were replaced with an immutable cached index.
-  Full national trace retention exceeded 1 GiB additional memory; a distinct
-  `RunOverview` projects the same shared result iteration. Two overview memo
-  entries, two full selected details and explicit current full export are bounded
-  by applied identity. Detail/export checks pinned evidence and numeric parity.
-  Canonical full JSON and CSV have one owner; API/CLI full runs/replay remain.
-- Explicit camera actions advance chart revision; metric controls keep economic
-  identity. Zoom uses a callback before rerender. Small-run behavior remains.
-  Pyproj 3.8.0 is declared/locked for metric geometry; financial model remains
-  `finance-v1/scenario-v1`, with no formula or selection-policy changes.
+- Separate schema-1 canonical/display artifacts and schema-2 market references;
+  original dataset-v1 records/bytes/permissions remain supported. No global
+  schema widening or mixed-evidence bypass. Geography paths are explicit inputs.
+- Shared storage integrity, permissions, geometry primitives and release pipeline.
+  All ten import contracts remain. UI imports no ingestion/storage/finance owners.
+- All economics are synthetic, built through the existing normalizer/query/
+  evaluator. Financial model remains `finance-v1/scenario-v1`; formulas, market
+  selection, scenario/run contracts and canonical serializers are unchanged.
+- Atlas/market/evaluation/result joins enforce `E ⊆ M ⊆ A`, `R = E`. Outside
+  coverage, missing/unsupported, unviable and valid numeric zero remain distinct.
+- National overview/detail/export share the existing evaluation loop. Full
+  API/CLI/replay is retained; the overview is never labelled a complete run.
+  Two overview memo entries and two full selected details bound session caches.
+  Full canonical JSON export is explicitly prepared and invalidated on changes.
+- Default target indicator, all three metrics, code-labelled search/picking,
+  territorial/province views, zoom/reset, attribution and independent geographic/
+  market provenance. No external tiles, tokens or runtime provider acquisition.
+- Immutable internal coordinates and public PyDeck compact JSON serialization
+  remove measured overhead; detached default projections stay equivalent.
+  No custom JavaScript or private widget/protocol state manipulation.
 
-## Sources and actual artifacts
+## Official source evidence and geography
 
-Source recipe: `configs/sources/national_geography.yaml`. Raw root:
-`data/raw/national-geography/`, with original bytes, capture records, inventories,
-registry/changes, licences, service metadata and alternate feed/ZIP.
+Recipe: `configs/sources/national_geography.yaml`. Actual retained bytes and
+capture/licence records: `data/raw/national-geography/`.
 
-- 42 municipal pages, 702,058,118 bytes, 8,213 features; one province page,
-  187,127,244 bytes, 53 source province features.
-- INE January 2026: **8,132 municipalities**, all matched, 619 retained name
-  crosswalks; current change page reviewed: no creations/removals, 15 name changes.
-  January labels remain explicitly January labels, including October renames.
-- **81 neutral shared/nonmunicipal areas**; all **52 INE provinces** retained.
-  Collective source province code 53 is excluded from orientation, not from
-  underlying neutral context. Mainland, Balearics, Canarias, Ceuta/Melilla present.
-  Chafarinas/Alhucemas/Vélez and special Isla de los Faisanes limitations are
-  explicit; no false municipal identities are created.
-- Canonical: 14,048 components / 173 holes / 4,443,152 vertices;
-  186,469,439 payload bytes. Known original overlap remains; coverage is false.
-- Alternate retained ATOM feed 5,276 bytes / GML ZIP 66,245,318 bytes independently
-  reproduce the same defect. No alternate-feature patch was substituted.
+- IGN: 42 municipal pages, **702,058,118 bytes / 8,213 features**; one province
+  page, **187,127,244 bytes / 53 source features**. Full pagination retained.
+- INE January 2026: **8,132 codes**, exact complete reconciliation, leading zeroes
+  and control digits retained; 619 named crosswalks. Reviewed in-year page has
+  no creations/removals and 15 renames; January names remain January names.
+- All 52 INE provinces and 81 shared/nonmunicipal context areas. Source collective
+  province 53 is excluded only from orientation. Mainland, Balearics, Canarias,
+  Ceuta and Melilla are represented. Chafarinas/Alhucemas/Vélez and Isla de los
+  Faisanes limitations are explicit, without invented municipal identities.
+- Canonical: **14,048 components, 173 holes, 4,443,152 vertices**, 186,469,439
+  payload bytes. Original geometry remains unchanged, including one known overlap.
+- API and independently retained ATOM feed (5,276 bytes) / CNIG GML archive
+  (66,245,318 bytes) reproduce Bellver (25051) / Prullans (25179). Exact source
+  fingerprints are pinned; new/changed defects still fail. Original canonical
+  report correctly retains `source_coverage_valid: false` and historical notes.
+- Approved display-only policy extracts the positive-area polygonal intersection,
+  subtracts it from both displayed municipalities and publishes one explicit
+  `source_conflict` feature with no economic code/owner. Shared line-only contacts
+  are not conflict area. Hover/attribution explain the derivative, not ownership.
+  Area is **1,440.944794 m² in local EPSG:25831**, **1,446.027048 m² in mainland
+  QA EPSG:25830**: the same source intersection under different metric CRSs.
 
-| Artifact | Final content identity |
+### Selected display
+
+20/50/100 m bounded preparation retained all original components/holes and valid
+shared coverage after the approved patch. Full source geometries remain separate.
+
+| Tolerance | Payload bytes | Result |
+|---|---:|---|
+| 20 m | 30,305,758 | Geography passes; fails 20 MiB size goal |
+| 50 m | **20,673,592 (19.72 MiB)** | Selected, smallest passing tolerance |
+| 100 m | 20,030,810 | Compatible optional alternative |
+
+Selected 50 m: **1,201,676 vertices**, 14,049 components including the derived
+patch, 173 original holes, 81 original context areas. Maximum relative area
+change **1.701928%**; symmetric measured displacement/bound **246.139481 m**;
+26 retained features. No 2%/250 m threshold was relaxed.
+
+Metric coverage simplification uses seven decimal display coordinates and one
+bounded retention pass. A temporary exterior anchors retained interfaces while
+simplifying coast/shared edges consistently; it is never published. Nearly
+identical matching vertex sequences use a conservative paired-vertex displacement
+bound; others use symmetric densified GEOS Hausdorff QA. Algorithm, CRS, versions
+and retained IDs are recorded. Lossless `delta-7-v2` row/delta encoding restores
+the same typed, validated polygons. Old GeoJSON/delta-v1 displays stay readable.
+The original 50 m probe failed Palma at 270.792 m; intermediate oversized and
+interrupted probes are diagnostic history, not accepted artifacts.
+
+## Actual current artifacts
+
+| Component | Content identity |
 |---|---|
 | National canonical | `geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d` |
-| Madrid canonical (179 municipalities) | `geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf` |
-| Madrid display | `display-3018daeaf69b898617c881a5a725395c52d2c2478328a45b5625c62548ad9497` |
-| Complete synthetic release (24,396 observations) | `synthetic-56ef26321a2cec83299334af7b6d9ea9b8fa37e2e0db92d74c4fce95ebf007d6` |
-| Partial synthetic release (20 municipalities; 57/60 cells) | `synthetic-5cd6638621c6bdb07c99666af101f8e8b2660fe8a66d4b13afa6664847c973c6` |
-| Madrid synthetic release | `synthetic-d4c90f6afb5bcb790c8e498b1a9ee5aaae9a85c25421d3c629960224cc78e3ea` |
+| Selected national display | `display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c` |
+| Optional 100 m display | `display-6ec9ea4fbc50973d7e3edf32adeefe7c881021c9a47db3837e7f3049dd3742ce` |
+| Complete synthetic market | `synthetic-5b2e10583ed3460cf983a2e3e75a27d36a3e8ba0860ca842c0bb1f8e4b3d4726` |
+| Partial synthetic market | `synthetic-eff8fd7cc93fe292f3f66c4acf892fa784cebe09b222ef58864a011fe5796acc` |
+| Madrid canonical | `geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf` |
+| Madrid display | `display-e330cd9cf47c6edc6cbcc60e054d07efa505a2ed5de2957459816e5a43cc498f` |
+| Madrid synthetic market | `synthetic-801f31bc010f5ce1606df19fca9b0530bfdd1fc5ec566bdb93e04d137bba89fe` |
 
-Canonical artifacts: `data/processed/geography/<ID>`; display:
-`data/processed/map-display/<ID>`; releases: `data/releases/<ID>`. Generated
-inputs are under `data/processed/national-demo-inputs/`; exact paths and IDs are
-in `{complete,partial,madrid}-demo-built.json` in the raw root and the tracked
+Paths: `data/processed/geography/<ID>`, `data/processed/map-display/<ID>`,
+`data/releases/<ID>`. Generated inputs: `data/processed/national-demo-inputs/`.
+Exact receipts: `{complete,partial,madrid}-demo-built.json` and
+`national-display-built.json` in the raw root. Tracked index:
 [`national_geography.json`](../../data/manifests/national_geography.json).
-Madrid display: 50 m, 946,036 bytes, 22,629 vertices, worst area 0.1682%, measured
-symmetric densified Hausdorff displacement 126.001 m, retained parts/holes.
-No national display/payload/fidelity claim is made.
+Complete market has 24,396 synthetic observations. Partial has 20 municipalities,
+57/60 cells: deliberate Getafe room, Badalona purchase and Palma whole-home gaps.
+Original four-/16-/250-location fixtures and historical artifacts are preserved.
 
-## Executed final verification
+## Executed verification
 
-Evidence: `data/raw/phase7-evidence/`; final economic measurements also in raw
-root `compact-national-final.json`. Package fingerprint:
-`spain-housing-0.1.0/sha256-15d55b0302e7fd3a4c3e6d52f62342a4a9d1ecd440eb44b682ad8995d0304080`.
-Python/runtime: 3.12.3, pydantic 2.13.5, PyYAML 6.0.3, Shapely 2.2.0,
-openpyxl 3.1.5, pyproj 3.8.0. Second gate Python 3.13.16.
+Current package code fingerprint:
+`spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8`.
+Python 3.12.3; Pydantic 2.13.5, PyYAML 6.0.3, Shapely 2.2.0/GEOS 3.14.1,
+pyproj 3.8.0, openpyxl 3.1.5. Second gate: Python 3.13.16.
 
 | Check | Executed evidence |
 |---|---|
-| Baseline | 329 passed in 13.13 s; lock/Ruff/mypy/ten contracts/build passed |
-| Final single gate, Python 3.12.3 | `bash scripts/check.sh`: **349 passed in 14.86 s**, Ruff format/lint, lock, mypy 62 files, ten contracts |
-| Final single gate, Python 3.13.16 | Same gate: **349 passed in 13.47 s**, all other gates passed |
-| Packaging | `uv build` wheel/sdist; clean core/map installs with locked hashes, `PYTHONPATH` unset, unrelated `/tmp` cwd, imports confirmed in `site-packages` |
-| Numeric/contracts | Independent four-month 13,200 ending / 12,000 usable / 40,000 capacity / 20 m² / ratio 1/3; full/overview/detail/JSON/CSV parity; exhaustion, zero/reserve, unsupported and product gaps |
-| State/UI | AppTest full and compact paths, deferred export, cached detail, geographic-only selection, repeated reset/zoom, display identity, invalid/staged input and zero extra presentation evaluations |
-| Legacy | Actual retained Phase 6 v1 release opens (43 observations), unchanged manifest; all original tests/fixtures preserved; core-only serve gives actionable missing-map diagnostic |
-| National economic scale | 8,132 × 84 months, warm-up + 3 samples **4.272 / 4.342 / 4.238 s**, median **4.272 s**; selected detail **10.4 / 10.8 / 11.8 ms** |
-| Economic memory | Peak **383,276 KiB**, loaded-resource peak 335,108 KiB, increment **48,168 KiB** with two overviews; excludes display/browser/full export |
-| Actual restored browser | Chrome **149.0.7827.53**, installed map using root B rebuilt artifacts, 179 official municipalities × 84 months; first display **4.017 s**; metric actions **1.089 / 0.994 / 1.042 s** including driver wait |
-| Browser behavior | Visible official polygons and WebGL pick 28079; all metrics/details, staged/invalid imports, reload, unchanged downloads; **0 page errors / 0 external requests** |
-| UI/CLI/replay | Restored-root regional run/CSV byte-identical to installed core CLI and replay; run SHA-256 `0754f66195e79906cd06f961d1e4c04b5777698f7e5f5ca602e96f39a7c4183e` |
-| Two-root restoration | Independently extracted `/tmp/phase7-restore-a` and `-b`: national/regional canonical, regional display, all generated inputs/releases rebuilt with identical IDs/payload bytes (64.710 / 61.197 s); evaluation/export/replay succeeds with raw inputs hidden |
-| Full CLI geography validation | National reports `source_coverage_valid: false` with explicit pinned conflict; paired regional display validates; commands run from installed core outside checkout |
+| Baseline | 329 tests, inspected actual Phase 5/6 implementation and import boundaries |
+| Final Python 3.12 gate | **356 passed in 14.71 s**; lock, Ruff format/lint, mypy 62 files, ten contracts |
+| Final Python 3.13 gate | **356 passed in 15.18 s**; same other gates |
+| Build | Final wheel/sdist built; wheel SHA-256 `1ff3225678a44bc4b77c9499e0d81c77fb4f8da3a7229a5791fa512ff76e8969` |
+| Clean installations | Locked hashed core/map dependencies, final wheel (not editable), unrelated `/tmp` cwd, `PYTHONPATH` unset, imports in `site-packages` |
+| Financial parity | Independent four-month 13,200 ending / 12,000 usable / 40,000 capacity / 20 m² / ratio 1/3; shared full/overview/detail/JSON/CSV tests; exhaustion, reserves, zero and gaps |
+| Geometry | Synthetic topology/error fixtures plus attributed unmodified real IGN pair; source unchanged, no ownership invented, codec integrity and deterministic outputs |
+| Legacy/core | Actual Phase 6 v1 release unchanged, 43 available observations; installed core-only query, no Streamlit; serve exits 2 with actionable map-extra guidance |
+| Two-root rebuild | `/tmp/phase7-national-restore-a` and `-b`: **380.382 / 373.447 s**; canonical national/regional, selected national/regional display, all generated inputs/releases have identical IDs and payload bytes |
+| Hidden raw runtime | Each restored root hides source and generated inputs, then evaluates/exports/replays partial release; full/overview/CSV equality |
 
-Use `UV_CACHE_DIR=/tmp/phase7-uv-cache`, `/tmp/phase6-tools/bin` on PATH here.
-The Python 3.13 gate additionally needs explicit
-`UV_PYTHON=/tmp/phase6-python/cpython-3.13-linux-x86_64-gnu/bin/python3.13` and
-`UV_PROJECT_ENVIRONMENT=/tmp/phase7-check313`; sync alone was initially reset to
-3.12 by project selection. That failed invocation is not counted as 3.13 proof.
+### Final national backend measurement
 
-Repairs/evidence limits: first restoration correctly exposed an intermediate
-Madrid recipe/report-default identity mismatch; regenerated paired artifacts
-above fix it without rewriting old artifacts. Browser camera actions were made
-explicit and retested. An additional optional drag experiment did not establish
-manual pan behavior and is **not** counted as camera-retention proof; its note is
-retained. National territorial/province/transition/browser checks remain blocked,
-not replaced by AppTest or a regional screenshot. CLI/full-export memory and
-national display/browser timing are not included in the economic-only benchmark.
+`data/raw/phase7-evidence/national-backend-final.json`; installed map wheel,
+8,132 × 84 months, one warm-up plus three timed samples per deterministic path.
+Machine: AMD Ryzen 7 7840HS, 8 cores/16 threads, approximately 31 GiB RAM,
+Linux x86_64; ordinary development workload, no OS-cache isolation claim.
 
-## Portable availability and acceptance
+| Boundary | Measured median |
+|---|---:|
+| Cold process composition | 7.397 s (single observation) |
+| Changed Apply through actual PyDeck serialization | **7.261 s** (6.085 / 7.261 / 7.308) |
+| Metric projection/encoding | **1.139–1.156 s** |
+| View bounds | 0.774 s |
+| Equal Apply | 0.0257 s |
+| Selected details, five territories | 14–22 ms each |
+| Full export preparation | 8.945 s; 208,770,585 bytes |
 
-Actual archive: `data/raw/phase7-portable.tar.gz`, **213,738,215 bytes**;
-SHA-256 `810223185b3652c852c5970d6825b4925c64231bf2e2d918babf436f2775132c`.
-Receipt: `data/raw/phase7-portable.json`. Includes actual retained official bytes,
-canonical artifacts, regional derivative, complete/partial/regional synthetic
-inputs/releases, final wheel/configs/lock/locked requirements and geography
-instructions. Both restorations above used this archive. Wheel SHA-256:
-`8fcded08bd34c071e95169c029cbe005badc7ec8a05a33ec55bd24ed75986dc6`.
-This is an ignored **local** archive, not an off-machine backup or download URL.
-No durable transfer destination is authorized. A fresh clone alone lacks data;
-copy/archive/receipt are required. Final verification receipts/screenshots/drivers
-are retained separately in the evidence root. See [GEOGRAPHY.md](../GEOGRAPHY.md)
-for actual paths and commands, including conda/venv.
+Wire Deck JSON: 37,274,074 bytes (earlier pretty serialization was 168 MB).
+Loaded current RSS 612,688 KiB; total peak 938,328 KiB; conservative added peak
+upper bound **325,640 KiB**, including full export. Two overview/detail entries;
+**zero presentation evaluator calls**. These are backend, not browser timings.
 
-| Criterion | Final state |
+### Actual national browser evidence
+
+Chrome 149.0.7827.53, real installed app, actual national artifacts. Headless
+SwiftShader/ANGLE software graphics; no `/dev/dri` device is available. National
+and dense Madrid screenshots show recognizable boundaries and visible economic
+fills. Earlier strong outlines/underfit camera were repaired and retested using
+Mercator layout bounds, detailed-view municipal strokes and lighter provinces.
+
+Successful WebGL tooltip/pick identities: Madrid 28079, Cáceres 10037, Palma
+07040, Las Palmas 35016, Santa Cruz 38038, Ceuta 51001, Melilla 52001. Rounded
+ratios **1.59, 1.51, 1.45, 0.60, 1.34, 1.33, 1.16** agree with exported CSV.
+All three metrics, territorial/province controls and zoom/reset were exercised.
+The corrected 50 → 100 → 50 m display transition confirms each display ID in
+the actual DOM while economic CSV remains byte-identical. Partial-market reload
+clears results, reapplies 20 destinations, safely selects Bellver outside coverage,
+and verifies Badalona purchase-only and Getafe room gaps, zero and unviable states.
+First confirmed images: **31.143 / 32.349 s**, restored-root **40.940 s**
+(limited observations, some concurrent verification). Browser control/server
+settle measurements of 0.68–0.86 s do **not** establish GPU frame completion.
+
+The installed restored-root browser uses rebuilt national artifacts with raw
+inputs hidden. It selects duplicate names **Arroyomolinos 10023 / 28015**, changes
+all three metrics and performs a public mouse drag. Visually inspected before/
+after-metric screenshots preserve the panned camera and change the metric fills.
+Actual WebGL Madrid tooltips agree with exports for all metrics: **1.59 × target
+price, 158,157.34 EUR, 95.11 m²**; repeated picking retains code 28079. Successful
+browser passes report **zero page errors and zero external requests**.
+
+Complete (8,132 results) and partial (20) browser JSON and CSV are byte-identical
+to installed core CLI evaluation and replay. Full baseline run SHA-256:
+`bb723d4ee9b781638c07d74adfc760dbd56d1e76eb6f65fc1492a1445323ab1a`.
+Core import/query/evaluate/replay uses no Streamlit and runs outside the checkout.
+Evidence root: `data/raw/phase7-evidence/`; actual proofs live in
+`national-browser/`, `national-restored-browser/`, `national-metric-browser/`,
+`national-cli.json`, `national-backend-final.json` and `national-restore-{a,b}.json`.
+`national-deferred-browser/proof.json` verifies a fresh full preparation/download
+has that same SHA-256, staging retains it and its economic CSV, then Apply removes
+the prepared download and publishes an available zero-capacity national summary.
+The check uses a single actual browser session against the installed restored app.
+
+Harness corrections are retained honestly in separate logs: muted selection
+highlight is valid; streamed rerenders require waiting for the expected download;
+file upload success is HTTP 204. The first `serve` wrapper resolved symlinks once
+at startup, so its pointer swaps did **not** prove artifact transitions. Corrected
+transition tests use the installed public Streamlit launcher with explicit
+symlink arguments; production `serve` stays unchanged and is separately verified
+against restored immutable paths. The final display IDs are confirmed in DOM,
+and the market transition confirms 20 destinations and cleared/reapplied state.
+Earlier failed assertions are diagnostic history, not full passing runs. Browser
+proofs aggregate several explicitly identified passes under the same final code/
+runtime, rather than pretending all actions occurred in one pass. The 48.048 s
+first resource/DOM readiness observation in the continuation receipt excludes a
+screenshot and is **not** a confirmed-paint timing.
+
+## Portable availability and handoff
+
+Actual local bundle: `data/raw/phase7-national-portable.tar.gz`, **231,109,766
+bytes**, SHA-256
+`c9477f3c6d38130611675dbaf70c503ffbefc217606291628966f7506c7f7428`.
+Receipt: `data/raw/phase7-national-portable.json`. Contains actual retained official
+captures, canonical national/regional atlases, selected/alternate/regional
+displays, complete/partial/regional synthetic inputs/releases, final wheel,
+configs, lock and hashed requirements. Both new independent rebuilds use it.
+Verification sidecars/screenshots are retained separately, avoiding a self-hash
+cycle. The previous regional-only archive is historical.
+
+This is an ignored **local archive**, not an off-machine backup or a published
+download. A fresh Git clone has no large data. Copy the actual archive plus receipt
+to the destination, verify checksum and follow [GEOGRAPHY.md](../GEOGRAPHY.md)
+for venv/conda, rebuild, query/evaluate/replay and serve. No durable transfer
+destination is authorized; transfer remains a separate prerequisite.
+
+| Acceptance | Current state |
 |---|---|
-| A1 | Verified: actual baseline/instructions, starting user changes preserved |
-| A2 | Verified: financial/selection rules unchanged, shared owners, all contracts/tests |
-| A3 | Verified: strict version/reference/permission separation and v1 compatibility |
-| A4 | Qualified: complete official registry/extent/provenance; retained source overlap explicitly reported, not valid simplifier input |
-| A5 | Regional verified; national blocked, unverified |
-| A6 | Verified: deterministic complete/partial national synthetic pipeline, no observed-price claim |
-| A7 | Verified through joins/tests/partial restored evaluation; geographic-only handling and strict errors |
-| A8 | Regional installed browser verified; required national browser unverified |
-| A9 | Economic targets/parity verified; national full-map/memory/interaction target unverified |
-| A10 | Existing tests/core/legacy and installed regional UI/CLI/replay verified; national deferred-export/browser transitions unverified |
-| A11 | Full gates/build/core/map and two-root available-artifact reproduction verified; national display unavailable, no off-machine copy |
-| A12 | Verified: docs/progress/manifest/runbook describe actual availability and blockers |
+| A1 | Verified: baseline/instructions/user changes and execution evidence |
+| A2 | Verified: existing financial/selection rules and module boundaries |
+| A3 | Verified: strict artifact/version/provenance and legacy compatibility |
+| A4 | Verified with declared original source defect and special territories |
+| A5 | Verified: complete deterministic neutral display, topology/fidelity/size |
+| A6 | Verified: deterministic explicitly synthetic complete/partial products |
+| A7 | Verified: joins/tests/restored evaluation and actual missing/outside/zero/unviable browser states |
+| A8 | Verified: actual national rendering, all metric tooltips, territory/code picks, duplicate names, views/pan and financial states |
+| A9 | Backend targets verified; initial/interactive browser paint goal **unverified** |
+| A10 | Verified: core/legacy, actual artifact transitions, full/partial UI/CLI/replay parity, staged/invalid state and same-session prepared-export invalidation |
+| A11 | Verified locally: both gates/build/clean installs/two-root rebuild and restored browser; off-machine transfer unavailable |
+| A12 | Verified: docs/progress/index distinguish actual artifacts, performance limits and observed-data readiness |
 
-No all-A1–A12 or full-phase completion claim. Resolve the display policy before
-resuming dependent work; preserve source bytes and all financial behavior.
+Do not claim full A1–A12 completion: **A9 remains open**. Final receipts, drivers,
+logs, screenshots and downloads are retained under the evidence root; the tracked
+index contains the small proof summaries and hashes. The next verification step
+is hardware-accelerated browser measurement,
+including completed-frame rather than control-acknowledgement timings. No GPU
+pass-through is available here. Bounded display, serialization and styling repairs
+are complete; no topology, population, horizon or financial limit was weakened.
 
-## Resumed display checkpoint (20 October)
-
-User approval covers retaining the exact positive-area intersection as a neutral
-source-conflict display feature, with no economic code or owner. Implementation
-is explicit `build-map-display --neutral-source-conflicts`; canonical inputs and
-all market/finance rules remain unchanged. The display manifest records source
-feature IDs, policy, metric CRS and measured patch area; hover and attribution
-identify the derived treatment. Shared line-only contacts are excluded from the
-positive-area intersection. Old display manifests still validate by original
-serialized metadata rather than newly defaulted fields.
-
-Current full gate: **350 passed in 15.98 s**, Ruff/typing/lock and ten contracts.
-Tests verify opt-in, original canonical bytes unchanged, neutral no-code identity,
-no overlapping display interiors, municipal counts and deterministic publication.
-National 50 m candidate correctly fails Palma (07040) boundary displacement
-**270.792 m**, above the unchanged 250 m limit (area change 0.05968%). The bounded
-20 m candidate is running full national QA. No geometry threshold is waived.
-
-### Fidelity and size repair
-
-The 20 m unrounded candidate passed all national geometry gates (8,132 codes,
-81 context features, 173 holes plus the one derived neutral patch), maximum area
-change 0.6533%, displacement 182.613 m, but payload **79,744,292 bytes** exceeded
-20 MiB. Retained diagnostic artifact:
-`display-32899a582ca4499843212a5597534c2590b9637632aeb7ee38c7caa7f8eeb34c`.
-It is not the selected final display.
-
-The next measured preparation method rounds display coordinates to seven decimal
-degrees and allows exactly one retention pass for features failing the unchanged
-fidelity limits. A temporary exterior makes coastline edges internal; excluding
-retained features and setting `simplify_boundary=False` freezes their interfaces
-while simplifying the rest consistently. The exterior is never published.
-Matched retained vertex sequences use a measured paired-vertex displacement
-upper bound (within 0.03 m), avoiding quadratic Hausdorff work for almost-identical
-paths; other shapes retain symmetric densified GEOS Hausdorff QA. The algorithm
-and retained IDs are recorded. A narrow-spike regression verifies this behavior.
-
-Initial long 50/100 m probes were interrupted and replaced with the linear-time
-retained-sequence check and progress logging; those interrupted runs are not
-passing evidence. Current candidates log 26 retained features at 50 m and 149 at
-100 m. Both are still completing QA, without changing thresholds or dropping IDs.
-
-A versioned `delta-7-v1` display encoding stores the already rounded coordinates
-as integer deltas, restoring the same typed polygons at load. This is justified
-by the measured oversized candidate; old GeoJSON displays remain readable.
-Codec round-trip/malformed-input tests pass. Two real unmodified IGN features
-are now an attributed offline fixture under `tests/fixtures/geography/ign_overlap`;
-its hash/source-provenance and 1,440.944794 m² EPSG:25831 overlap are tested.
-Current full gate: **353 passed in 20.83 s**, all existing gates retained.
-
-### Selected national display and render repair
-
-All three final-method candidates preserve complete identities, components and
-holes, valid coverage, and the declared neutral patch. Payloads after lossless
-`delta-7-v2` row/delta encoding: **20 m 30,305,758 bytes** (fails size target),
-**50 m 20,673,592 bytes**, **100 m 20,030,810 bytes**. Select 50 m as the smallest
-passing tolerance. The selected artifact is
-`display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c`;
-optional compatible 100 m artifact:
-`display-6ec9ea4fbc50973d7e3edf32adeefe7c881021c9a47db3837e7f3049dd3742ce`.
-The 50 m candidate has 1,201,676 vertices / 14,049 polygon components including
-the neutral patch; original 173 holes and 81 context areas remain. Maximum area
-change **1.701928%**, displacement bound **246.139481 m**, 26 retained features.
-Source intersection area in its recorded mainland QA CRS (EPSG:25830) is
-1,446.027048 m²; the previously reported 1,440.944794 m² uses local EPSG:25831.
-These are the same unchanged source intersection under different metric CRSs.
-
-A single installed exploratory renderer sample measured 1.768 s projection plus
-3.329 s PyDeck pretty JSON (168,426,584 bytes). The internal renderer now shares
-immutable model coordinate tuples while default `decorate` callers still get
-detached JSON lists. Properties stay detached. A small Deck subclass delegates
-to PyDeck's existing serializer with compact whitespace through public `to_json`;
-no custom JS, widget/protocol edits or alternate financial serialization.
-Normalized map specifications and default projection parity are tested.
-
-Current full single gate: **356 passed in 14.85 s**, all lock/Ruff/mypy/contracts
-pass. Final installed backend sampling and real national browser checks are next.
-Market receipts have been rebuilt with current processing evidence; all economic
-capture inputs/prices remain unchanged and explicitly synthetic.
-
-### National backend and first browser findings
-
-Installed backend sampling completed (one warm-up plus three samples): 84-month
-national changed Apply through serialization median **5.285 s**; metric projection/
-encoding **0.852–0.863 s**; view bounds **0.522 s**; equal Apply **0.0138 s**;
-selected details **10–12 ms**; full 208,770,585-byte export **7.041 s**. Loaded
-current RSS 610,248 KiB; total process peak 936,436 KiB gives conservative added
-peak upper bound **326,188 KiB**, including full export. Zero presentation evaluator
-calls; overview/detail caches each retain two entries. This is backend evidence,
-not browser timing. Evidence `national-backend.json` captures actual code/runtime.
-
-Actual Chrome national screenshots exposed overly strong outlines and underfit
-territorial views; the first national pick also failed. Municipal strokes now
-appear only in detailed views, province strokes are lighter/thinner, and fit uses
-Web Mercator/960x480 layout bounds with margins. Explicit public MapView IDs follow
-chart camera revisions. An installed quick browser rerun now picks the real
-Madrid (28079) polygon and shows the expected **1.59 × target price**. National
-colour fills/silhouette and detailed municipal borders are visually confirmed.
-The initial software-rendered browser load was **38.214 s**, so do not claim all
-browser targets from backend timing. Full browser workflow and warm observations
-are running; no private widget/protocol state is modified.
-
-Updated source gate after these UI repairs: **356 passed in 14.71 s**, all other
-gates pass. Canonical, selected display and economic payloads are unchanged by
-these presentation-only repairs; only whole-package calculation-code evidence
-changes as designed.
+Next feature remains **save in fixed A, buy in B**, with explicit borrower income
+at purchase. Observed housing acquisition/use/redistribution remains blocked and
+is separate from this geography demonstration. No salary realism, historical
+reconstruction, tax rules or new financial mode was added in Phase 7.

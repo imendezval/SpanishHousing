@@ -1,12 +1,9 @@
 # Spain housing affordability simulator
 
-**Phase 7 status:** official national municipal geography and synthetic economic
-inputs are prepared; the national display awaits a decision about an overlap in
-the official boundaries. A real-geography Madrid regional map is available.
-See [actual run/data instructions](docs/GEOGRAPHY.md) and
-[verification and remaining work](docs/progress/PHASE_7.md). Market values remain
-explicitly synthetic. Large geographic artifacts are local, ignored by Git, and
-are not included with the wheel.
+**Phase 7:** the national municipal map uses official geographic boundaries and
+explicitly synthetic housing prices/rents. See [run/data instructions](docs/GEOGRAPHY.md)
+and [executed verification and remaining limits](docs/progress/PHASE_7.md).
+Large artifacts are local and ignored by Git; the wheel does not contain them.
 
 
 Typed contracts, the financial engine, offline datasets and callable scenario evaluation with CLI export/replay are available. Phase 4 engineering is verified separately from observed-data readiness: market acquisition remains blocked. Official municipal geography is independently ready. The interactive map belongs to Phase 5.

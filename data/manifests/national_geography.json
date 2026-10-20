@@ -1,4 +1,5 @@
 {
+  "approved_display_policy": "User approved neutral_intersection_v1 for the exact pinned pair on 2026-10-20; original canonical bytes and economic ownership unchanged.",
   "canonical": {
     "artifact_id": "geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
     "counts": {
@@ -55,89 +56,333 @@
       }
     ]
   },
-  "local_display_hint": "data/processed/map-display/display-3018daeaf69b898617c881a5a725395c52d2c2478328a45b5625c62548ad9497",
+  "canonical_acquisition_notes_are_historical": true,
+  "local_display_hint": "data/processed/map-display/display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c",
   "local_geography_hint": "data/processed/geography/geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
   "local_raw_hint": "data/raw/national-geography",
   "markets": {
     "complete": {
       "geography": "data/processed/geography/geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
       "inputs": "data/processed/national-demo-inputs/inputs-1bc22304fde3e2a2f393950302a478ff9772affd79e83cfbee64886507d67dfb",
-      "release": "data/releases/synthetic-56ef26321a2cec83299334af7b6d9ea9b8fa37e2e0db92d74c4fce95ebf007d6"
+      "release": "data/releases/synthetic-5b2e10583ed3460cf983a2e3e75a27d36a3e8ba0860ca842c0bb1f8e4b3d4726"
     },
     "madrid": {
       "geography": "data/processed/geography/geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf",
       "inputs": "data/processed/national-demo-inputs/inputs-92185837be8af74dddf2a82be7b660b44368d0a008b1e250e070bc333189338d",
-      "release": "data/releases/synthetic-d4c90f6afb5bcb790c8e498b1a9ee5aaae9a85c25421d3c629960224cc78e3ea"
+      "release": "data/releases/synthetic-801f31bc010f5ce1606df19fca9b0530bfdd1fc5ec566bdb93e04d137bba89fe"
     },
     "partial": {
       "geography": "data/processed/geography/geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
       "inputs": "data/processed/national-demo-inputs/inputs-cfee3247cac36af3d5c5785b7a426534f1b38eca3833a6b4c942d18a33cb7ddc",
-      "release": "data/releases/synthetic-5cd6638621c6bdb07c99666af101f8e8b2660fe8a66d4b13afa6664847c973c6"
+      "release": "data/releases/synthetic-eff8fd7cc93fe292f3f66c4acf892fa784cebe09b222ef58864a011fe5796acc"
     }
   },
-  "portable_bundle": {
-    "byte_size": 213738215,
-    "offmachine_copy": false,
-    "path": "data/raw/phase7-portable.tar.gz",
-    "scope": "Actual retained official bytes, canonical national/regional, regional display, generated inputs/releases, wheel/config/lock; no national display",
-    "sha256": "810223185b3652c852c5970d6825b4925c64231bf2e2d918babf436f2775132c"
-  },
-  "portable_transfer": "Actual local bundle tested in two independently extracted roots; no off-machine copy or download URL. This reference alone is not a backup.",
-  "regional_display": {
-    "display_id": "display-3018daeaf69b898617c881a5a725395c52d2c2478328a45b5625c62548ad9497",
+  "national_display": {
+    "artifact_id": "display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c",
+    "attribution": "Obra derivada de IGN AU Unidades administrativas, capturas 2026-10-19, CC BY 4.0 ign.es; INE 2026-01-01, www.ine.es. Sin respaldo institucional. Simplified display derivative; not a legal boundary survey. Source overlaps are neutral display context, assigned to neither municipality.",
+    "content_digest": "179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c",
+    "counts": {
+      "context_territories": 81,
+      "holes": 173,
+      "municipalities": 8132,
+      "polygon_components": 14049,
+      "provinces": 52,
+      "vertices": 1201676
+    },
+    "encoding": "delta-7-v2",
     "files": [
       {
-        "byte_size": 842452,
-        "path": "display.geojson",
-        "record_count": 181,
-        "sha256": "c781963ec0986ca081831cd135c5e3096b337b9b69c6808b14a8771b0c5e76c7"
+        "byte_size": 17464755,
+        "path": "display.delta.json",
+        "record_count": 8214,
+        "sha256": "bbe916b5834f4c6461eae19149b6d4444f6ca1169ad2d18679961dd4a9004aaf"
       },
       {
-        "byte_size": 103584,
-        "path": "provinces.geojson",
-        "record_count": 1,
-        "sha256": "29d4790b2c564cf5f9919bd97ffbcd6dafe8794dad88ea4951f4e4e3f0645304"
+        "byte_size": 3208837,
+        "path": "provinces.delta.json",
+        "record_count": 52,
+        "sha256": "45a34ee81557b423abbf464a045d37a4fd456c7539815699f5ba645fb5609c4b"
       }
     ],
-    "geography_id": "geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf",
+    "neutral_conflicts": [
+      {
+        "area_m2": 1446.027047563539,
+        "feature_id": "source-conflict:1171892:1172000",
+        "metric_crs": "EPSG:25830",
+        "policy": "neutral_intersection_v1",
+        "source_feature_ids": [
+          "1171892",
+          "1172000"
+        ]
+      }
+    ],
+    "parent": {
+      "artifact_id": "geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
+      "attribution": "Obra derivada de IGN AU Unidades administrativas, capturas 2026-10-19, CC BY 4.0 ign.es; INE 2026-01-01, www.ine.es. Sin respaldo institucional.",
+      "boundary_version": "ign-national-4c16fc5c0937098ae6ff9625de0df283007f53cb22ccc9e27667c0659c69bb76",
+      "redistribution": "permitted",
+      "registry_sha256": "c332e8e40752f4ff8e2fe23c4058ab77c45413e4f7d8d2309bc33c51fd9603cc",
+      "registry_version": "INE-2026-01-01"
+    },
     "quality": {
-      "algorithm": "coverage-vw-v1; shared/outer edges; metric QA; symmetric GEOS Hausdorff densify=0.25; province unions of rendered coverage",
+      "algorithm": "coverage-vw-v2; shared/outer edges; 7 decimal coordinates; one anchored retention pass with temporary exterior; metric QA; symmetric GEOS Hausdorff densify=0.25 or paired-vertex upper bound for matching sequences within 0.03 m; province unions of rendered coverage",
+      "coordinate_decimals": 7,
+      "coverage_valid": true,
+      "display_vertices": 1201676,
+      "geos_version": "3.14.1",
+      "max_boundary_displacement_m": 246.1394805624388,
+      "max_relative_area_change": 0.017019281723145097,
+      "metric_crs": [
+        "EPSG:25831",
+        "EPSG:4083",
+        "EPSG:25830"
+      ],
+      "original_vertices": 4443152,
+      "pyproj_version": "3.8.0",
+      "retained_feature_ids": [
+        "1166250",
+        "1166362",
+        "1167614",
+        "1167793",
+        "1167875",
+        "1167889",
+        "1171580",
+        "1171764",
+        "1171809",
+        "1172076",
+        "1172336",
+        "1172390",
+        "1172400",
+        "1172653",
+        "1172688",
+        "1173201",
+        "1173243",
+        "1173244",
+        "1173259",
+        "1173260",
+        "1173485",
+        "1173497",
+        "1173700",
+        "1173719",
+        "1174204",
+        "1174450"
+      ],
+      "shapely_version": "2.2.0",
+      "tolerance_m": 50.0,
+      "worst_area_code": "46061",
+      "worst_displacement_code": "03050"
+    },
+    "redistribution": "permitted",
+    "schema_version": 1
+  },
+  "portable_bundle": {
+    "byte_size": 231109766,
+    "offmachine_copy": false,
+    "path": "data/raw/phase7-national-portable.tar.gz",
+    "scope": "Actual retained official captures, national/regional canonical, selected 50m/alternate 100m and regional displays, synthetic inputs/releases, wheel/config/lock/requirements",
+    "sha256": "c9477f3c6d38130611675dbaf70c503ffbefc217606291628966f7506c7f7428"
+  },
+  "portable_transfer": "Actual local bundle independently rebuilt in two extracted roots. No off-machine copy, durable destination or download URL is authorized; copy actual bytes plus checksum receipt for transfer.",
+  "regional_display": {
+    "artifact_id": "display-e330cd9cf47c6edc6cbcc60e054d07efa505a2ed5de2957459816e5a43cc498f",
+    "attribution": "Obra derivada de IGN AU Unidades administrativas, capturas 2026-10-19, CC BY 4.0 ign.es; INE 2026-01-01, www.ine.es. Sin respaldo institucional. Simplified display derivative; not a legal boundary survey.",
+    "content_digest": "e330cd9cf47c6edc6cbcc60e054d07efa505a2ed5de2957459816e5a43cc498f",
+    "counts": {
+      "context_territories": 2,
+      "holes": 1,
+      "municipalities": 179,
+      "polygon_components": 194,
+      "provinces": 1,
+      "vertices": 22629
+    },
+    "encoding": "delta-7-v2",
+    "files": [
+      {
+        "byte_size": 335059,
+        "path": "display.delta.json",
+        "record_count": 181,
+        "sha256": "a7fdfff0468dd5473e3d5a8d83c2ccdaa1a3c1ebc0110c9902d5b9c1c501a048"
+      },
+      {
+        "byte_size": 42039,
+        "path": "provinces.delta.json",
+        "record_count": 1,
+        "sha256": "e806e51023ffe1a4198bf890291fdfc5552d679b2b59c9386113eedc31be90d5"
+      }
+    ],
+    "neutral_conflicts": [],
+    "parent": {
+      "artifact_id": "geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf",
+      "attribution": "Obra derivada de IGN AU Unidades administrativas, capturas 2026-10-19, CC BY 4.0 ign.es; INE 2026-01-01, www.ine.es. Sin respaldo institucional.",
+      "boundary_version": "ign-national-4c16fc5c0937098ae6ff9625de0df283007f53cb22ccc9e27667c0659c69bb76",
+      "redistribution": "permitted",
+      "registry_sha256": "9707bdc95f4f7738074bd46b58c51a7cf06c93cf75142c8c05999068208ca1a1",
+      "registry_version": "INE-2026-01-01"
+    },
+    "quality": {
+      "algorithm": "coverage-vw-v2; shared/outer edges; 7 decimal coordinates; one anchored retention pass with temporary exterior; metric QA; symmetric GEOS Hausdorff densify=0.25 or paired-vertex upper bound for matching sequences within 0.03 m; province unions of rendered coverage",
+      "coordinate_decimals": 7,
       "coverage_valid": true,
       "display_vertices": 22629,
       "geos_version": "3.14.1",
-      "max_boundary_displacement_m": 126.0004716971611,
-      "max_relative_area_change": 0.0016816064661900004,
+      "max_boundary_displacement_m": 125.99730163655437,
+      "max_relative_area_change": 0.001691041477712455,
       "metric_crs": [
         "EPSG:25830"
       ],
       "original_vertices": 155642,
       "pyproj_version": "3.8.0",
+      "retained_feature_ids": [],
       "shapely_version": "2.2.0",
       "tolerance_m": 50.0,
       "worst_area_code": "1173684",
       "worst_displacement_code": "28037"
-    }
+    },
+    "redistribution": "permitted",
+    "schema_version": 1
   },
-  "reviewed_on": "2026-10-19",
+  "reviewed_on": "2026-10-20",
   "source_config": "configs/sources/national_geography.yaml",
-  "status": "National official source retained unchanged with pinned overlap; national display blocked. Regional official-derived map verified; all economics synthetic.",
+  "status": "National official-derived map available with approved explicit neutral overlap. All economics synthetic. Browser paint performance goal remains unverified.",
   "verification": {
+    "backend": {
+      "baseline_current_rss_KiB": 612688,
+      "baseline_peak_KiB": 641240,
+      "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+      "cold_compose_s": 7.396941339015029,
+      "detail_entries": 2,
+      "details": [
+        {
+          "code": "28079",
+          "seconds": 0.021516627981327474
+        },
+        {
+          "code": "07040",
+          "seconds": 0.02038493799045682
+        },
+        {
+          "code": "35016",
+          "seconds": 0.019868060015141964
+        },
+        {
+          "code": "51001",
+          "seconds": 0.014229240012355149
+        },
+        {
+          "code": "52001",
+          "seconds": 0.014192661037668586
+        }
+      ],
+      "display": "display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c",
+      "full_export_bytes": 208770585,
+      "incremental_peak_KiB": 297088,
+      "incremental_peak_upper_bound_KiB": 325640,
+      "locations": 8132,
+      "maxrss_KiB": 938328,
+      "medians_s": {
+        "equal_apply_s": 0.025744355050846934,
+        "full_export_preparation_s": 8.945002253982238,
+        "metric_area_project_encode_s": 1.1500207430217415,
+        "metric_price_project_encode_s": 1.1386116130743176,
+        "metric_ratio_project_encode_s": 1.1562869399785995,
+        "view_bounds_s": 0.7739218360511586,
+        "warm_changed_apply_through_serialization_s": 7.260738593991846
+      },
+      "memo_entries": 2,
+      "months": 84,
+      "presentation_evaluator_calls": 0,
+      "release": "synthetic-5b2e10583ed3460cf983a2e3e75a27d36a3e8ba0860ca842c0bb1f8e4b3d4726",
+      "runtime": {
+        "dependencies": [
+          {
+            "name": "PyYAML",
+            "version": "6.0.3"
+          },
+          {
+            "name": "openpyxl",
+            "version": "3.1.5"
+          },
+          {
+            "name": "pydantic",
+            "version": "2.13.5"
+          },
+          {
+            "name": "pyproj",
+            "version": "3.8.0"
+          },
+          {
+            "name": "shapely",
+            "version": "2.2.0"
+          }
+        ],
+        "python_version": "3.12.3"
+      },
+      "samples_s": {
+        "equal_apply_s": [
+          0.025744355050846934,
+          0.014721109997481108,
+          0.034465107950381935
+        ],
+        "full_export_preparation_s": [
+          8.945002253982238,
+          11.087923982995562,
+          8.630139905028045
+        ],
+        "metric_area_project_encode_s": [
+          1.1334320940077305,
+          1.224456710042432,
+          1.1500207430217415
+        ],
+        "metric_price_project_encode_s": [
+          1.187216492020525,
+          1.0902151230257004,
+          1.1386116130743176
+        ],
+        "metric_ratio_project_encode_s": [
+          1.1562869399785995,
+          1.1781170460162684,
+          1.151388315949589
+        ],
+        "view_bounds_s": [
+          0.7367473039776087,
+          0.7808522660052404,
+          0.7739218360511586
+        ],
+        "warm_changed_apply_through_serialization_s": [
+          6.085059862001799,
+          7.260738593991846,
+          7.307728655054234
+        ]
+      },
+      "scope": "Backend session, projection and actual PyDeck serialization; no browser timing",
+      "serialized_deck_bytes": 37274074,
+      "warmups": 1
+    },
     "browser": {
+      "actions": [],
+      "baseline_run_sha256": "bb723d4ee9b781638c07d74adfc760dbd56d1e76eb6f65fc1492a1445323ab1a",
       "browser": "149.0.7827.53",
-      "code": "spain-housing-0.1.0/sha256-15d55b0302e7fd3a4c3e6d52f62342a4a9d1ecd440eb44b682ad8995d0304080",
-      "download_parity": true,
+      "checks": [
+        "compatible-display-transition-confirmed-in-DOM",
+        "partial-release-transition",
+        "outside-coverage",
+        "purchase-gap-capacity",
+        "room-gap",
+        "unviable",
+        "prior-pass-staged-invalid-coordinated-import",
+        "prior-pass-zero-distinct-from-missing"
+      ],
+      "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+      "continued_pass": true,
       "errors": [],
       "external_requests": [],
-      "initial_render_s": 4.017209074925631,
-      "metric_action_s": [
-        1.0893491309834644,
-        0.9942379699787125,
-        1.0417115280870348
-      ],
+      "full_export_prepare_s": null,
+      "full_run_bytes": 208780250,
+      "initial_coloured_pixels": 0,
+      "initial_render_s": 48.0482823390048,
+      "initial_timing_includes_screenshot": false,
       "months": 84,
-      "municipalities": 179,
-      "picking": "28079",
-      "restored_root": "/tmp/phase7-restore-b",
+      "municipalities": 8132,
       "runtime": {
         "dependencies": [
           {
@@ -162,28 +407,58 @@
           }
         ],
         "python_version": "3.12.3"
-      },
-      "scope": "installed regional official Madrid geography only; national rendering blocked",
-      "staged_invalid_reload": true
+      }
     },
-    "code": "spain-housing-0.1.0/sha256-15d55b0302e7fd3a4c3e6d52f62342a4a9d1ecd440eb44b682ad8995d0304080",
-    "economic_only_measurement": {
-      "baseline_peak_KiB": 335108,
-      "code": "spain-housing-0.1.0/sha256-15d55b0302e7fd3a4c3e6d52f62342a4a9d1ecd440eb44b682ad8995d0304080",
-      "detail_samples_s": [
-        0.010388878057710826,
-        0.010765913059003651,
-        0.011788022937253118
+    "browser_geographic_picks": [
+      {
+        "code": "28079",
+        "ratio": "1.59"
+      },
+      {
+        "code": "10037",
+        "ratio": "1.51"
+      },
+      {
+        "code": "07040",
+        "ratio": "1.45"
+      },
+      {
+        "code": "35016",
+        "ratio": "0.60"
+      },
+      {
+        "code": "38038",
+        "ratio": "1.34"
+      },
+      {
+        "code": "51001",
+        "ratio": "1.33"
+      },
+      {
+        "code": "52001",
+        "ratio": "1.16"
+      }
+    ],
+    "browser_pass_notes": "Multiple actual browser passes; see retained logs/screenshots. The first serve wrapper fixed symlinks at startup and did not establish transitions; final DOM-confirmed transitions use the installed public Streamlit launcher with explicit symlink arguments. Earlier highlight and streamed-rerender driver failures are not counted as full passing runs. Numeric tooltip ratios agree with exported CSV.",
+    "browser_performance": {
+      "first_confirmed_image_s": [
+        31.14270070695784,
+        32.3487142539816,
+        40.93984258710407
       ],
-      "incremental_peak_KiB": 48168,
-      "load_s": 2.3712101710261777,
-      "locations": 8132,
-      "maxrss_KiB": 383276,
-      "median_s": 4.27176013297867,
-      "memory_method": "Linux process peak; two overviews retained, no full export",
-      "months": 84,
-      "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
-      "release": "synthetic-56ef26321a2cec83299334af7b6d9ea9b8fa37e2e0db92d74c4fce95ebf007d6",
+      "graphics": "Chrome headless ANGLE/SwiftShader; no /dev/dri hardware device available",
+      "scope": "Limited screenshot-confirmed observations, some concurrent verification; control/server-settle times do not establish completed GPU frames. Backend goals pass; browser <=15s first map / <=2s usable actions remain unverified.",
+      "verified": false
+    },
+    "cli": {
+      "baseline_run_sha256": "bb723d4ee9b781638c07d74adfc760dbd56d1e76eb6f65fc1492a1445323ab1a",
+      "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+      "complete_results": 8132,
+      "core_query": true,
+      "legacy_observations": 43,
+      "legacy_unchanged": true,
+      "package": "/tmp/phase7-final-core/lib/python3.12/site-packages/spain_housing/__init__.py",
+      "partial_results": 20,
       "runtime": {
         "dependencies": [
           {
@@ -209,22 +484,192 @@
         ],
         "python_version": "3.12.3"
       },
-      "samples_s": [
-        4.27176013297867,
-        4.341720906086266,
-        4.238054614979774
-      ],
-      "scope": "economic overview and selected detail; display/browser not measured",
-      "warmups": 1
+      "ui_cli_replay_byte_parity": true
+    },
+    "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+    "deferred_browser": {
+      "apply_invalidated_prepared_export": true,
+      "browser": "149.0.7827.53",
+      "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+      "errors": [],
+      "external_requests": [],
+      "new_summary_zero_available": true,
+      "prepared_export_downloaded": true,
+      "prepared_run_sha256": "bb723d4ee9b781638c07d74adfc760dbd56d1e76eb6f65fc1492a1445323ab1a",
+      "results": 8132,
+      "staging_preserved_prepared_export": true
     },
     "evidence_root": "data/raw/phase7-evidence",
     "import_contracts": 10,
-    "python312_tests": 349,
-    "python313_tests": 349,
-    "restoration_roots": [
-      "/tmp/phase7-restore-a",
-      "/tmp/phase7-restore-b"
+    "metric_browser": {
+      "browser": "149.0.7827.53",
+      "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+      "errors": [],
+      "external_requests": [],
+      "metrics": [
+        {
+          "expected": "1.59 \u00d7 target price",
+          "metric": "Target affordability",
+          "repeated_pick_code": "28079",
+          "tooltip": "Madrid (28079)\n1.59 \u00d7 target price\navailable:\nsynthetic"
+        },
+        {
+          "expected": "158,157.34 EUR",
+          "metric": "Maximum purchase price",
+          "repeated_pick_code": "28079",
+          "tooltip": "Madrid (28079)\n158,157.34 EUR\navailable:\nsynthetic"
+        },
+        {
+          "expected": "95.11 m\u00b2",
+          "metric": "Affordable area",
+          "repeated_pick_code": "28079",
+          "tooltip": "Madrid (28079)\n95.11 m\u00b2\navailable:\nsynthetic"
+        }
+      ]
+    },
+    "python312_tests": 356,
+    "python313_tests": 356,
+    "restorations": [
+      {
+        "artifacts": {
+          "complete": {
+            "geography": "geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
+            "inputs": "inputs-1bc22304fde3e2a2f393950302a478ff9772affd79e83cfbee64886507d67dfb",
+            "release": "synthetic-5b2e10583ed3460cf983a2e3e75a27d36a3e8ba0860ca842c0bb1f8e4b3d4726"
+          },
+          "madrid": {
+            "geography": "geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf",
+            "inputs": "inputs-92185837be8af74dddf2a82be7b660b44368d0a008b1e250e070bc333189338d",
+            "release": "synthetic-801f31bc010f5ce1606df19fca9b0530bfdd1fc5ec566bdb93e04d137bba89fe"
+          },
+          "national_display": "display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c",
+          "partial": {
+            "geography": "geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
+            "inputs": "inputs-cfee3247cac36af3d5c5785b7a426534f1b38eca3833a6b4c942d18a33cb7ddc",
+            "release": "synthetic-eff8fd7cc93fe292f3f66c4acf892fa784cebe09b222ef58864a011fe5796acc"
+          },
+          "regional_display": "display-e330cd9cf47c6edc6cbcc60e054d07efa505a2ed5de2957459816e5a43cc498f"
+        },
+        "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+        "elapsed_s": 380.3819071849575,
+        "identical_payloads": true,
+        "package": "/tmp/phase7-final-core/lib/python3.12/site-packages/spain_housing/__init__.py",
+        "partial_overview_replay": true,
+        "raw_hidden_runtime": true,
+        "results": 20,
+        "root": "/tmp/phase7-national-restore-a",
+        "runtime": {
+          "dependencies": [
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "openpyxl",
+              "version": "3.1.5"
+            },
+            {
+              "name": "pydantic",
+              "version": "2.13.5"
+            },
+            {
+              "name": "pyproj",
+              "version": "3.8.0"
+            },
+            {
+              "name": "shapely",
+              "version": "2.2.0"
+            }
+          ],
+          "python_version": "3.12.3"
+        },
+        "statuses": {
+          "07040": "missing_input",
+          "08015": "available",
+          "28065": "missing_input",
+          "51001": "available",
+          "52001": "available"
+        }
+      },
+      {
+        "artifacts": {
+          "complete": {
+            "geography": "geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
+            "inputs": "inputs-1bc22304fde3e2a2f393950302a478ff9772affd79e83cfbee64886507d67dfb",
+            "release": "synthetic-5b2e10583ed3460cf983a2e3e75a27d36a3e8ba0860ca842c0bb1f8e4b3d4726"
+          },
+          "madrid": {
+            "geography": "geography-d1dc47df359e230ed58cd438c11712f6b8b1b0a2301c6524313deb8a804066bf",
+            "inputs": "inputs-92185837be8af74dddf2a82be7b660b44368d0a008b1e250e070bc333189338d",
+            "release": "synthetic-801f31bc010f5ce1606df19fca9b0530bfdd1fc5ec566bdb93e04d137bba89fe"
+          },
+          "national_display": "display-179a320c8ce3602b7ccc970503837f206d1b422f8424be1f574b68fa3dc8ca3c",
+          "partial": {
+            "geography": "geography-ccdea7cf1810513db612c10ee67ecd977de8ccecada39e7df2dfc4090925e32d",
+            "inputs": "inputs-cfee3247cac36af3d5c5785b7a426534f1b38eca3833a6b4c942d18a33cb7ddc",
+            "release": "synthetic-eff8fd7cc93fe292f3f66c4acf892fa784cebe09b222ef58864a011fe5796acc"
+          },
+          "regional_display": "display-e330cd9cf47c6edc6cbcc60e054d07efa505a2ed5de2957459816e5a43cc498f"
+        },
+        "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+        "elapsed_s": 373.4468030219432,
+        "identical_payloads": true,
+        "package": "/tmp/phase7-final-core/lib/python3.12/site-packages/spain_housing/__init__.py",
+        "partial_overview_replay": true,
+        "raw_hidden_runtime": true,
+        "results": 20,
+        "root": "/tmp/phase7-national-restore-b",
+        "runtime": {
+          "dependencies": [
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "openpyxl",
+              "version": "3.1.5"
+            },
+            {
+              "name": "pydantic",
+              "version": "2.13.5"
+            },
+            {
+              "name": "pyproj",
+              "version": "3.8.0"
+            },
+            {
+              "name": "shapely",
+              "version": "2.2.0"
+            }
+          ],
+          "python_version": "3.12.3"
+        },
+        "statuses": {
+          "07040": "missing_input",
+          "08015": "available",
+          "28065": "missing_input",
+          "51001": "available",
+          "52001": "available"
+        }
+      }
     ],
-    "wheel_sha256": "8fcded08bd34c071e95169c029cbe005badc7ec8a05a33ec55bd24ed75986dc6"
+    "restored_browser": {
+      "browser": "149.0.7827.53",
+      "code": "spain-housing-0.1.0/sha256-cceecc838ea4996b53e9b6b29dbef1a7e3aecc7b24d8c3daa4a579db52fc59e8",
+      "drag_evidence": "panned.png / panned-after-metric.png; visual camera-retention inspection",
+      "duplicate_name_codes": [
+        "10023",
+        "28015"
+      ],
+      "errors": [],
+      "external_requests": [],
+      "initial_confirmed_image_s": 40.93984258710407,
+      "municipalities": 8132,
+      "public_drag_executed": true,
+      "raw_inputs_hidden": true,
+      "root": "/tmp/phase7-national-restore-b",
+      "three_metrics_csv_unchanged": true
+    },
+    "wheel_sha256": "1ff3225678a44bc4b77c9499e0d81c77fb4f8da3a7229a5791fa512ff76e8969"
   }
 }

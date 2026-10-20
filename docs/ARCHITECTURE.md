@@ -241,7 +241,20 @@ prepared current export. No personal scenario/result is cached process-wide.
 Camera actions advance a chart revision to apply an explicit view; metric
 rerenders keep the chart and manual pan. Economic cache keys exclude display ID.
 
-National source topology still blocks a national display/browser claim. See
+The approved source-overlap treatment and national map are implemented. Backend
+targets pass; software-rendered browser paint performance remains unverified. See
 [geography decisions and actual run commands](GEOGRAPHY.md) and
 [Phase 7 evidence](progress/PHASE_7.md). Observed economics remains a separate,
 blocked prerequisite; official geography does not make synthetic prices real.
+
+Phase 7 display refinement: the approved source intersection is an explicit
+`source_conflict` feature with no economic code; original canonical bytes remain
+unchanged. Display QA can retain failed source features through one bounded,
+consistent coverage pass using a temporary exterior (never published). Rounded
+coordinates are stored in declared `delta-7-v2` rows/integer deltas and decoded
+before normal typed topology/join validation; old GeoJSON/v1-delta displays stay
+readable. Defaults preserve detached projection; the internal renderer may share
+immutable coordinate tuples with detached per-run properties. A public Deck
+subclass reuses PyDeck serialization with compact whitespace. View fitting uses
+Web Mercator and camera revision IDs; national-scale borders avoid obscuring
+municipal colour fills. None of these paths calculate financial values.

@@ -2,9 +2,11 @@
 
 Supported: Python 3.12/3.13, explicit local/local scenarios, immutable releases.
 The Phase 6 workflow below remains available. For Phase 7 official geography,
-actual local archive/restoration and runnable regional map commands, use
-[GEOGRAPHY.md](GEOGRAPHY.md). The national display is blocked by a retained
-official-source overlap; do not attempt to bypass display topology validation.
+actual local archive/restoration and runnable national map commands, use
+[GEOGRAPHY.md](GEOGRAPHY.md). The national display includes the approved neutral
+treatment of a retained official-source overlap. Initial software-rendered
+browser performance remains
+an open goal; see the measured limits in the progress report.
 The tested synthetic path below needs no provider account. Observed-market
 reproduction remains blocked; official geography is independently verified.
 See [expansion decisions](DATA_EXPANSION.md) and [architecture](ARCHITECTURE.md).

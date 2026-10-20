@@ -211,14 +211,17 @@ retained official national identities/boundaries, deterministic complete/partial
 synthetic economic inputs, atlas-superset UI and measured bounded evaluation.
 Financial rules, old releases and original fixture demos remain unchanged.
 
-Status: **incomplete due to a genuine official-source topology blocker**.
+Status: **national map available; browser performance goal remains unverified**.
 The national atlas retains the inspected Bellver/Prullans overlap unchanged;
-national simplification/browser verification awaits the explicit display-policy
-decision. The real Madrid regional display is available. Full gate, installed,
-restoration and performance evidence are tracked in
-[Phase 7 progress](progress/PHASE_7.md); available commands/data are in
-[geography](GEOGRAPHY.md). Do not equate national synthetic economics with an
-observed national affordability dataset or a completed national map.
+the selected display assigns its positive-area intersection to explicit neutral
+context under the user's approved policy. All 8,132 municipalities and the
+required territories remain represented. National backend, browser, installed
+and two-root artifact evidence are tracked in [Phase 7 progress](progress/PHASE_7.md);
+commands and actual local artifact availability are in [geography](GEOGRAPHY.md).
+Do not equate synthetic economics with observed national affordability. The
+software-rendered browser's initial confirmed image exceeds the 15 s goal;
+backend timings do not establish that browser goal. Transfer of the prepared
+local bundle to a durable off-machine destination is still required for backup.
 
 ## 6. Later phases and extension points
 
